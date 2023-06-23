@@ -7,6 +7,7 @@ import { Button, CircularProgress, Container } from '@mui/material';
 import CategoryNavbar from '../../components/CategoryNavbar/CategoryNavbar';
 import axios from 'axios';
 import { DoctorCard } from '../../components/DoctorCard/DoctorCard';
+import './Especialistas.css'
 
 
 export const Especialistas = () => {
@@ -73,10 +74,18 @@ export const Especialistas = () => {
                     sx={{
                         display: 'flex',
                         flexDirection: 'row',
-                        gap: 1,
                         flexWrap: 'wrap',
-                        marginTop: 9
-                    }}>
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: 5,
+                        marginTop: 9,
+                        borderRadius: '12px',
+                        
+                        width: {xs: 1/2, md: 3/4},
+                        padding: 4
+                    }}
+                    id="doctor-container"
+                    >
                     {doctors.length > 0 ? (
                         doctors.map(doctor => (
                             <DoctorCard key={doctor.id} doctor={doctor} />

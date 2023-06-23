@@ -11,7 +11,7 @@ export const DoctorCard = ({ doctor }) => {
     const doc = doctor;
 
     return (
-        <Card sx={{ width: 345 }}>
+        <Card sx={{ width: 345}}>
             <CardActionArea>
                 <CardMedia
                     component="img"

@@ -53,6 +53,7 @@ export const Header = () => {
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
+                            marginRight: '1.5em'
                         }}
                     >
                         DOCCA-POINT
