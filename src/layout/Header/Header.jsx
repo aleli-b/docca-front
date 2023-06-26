@@ -14,12 +14,18 @@ import MenuItem from '@mui/material/MenuItem';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import { useAuth } from '../../components/context/AuthContext';
 import './Header.css'
+import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
     const auth = useAuth();
+    const navigate = useNavigate();
+
+    const handleAdmin = () => {
+        navigate('/admin');
+    };
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -145,7 +151,7 @@ export const Header = () => {
                                 <div>
                                     <Tooltip title="Open settings">
                                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                            <Avatar alt="Remy Sharp"/>
                                         </IconButton>
                                     </Tooltip>
                                     <Menu
@@ -168,6 +174,10 @@ export const Header = () => {
                                             <Typography textAlign="center">PERFIL</Typography>
                                         </MenuItem>
 
+                                        <MenuItem onClick={() => {handleCloseUserMenu(); handleAdmin()}}>
+                                            <Typography textAlign="center">ADMIN</Typography>
+                                        </MenuItem>
+
                                         <MenuItem onClick={auth.logout}>
                                             <Typography textAlign="center">CERRAR SESION</Typography>
                                         </MenuItem>
@@ -175,13 +185,13 @@ export const Header = () => {
                                     </Menu>
                                 </div>
                                 :
-                                    <Button
-                                        onClick={handleCloseNavMenu}
-                                        sx={{ mr: 2, color: 'white', display: 'block', }}
-                                        href="login"
-                                    >
-                                        INICIO SESION
-                                    </Button>                                
+                                <Button
+                                    onClick={handleCloseNavMenu}
+                                    sx={{ mr: 2, color: 'white', display: 'block', }}
+                                    href="login"
+                                >
+                                    INICIO SESION
+                                </Button>
                         }
                     </Box>
                 </Toolbar>

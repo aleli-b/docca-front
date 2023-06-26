@@ -37,7 +37,7 @@ export const Especialistas = () => {
 
     const handleCategoryChange = async (category) => {
         try {
-            setLoading(true)
+            setLoading(true);
             if (category === 'todos') {
                 getDoctors();
             } else {
@@ -45,12 +45,12 @@ export const Especialistas = () => {
                 setDoctors(response.data);
             }
         } catch (error) {
-            setDoctors([])
-
+            setDoctors([]);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
     };
+
 
     return (
         <ThemeProvider theme={darkTheme}>
@@ -65,35 +65,36 @@ export const Especialistas = () => {
                     color: darkTheme.palette.text.primary,
                 }}>
                 <CategoryNavbar onCategoryChange={handleCategoryChange} />
-                {loading ? (
-                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
-                        <CircularProgress /> 
-                    </div>
-                ) :
                 <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        flexWrap: 'wrap',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: 5,
-                        marginTop: 9,
-                        borderRadius: '12px',
-                        
-                        width: {xs: 1/2, md: 3/4},
-                        padding: 4
+                    sx={{                                                                                                                                                      
+                        borderRadius: '12px',                        
+                        padding: 4,                        
                     }}
                     id="doctor-container"
-                    >
-                    {doctors.length > 0 ? (
-                        doctors.map(doctor => (
-                            <DoctorCard key={doctor.id} doctor={doctor} />
-                        ))
-                    ) : (
-                        <Typography variant="body1">No se encontraron doctores en esta categoría.</Typography>
-                    )}
-                </Box>}
+                >
+                    {loading ? (
+                        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
+                            <CircularProgress />
+                        </Box>
+                    ) :
+                        (<Box sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            flexWrap: 'wrap',                                                        
+                            gap: 5,
+                            borderRadius: '12px',                                
+                        }}>
+                            {
+                                doctors.length > 0 ? (
+                                    doctors.map(doctor => (
+                                        <DoctorCard key={doctor.id} doctor={doctor} />
+                                    ))
+                                ) : (
+                                    <Typography variant="body1">No se encontraron doctores en esta categoría.</Typography>
+                                )
+                            }
+                        </Box>)}
+                </Box>
             </Container>
         </ThemeProvider>
     );

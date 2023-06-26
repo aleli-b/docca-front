@@ -7,6 +7,8 @@ import { Login } from "./pages/Login/Login";
 import { AuthProvider } from "./components/context/AuthContext";
 import { Especialistas } from "./pages/Especialistas/Especialistas";
 import { Error } from "./pages/Error/Error";
+import { UserAdmin } from "./pages/Admin/UserAdmin/UserAdmin";
+import { CssBaseline } from "@mui/material";
 
 const router = createBrowserRouter([
   { path: "*", Component: Root },
@@ -21,12 +23,14 @@ function Root() {
   return (
     <>
       <AuthProvider>
+      <CssBaseline />
         <Header />
         <Routes>
           <Route path="*" element={<Error />} />
           <Route path="/" element={<Home />} />
           <Route path="/login/*" element={<Login />} />
           <Route path="/especialistas/*" element={<Especialistas />} />
+          <Route path="/admin/*" element={<UserAdmin />} />
         </Routes>
         <Footer />
       </AuthProvider>
