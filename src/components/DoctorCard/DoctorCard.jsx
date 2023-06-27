@@ -21,7 +21,7 @@ export const DoctorCard = ({ doctor }) => {
                 />
                 <CardContent sx={{ width: 1 / 2, marginLeft: 2, display: "flex", flexDirection: "column", gap: 1 }}>
                     <Typography gutterBottom variant="h5" component="div">
-                        {doc.username}
+                        {doc.name + " " + doc.lastName}
                     </Typography>
                     <Rating
                         name="simple-controlled"

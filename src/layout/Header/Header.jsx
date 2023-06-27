@@ -23,6 +23,10 @@ export const Header = () => {
     const auth = useAuth();
     const navigate = useNavigate();
 
+    const handleProfile = () => {
+        navigate('/perfil');
+    };
+
     const handleAdmin = () => {
         navigate('/admin');
     };
@@ -138,7 +142,7 @@ export const Header = () => {
                         <Button
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}
-                            href="especialistas"
+                            href="/especialistas"
                         >
                             ESPECIALISTAS
                         </Button>
@@ -170,7 +174,7 @@ export const Header = () => {
                                         open={Boolean(anchorElUser)}
                                         onClose={handleCloseUserMenu}
                                     >
-                                        <MenuItem onClick={handleCloseUserMenu}>
+                                        <MenuItem onClick={() => {handleCloseUserMenu(); handleProfile()}}>
                                             <Typography textAlign="center">PERFIL</Typography>
                                         </MenuItem>
 

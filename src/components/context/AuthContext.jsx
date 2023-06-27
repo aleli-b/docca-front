@@ -12,10 +12,10 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (data) => {
         try {
-            const loginData = await axios.post(`http://localhost:4000/login`, data);
+            const loginData = await axios.post(`http://localhost:4000/login`, data);            
             localStorage.setItem('token', JSON.stringify(loginData.data.token));
             localStorage.setItem('user', JSON.stringify(loginData.data.user));
-            setUser(loginData.data.user)
+            setUser(loginData.data.user);
             setToken(loginData.data.token);
             alert(`Login correcto`);
             navigate('/');
