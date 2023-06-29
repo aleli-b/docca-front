@@ -36,7 +36,7 @@ export const RedesSocialesCard = () => {
   ];
 
   return (
-    <Card>
+    <Card sx={{ border: 'solid black 1px' }}>
       <CardContent>
         <Typography variant="h6" component="div">
           Redes Sociales

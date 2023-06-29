@@ -16,10 +16,13 @@ export const Perfil = () => {
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, justifyContent: 'center', height: '100dvh', paddingX: '20px' }}>
             <Grid container spacing={2} sx={{ margin: '' }}>
                 <Grid item md={4} sx={{ marginRight: '', }}>
-                    <Card>
+                    <Card sx={{ border: 'solid black 1px' }}>
                         <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+                        <CardMedia sx={{ display: 'flex', justifyContent: 'center', backgroundColor: 'gray', width: '100%', borderRadius: '2px', padding: 2 }}>
                             <Avatar alt={user.fullName} src={titan} sx={{ width: 180, height: 180, border: 'solid white 5px' }} />
-                            <Box className='text2' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1}}>
+
+                        </CardMedia>
+                            <Box className='text2' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
                                 <Typography variant="h5" component="div" text-align="center">
                                     {user.fullName}
                                 </Typography>
@@ -35,7 +38,7 @@ export const Perfil = () => {
                     </Card>
                 </Grid>
                 <Grid item md={8}>
-                    <Card>
+                    <Card sx={{ border: 'solid black 1px' }}>
                         <CardContent >
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid white 1px', padding: '18.7px' }}>
                                 <Typography>Nombre:</Typography>

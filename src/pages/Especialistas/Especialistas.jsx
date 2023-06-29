@@ -16,19 +16,7 @@ export const Especialistas = () => {
 
     React.useEffect(() => {
         getDoctors();
-    }, []);
-
-    const darkTheme = createTheme({
-        palette: {
-            mode: 'dark',
-            primary: {
-                main: '#1a237e', // Customize your primary color
-            },
-            secondary: {
-                main: '#f57c00', // Customize your secondary color
-            },
-        },
-    });
+    }, []);   
 
     const getDoctors = async () => {
         const userData = await axios.get('http://localhost:4000/users');
@@ -53,22 +41,20 @@ export const Especialistas = () => {
 
 
     return (
-        <ThemeProvider theme={darkTheme}>
+        <>
             <CssBaseline />
             <Container
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    minHeight: '100vh',
-                    background: darkTheme.palette.background.default,
-                    color: darkTheme.palette.text.primary,
+                    minHeight: '100vh',                    
                 }}>
                 <CategoryNavbar onCategoryChange={handleCategoryChange} />
                 <Box
-                    sx={{                                                                                                                                                      
-                        borderRadius: '12px',                        
-                        padding: 4,                        
+                    sx={{
+                        borderRadius: '12px',
+                        padding: 4,
                     }}
                     id="doctor-container"
                 >
@@ -80,9 +66,9 @@ export const Especialistas = () => {
                         (<Box sx={{
                             display: 'flex',
                             flexDirection: 'row',
-                            flexWrap: 'wrap',                                                        
+                            flexWrap: 'wrap',
                             gap: 5,
-                            borderRadius: '12px',                                
+                            borderRadius: '12px',
                         }}>
                             {
                                 doctors.length > 0 ? (
@@ -96,7 +82,7 @@ export const Especialistas = () => {
                         </Box>)}
                 </Box>
             </Container>
-        </ThemeProvider>
+        </>
     );
 };
 

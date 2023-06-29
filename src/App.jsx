@@ -12,6 +12,7 @@ import { Perfil } from "./pages/Perfil/Perfil"
 import { Consulta } from "./pages/Consulta/Consulta"
 import { createTheme, CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
+import { Turnos } from "./pages/Turnos/Turnos";
 
 const router = createBrowserRouter([
   { path: "*", Component: Root },
@@ -25,12 +26,14 @@ export default function App() {
 function Root() {
   const darkTheme = createTheme({
     palette: {
-      mode: 'dark',
+      mode: 'light',
       primary: {
-        main: '#1a237e', // Customize your primary color
+        main: '#ff4400',      
       },
       secondary: {
-        main: '#f57c00', // Customize your secondary color
+        light: '#0066ff',
+        main: '#0044ff',      
+        contrastText: '#ffcc00',
       },
     },
   });
@@ -49,6 +52,7 @@ function Root() {
             <Route path="/admin/*" element={<UserAdmin />} />
             <Route path="/perfil/*" element={<Perfil />} />
             <Route path="/consulta/*" element={<Consulta />} />
+            <Route path="/turnos/*" element={<Turnos />} />
           </Routes>
           <Footer />
         </AuthProvider>

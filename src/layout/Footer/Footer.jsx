@@ -1,37 +1,26 @@
 import * as React from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
-// Define your custom dark theme
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-    primary: {
-      main: '#1a237e', // Customize your primary color
-    },
-    secondary: {
-      main: '#f57c00', // Customize your secondary color
-    },
-  },
-});
+import docca from '../../assets/Ic2.svg';
+import './Footer.css';
 
 export const Footer = () => {
   return (
-    <ThemeProvider theme={darkTheme}>
       <AppBar
-        position="static"
-        color="default"
+        position="static"        
         sx={{
+          display: 'flex',
+          flexDirection: 'row',          
+          justifyContent:'center',
           top: 'auto',
-          bottom: 0,
-          bgcolor: darkTheme.palette.grey[800], 
-          color: darkTheme.palette.grey[100],
+          bottom: 0,              
           width: '100%',
           margin: '0 auto'
         }}
+        id="footerNav"
       >
+      <img src={docca} style={{ height: '5rem' }} />
         <Box
           sx={{
             display: 'flex',
@@ -40,11 +29,10 @@ export const Footer = () => {
             py: 2,
           }}
         >
-          <Typography variant="body2" color="inherit">
+          <Typography variant="body2" color="black">
             &copy; {new Date().getFullYear()} Your Website. All rights reserved.
           </Typography>
         </Box>
-      </AppBar>
-    </ThemeProvider>
+      </AppBar>    
   );
 };

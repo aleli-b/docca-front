@@ -15,6 +15,7 @@ import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import { useAuth } from '../../components/context/AuthContext';
 import './Header.css'
 import { useNavigate } from 'react-router-dom';
+import docca from '../../assets/Ic2.svg'
 
 export const Header = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -49,7 +50,8 @@ export const Header = () => {
         <AppBar position="static" id='navBar'>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <LocalHospitalIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+                    {/* <LocalHospitalIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
+                    <img src={docca} style={{ height: '5rem', width: '5rem'}}/>
                     <Typography
                         variant="h6"
                         noWrap
@@ -61,7 +63,7 @@ export const Header = () => {
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
-                            color: 'inherit',
+                            color: 'black',
                             textDecoration: 'none',
                             marginRight: '1.5em'
                         }}

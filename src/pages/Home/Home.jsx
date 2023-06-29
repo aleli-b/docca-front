@@ -1,27 +1,14 @@
 import * as React from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Box from '@mui/material/Box';
 import { Button, Container } from '@mui/material';
-
-// Define your custom dark theme
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-    primary: {
-      main: '#1a237e', // Customize your primary color
-    },
-    secondary: {
-      main: '#f57c00', // Customize your secondary color
-    },
-  },
-});
+import docca from '../../assets/DA1.jpg';
 
 export const Home = () => {
   return (
-    <ThemeProvider theme={darkTheme}>
+    <>
       <CssBaseline />
       <Container
         sx={{
@@ -30,9 +17,8 @@ export const Home = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           minHeight: '100vh',
-          background: darkTheme.palette.background.default,
-          color: darkTheme.palette.text.primary,
         }}>
+        <img src={docca} style={{ height: 200 }} />
         <Box
           sx={{
             display: 'flex',
@@ -45,15 +31,13 @@ export const Home = () => {
           <Typography variant="body1" component="p" align="center">
             Encuentra con rapidez el doctor que mas se adecue a tus necesidades medicas
           </Typography>
-          <Button sx={{ gap: 2 }} variant="contained" href="/especialistas">
+          <Button sx={{ gap: 2, backgroundColor: '#82BF45', '&:hover': {backgroundColor: '#037F8C'} }} variant="contained" href="/especialistas">
             Encuentra a tu especialista <ArrowForwardIcon />
           </Button>
         </Box>
         <Box>
         </Box>
       </Container>
-    </ThemeProvider>
+    </>
   );
 };
-
-
