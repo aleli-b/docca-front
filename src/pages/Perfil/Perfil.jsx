@@ -13,7 +13,7 @@ export const Perfil = () => {
     user.userType = user.userType[0].toUpperCase() + user.userType.substring(1);
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, justifyContent: 'center', height: '100dvh', paddingX: '20px' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, justifyContent: 'center', paddingX: '20px', margin: 3.2 }}>
             <Grid container spacing={2} sx={{ margin: '' }}>
                 <Grid item md={4} sx={{ marginRight: '', }}>
                     <Card sx={{ border: 'solid black 1px' }}>

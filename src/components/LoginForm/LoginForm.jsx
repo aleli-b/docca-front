@@ -46,9 +46,8 @@ export default function LoginForm() {
             const data = {
                 email: formData.get('email'),
                 password: formData.get('password'),
-            }
-            console.log(data)
-            auth.login(data)
+            };
+            auth.login(data);
         }
     };
 

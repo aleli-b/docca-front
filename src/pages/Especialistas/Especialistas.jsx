@@ -19,7 +19,7 @@ export const Especialistas = () => {
     }, []);   
 
     const getDoctors = async () => {
-        const userData = await axios.get('http://localhost:4000/users');
+        const userData = await axios.get('http://localhost:4000/doctors');
         setDoctors(userData.data);
     }
 

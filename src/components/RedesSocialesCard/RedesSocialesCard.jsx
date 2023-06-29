@@ -45,7 +45,7 @@ export const RedesSocialesCard = () => {
           {redesSociales.map(redSocial => (
             <Grid container spacing={1} alignItems="center" key={redSocial.id}>
               <Grid item>
-                <IconButton sx={{ color: 'white' }}>
+                <IconButton sx={{ color: '#33333' }}>
                   {redSocial.nombre === 'Facebook' && <FacebookIcon />}
                   {redSocial.nombre === 'Instagram' && <InstagramIcon />}
                   {redSocial.nombre === 'LinkedIn' && <LinkedInIcon />}

@@ -31,7 +31,7 @@ export const ReseñasCard = () => {
         </Typography>
         {reseñas.map(reseña => (
           <Box key={reseña.id} sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
-            <Avatar alt={reseña.nombre} src={reseña.avatar} />
+            <Avatar alt={reseña.nombre} />
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle1" component="div">
                 {reseña.nombre}
