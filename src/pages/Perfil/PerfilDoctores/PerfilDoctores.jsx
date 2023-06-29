@@ -1,12 +1,11 @@
 import React from 'react'
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardMedia, Grid, Rating, Typography } from '@mui/material'
-import titan from '../../assets/titan.jpg'
-import axios from 'axios';
-import { ReseñasCard } from '../../components/ReseñasCard/ReseñasCard';
-import { RedesSocialesCard } from '../../components/RedesSocialesCard/RedesSocialesCard';
-import { TurnosCard } from '../../components/TurnosCard/TurnosCard';
+import { Avatar, Box, Card, CardContent, CardMedia, Grid, Rating, Typography } from '@mui/material'
+import titan from '../../../assets/titan.jpg'
+import { ReseñasCard } from '../../../components/ReseñasCard/ReseñasCard';
+import { RedesSocialesCard } from '../../../components/RedesSocialesCard/RedesSocialesCard';
+import { TurnosCard } from '../../../components/TurnosCard/TurnosCard';
 
-export const Perfil = () => {
+export const PerfilDoctores = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     user.fullName = user.name + " " + user.lastName;
     user.category = user.category[0].toUpperCase() + user.category.substring(1);
@@ -20,7 +19,6 @@ export const Perfil = () => {
                         <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
                         <CardMedia sx={{ display: 'flex', justifyContent: 'center', backgroundColor: 'gray', width: '100%', borderRadius: '2px', padding: 2 }}>
                             <Avatar alt={user.fullName} src={titan} sx={{ width: 180, height: 180, border: 'solid white 5px' }} />
-
                         </CardMedia>
                             <Box className='text2' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
                                 <Typography variant="h5" component="div" text-align="center">
