@@ -132,7 +132,7 @@ export const DateForm = ({ doc }) => {
     };
 
     return (
-        <Box sx={{ maxWidth: 400, margin: '0 auto' }}>
+        <Box sx={{ maxWidth: 400, marginRight: '200px'}}>
             <Typography variant="h6" component="h2" gutterBottom>
                 Seleccione una fecha y hora:
             </Typography>

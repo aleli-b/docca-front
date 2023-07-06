@@ -40,7 +40,7 @@ export const DoctorCard = ({ doctor }) => {
                 </CardContent>
             </CardActionArea>
             <Slide direction="up" in={slideOpen} mountOnEnter unmountOnExit timeout={500}>
-                <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+                <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 2 }}>
                     <DateForm doc={doc} />
                     <Box sx={{ marginTop: 2 }}>
                         <Button variant="contained" component="div" onClick={handleSlideClose}>
