@@ -60,7 +60,7 @@ function Root() {
             <Route path="/especialistas/*" element={<Especialistas />} />
             <Route path="/admin/*" element={<UserAdmin />} />
             <Route path="/perfil/*" element={<ProfileRoute> <PerfilDoctores /> <PerfilLaboratorios /> <PerfilPacientes /> </ProfileRoute>} />
-            <Route path="/consulta/*" element={<Consulta />} />
+            <Route path="/consulta/*" element={<Error />} />
             <Route path="/turnos/*" element={<Turnos />} />
           </Routes>
           <Footer />

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export const Error = () => {
   return (
-    <div style={{ textAlign: 'center', marginTop: '100px' }}>
+    <div style={{ textAlign: 'center', marginTop: '100px', minHeight:'100dvh' }}>
       <Typography variant="h1">404</Typography>
       <Typography variant="h4">Page Not Found</Typography>
       <Typography variant="subtitle1" style={{ marginTop: '16px' }}>

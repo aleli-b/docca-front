@@ -1,54 +1,64 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import titan from '../../assets/titan.jpg'
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
-import { Box, Button, CardActionArea, Slide } from '@mui/material';
-import { DateForm } from '../DateForm/DateForm';
+import AddLocationIcon from '@mui/icons-material/AddLocation';
+import { Avatar, Box, Button, CardActionArea, CardHeader, Slide } from '@mui/material';
+import { AdressBar } from '../AdressSection/AdressBar';
+import { SacarTurnoCard } from '../SacarTurnoCard/SacarTurnoCard';
 
 export const DoctorCard = ({ doctor }) => {
-    const [slideOpen, setSlideOpen] = React.useState(false);
     const doc = doctor;
 
-    const handleClick = () => {
-        setSlideOpen(true);
-    };
 
-    const handleSlideClose = () => {
-        setSlideOpen(false);
+    const handleCategoryChange = async (category) => {
+        // try {
+        //     // setLoading(true);
+        //     if (category === 'todos') {
+        //         // getDoctors();
+        //     } else {
+        //         // const response = await axios.get(`http://localhost:4000/users/categories/${category}`);
+        //         // setDoctors(response.data);
+        //     }
+        // } catch (error) {
+        //     setDoctors([]);
+        // } finally {
+        //     // setLoading(false);
+        // }
+        console.log('lol')
     };
 
     return (
-        <Card sx={{}}>
-            <CardActionArea sx={{ display: 'flex', flexDirection: 'row' }}>
-                <CardMedia component="img" image={titan} alt="green iguana" sx={{ width: 1 / 2 }} />
-                <CardContent sx={{ width: 1 / 2, marginLeft: 2, display: 'flex', flexDirection: 'column', gap: 1 }}>
-                    <Typography gutterBottom variant="h5" component="div">
-                        {doc.name + ' ' + doc.lastName}
-                    </Typography>
-                    <Rating name="simple-controlled" value={5} />
-                    <Typography variant="body2" color="text.secondary">
-                        {doc.category}
-                    </Typography>
-                    <Box sx={{ marginTop: 1 }}>
-                        <Button variant="contained" component="div" onClick={handleClick} sx={{ backgroundColor: '#82BF45', '&:hover': { backgroundColor: '#037F8C' } }}>
-                            Solicitar Turno
-                        </Button>
+        <Card sx={{ width: '900px' }}>
+            <CardActionArea sx={{ display: 'flex', flexDirection: 'row', }}>
+                <CardContent sx={{ width: 1 / 2, marginLeft: 2, display: 'flex', flexDirection: 'column', gap: 1, borderRight: 'solid 1px gray' }}>
+                    <Box sx={{ display: 'flex', gap: 3, }}>
+                        <Avatar src={titan} sx={{ height: 100, width: 100 }} />
+                        <Box sx={{ display: 'flex', flexDirection: 'column', }}>
+                            <Typography variant="h5" component="div">
+                                {doc.name + ' ' + doc.lastName}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                                {doc.category}
+                            </Typography>
+                            <Rating name="read-only" value={5} readOnly />
+                        </Box>
                     </Box>
+                    {/* <AdressBar onCategoryChange={handleCategoryChange} /> */}
+                    <Box>
+                        <Typography variant='h5'>Dirección/es</Typography>
+                        <Box sx={{ display: 'flex', gap: 1, paddingTop: 2}}>
+                            <AddLocationIcon />
+                            <Typography>Corrientes 4567, CABA, Argentina</Typography>
+                        </Box>
+                    </Box>
+                </CardContent>
+                <CardContent sx={{ width: 1 / 2 }}>
+                    <SacarTurnoCard />
                 </CardContent>
             </CardActionArea>
-            <Slide direction="up" in={slideOpen} mountOnEnter unmountOnExit timeout={500}>
-                <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 2 }}>
-                    <DateForm doc={doc} />
-                    <Box sx={{ marginTop: 2 }}>
-                        <Button variant="contained" component="div" onClick={handleSlideClose}>
-                            Cerrar
-                        </Button>
-                    </Box>
-                </CardContent>
-            </Slide>
-        </Card>
+        </Card >
     );
 };

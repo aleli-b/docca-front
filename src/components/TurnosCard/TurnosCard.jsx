@@ -21,7 +21,7 @@ export const TurnosCard = () => {
   ];
 
   return (
-    <Card sx={{ border: 'solid black 1px' }}>
+    <Card sx={{  }}>
       <CardContent>
         <Typography variant="h6" component="div">
           Turnos Ocupados

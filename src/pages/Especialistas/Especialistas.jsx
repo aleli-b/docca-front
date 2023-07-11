@@ -65,7 +65,7 @@ export const Especialistas = () => {
                     ) :
                         (<Box sx={{
                             display: 'flex',
-                            flexDirection: 'row',
+                            justifyContent: 'center',
                             flexWrap: 'wrap',
                             gap: 5,
                             borderRadius: '12px',

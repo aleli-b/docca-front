@@ -14,12 +14,6 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useAuth } from '../context/AuthContext';
 
-const defaultTheme = createTheme({
-    palette: {
-        mode: 'dark',
-    },
-});
-
 export default function LoginForm() {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -52,7 +46,6 @@ export default function LoginForm() {
     };
 
     return (
-        <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -119,6 +112,5 @@ export default function LoginForm() {
                     </Box>
                 </Box>
             </Container>
-        </ThemeProvider>
     );
 }
