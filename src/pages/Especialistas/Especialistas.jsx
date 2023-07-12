@@ -3,10 +3,11 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Button, CircularProgress, Container } from '@mui/material';
+import { Button, Card, CircularProgress, Grid } from '@mui/material';
 import CategoryNavbar from '../../components/CategoryNavbar/CategoryNavbar';
 import axios from 'axios';
 import { DoctorCard } from '../../components/DoctorCard/DoctorCard';
+import { FilterSideBar } from '../../components/FilterSideBar/FilterSideBar';
 import './Especialistas.css'
 
 
@@ -16,7 +17,7 @@ export const Especialistas = () => {
 
     React.useEffect(() => {
         getDoctors();
-    }, []);   
+    }, []);
 
     const getDoctors = async () => {
         const userData = await axios.get('http://localhost:4000/doctors');
@@ -43,20 +44,23 @@ export const Especialistas = () => {
     return (
         <>
             <CssBaseline />
-            <Container
+            <Grid container
                 sx={{
                     display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    minHeight: '100vh',                    
-                }}>
-                <CategoryNavbar onCategoryChange={handleCategoryChange} />
-                <Box
+                    minHeight: '100vh',
+                    padding: 4,
+                    justifyContent: 'center'
+                }} spacing={2}>
+                {/* <CategoryNavbar onCategoryChange={handleCategoryChange} /> */}
+                <Grid item md={2}>
+                    <FilterSideBar />
+                </Grid>
+                <Grid item
                     sx={{
-                        borderRadius: '12px',
-                        padding: 4,
+                        
                     }}
                     id="doctor-container"
+                    md={10}
                 >
                     {loading ? (
                         <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
@@ -80,8 +84,8 @@ export const Especialistas = () => {
                                 )
                             }
                         </Box>)}
-                </Box>
-            </Container>
+                </Grid>                
+            </Grid>
         </>
     );
 };

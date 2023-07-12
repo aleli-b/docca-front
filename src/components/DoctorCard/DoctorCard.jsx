@@ -31,7 +31,7 @@ export const DoctorCard = ({ doctor }) => {
     };
 
     return (
-        <Card sx={{ width: '900px' }}>
+        <Card sx={{ display: 'flex', flexGrow: 1 }}>
             <CardActionArea sx={{ display: 'flex', flexDirection: 'row', }}>
                 <CardContent sx={{ width: 1 / 2, marginLeft: 2, display: 'flex', flexDirection: 'column', gap: 1, borderRight: 'solid 1px gray' }}>
                     <Box sx={{ display: 'flex', gap: 3, }}>
@@ -56,7 +56,7 @@ export const DoctorCard = ({ doctor }) => {
                     </Box>
                 </CardContent>
                 <CardContent sx={{ width: 1 / 2 }}>
-                    <SacarTurnoCard />
+                    <SacarTurnoCard doc={doc} />
                 </CardContent>
             </CardActionArea>
         </Card >
