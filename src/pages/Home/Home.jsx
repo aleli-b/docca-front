@@ -3,8 +3,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Box from '@mui/material/Box';
-import { Button, Container } from '@mui/material';
+import { Button, Grid, Link } from '@mui/material';
 import docca from '../../assets/DA1.jpg';
+import esteto from '../../assets/esteto.png';
 import './Home.css'
 
 export const Home = () => {
@@ -12,35 +13,47 @@ export const Home = () => {
     <>
       <div id="background">
         <CssBaseline />
-        <Container
+        <Grid container
           sx={{
             display: 'flex',
-            flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            justifyContent: 'space-around',
             minHeight: '100vh',
             width: '100%'
           }}>
-          <img src={docca} style={{ height: 200 }} />
-          <Box
+          <Grid item md={6} sx={{ display: 'flex', justifyContent: 'center', padding: 4, height: '80dvh'  }}>
+            <img src={esteto} style={{ minHeight: '100%' }} />
+          </Grid>
+          <Grid item md={6}
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              gap: 1
+              alignItems: 'center',
+              justifyContent: 'space-around',
+              gap: 1,
+              height: '80dvh'
             }}>
-            <Typography variant="h4" component="h1" >
-              Bienvenido a DoccaPoint
+            <Typography variant="h2" component="h1" textAlign='center'>
+              Bienvenido <br/> a DoccaPoint.
             </Typography>
-            <Typography variant="body1" component="p" align="center">
-              Encuentra con rapidez el doctor que mas se adecue a tus necesidades medicas
+            <Typography variant="h4" component="h2" align="center">
+              Tu bienestar es nuestra solución
             </Typography>
-            <Button sx={{ gap: 2, backgroundColor: '#82BF45', '&:hover': { backgroundColor: '#037F8C' } }} variant="contained" href="/especialistas">
-              Encuentra a tu especialista <ArrowForwardIcon />
-            </Button>
-          </Box>
-          <Box>
-          </Box>
-        </Container>
+            <Box>
+              <Button sx={{ gap: 2, backgroundColor: '#82BF45', '&:hover': { backgroundColor: '#037F8C' } }} variant="contained" href="/especialistas">
+                Encuentra a tu especialista <ArrowForwardIcon />
+              </Button>
+            </Box>
+            <Box sx={{ display: 'flex', gap: 2 }}>
+              <Link sx={{ gap: 2, color: 'black' }} href='#' underline='hover'>
+                Soy Doctor
+              </Link>
+              <Link sx={{ gap: 2, color: 'black' }} href='#' underline='hover'>
+                Soy Laboratorio
+              </Link>
+            </Box>
+          </Grid>
+        </Grid>
       </div>
     </>
   );

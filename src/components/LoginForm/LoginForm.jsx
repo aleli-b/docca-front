@@ -59,7 +59,7 @@ export default function LoginForm() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Iniciar Sesión
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
@@ -69,7 +69,7 @@ export default function LoginForm() {
                             required
                             fullWidth
                             id="email"
-                            label="Email Address"
+                            label="Correo electrónico"
                             name="email"
                             autoComplete="email"
                             autoFocus
@@ -83,7 +83,7 @@ export default function LoginForm() {
                             required
                             fullWidth
                             name="password"
-                            label="Password"
+                            label="Contraseña"
                             type="password"
                             id="password"
                             autoComplete="current-password"
@@ -92,20 +92,20 @@ export default function LoginForm() {
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
+                            label="Recordame"
                         />
                         <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                            Sign In
+                            Ingresar
                         </Button>
                         <Grid container>
                             <Grid item xs>
                                 <Link href="#" variant="body2">
-                                    Forgot password?
+                                    ¿Olvidaste la contraseña?
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
+                                <Link href="/register" variant="body2">
+                                    {"¿No tenés cuenta? Registrate"}
                                 </Link>
                             </Grid>
                         </Grid>
