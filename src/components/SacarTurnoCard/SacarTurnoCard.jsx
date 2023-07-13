@@ -1,5 +1,5 @@
 import { Box, Button, Grid, IconButton, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { Slide } from '@mui/material';
@@ -9,6 +9,36 @@ import axios from 'axios';
 
 export const SacarTurnoCard = ({ doc }) => {
   const [startIndex, setStartIndex] = useState(0);
+  const [occupiedTurnos, setOccupiedTurnos] = useState([]);
+
+  const auth = useAuth();
+  const doctor = doc;
+
+  useEffect(() => {
+    fetchOccupiedTurnos();
+  }, []);
+
+  const fetchOccupiedTurnos = async () => {
+    try {
+      const response = await axios.post('http://localhost:4000/turnos-ocupados', {
+        doctorId: doc.id,
+      });
+
+      if (response.status === 200) {
+        const backendOccupiedDates = response.data.map((turno) => {
+          const formattedDate = moment(turno.date).format('DD [de] MMMM');
+          const hour = moment(turno.date).format('HH:mm');
+          return { dateTime: `${formattedDate} ${hour}`, doctorId: turno.doctorId };
+        });
+        setOccupiedTurnos(backendOccupiedDates);
+      } else {
+        console.log('Failed to fetch occupied turnos:', response.status);
+      }
+    } catch (error) {
+      console.error('Error fetching occupied turnos:', error);
+    }
+  };
+
 
   const generateDates = () => {
     const today = moment();
@@ -49,9 +79,6 @@ export const SacarTurnoCard = ({ doc }) => {
 
   const endIndex = Math.min(startIndex + 4, dates.length);
 
-  const auth = useAuth();
-  const doctor = doc;
-
   const handlePrevClick = () => {
     setStartIndex(Math.max(startIndex - 1, 0));
   };
@@ -61,17 +88,20 @@ export const SacarTurnoCard = ({ doc }) => {
   };
 
   const addTurno = async (date, userId, doctorId) => {
-    console.log(date)
     try {
-      const response = await axios.post('http://localhost:4000/turnos', {
-        date,
-        userId,
-        doctorId,
-      }, {
-        headers: {
-          authorization: auth.token,
+      const response = await axios.post(
+        'http://localhost:4000/turnos',
+        {
+          date,
+          userId,
+          doctorId,
+        },
+        {
+          headers: {
+            authorization: auth.token,
+          },
         }
-      });
+      );
 
       if (response.status === 200) {
         const data = response.data;
@@ -90,6 +120,16 @@ export const SacarTurnoCard = ({ doc }) => {
 
     addTurno(dateTime, userId, doctorId);
   };
+
+  const isTurnoOccupied = (dateTime) => {
+    const occupied = occupiedTurnos.find((turno) => {
+      return turno.dateTime === dateTime && turno.doctorId === doctor.id;
+    });
+
+    return occupied ? true : false;
+  };
+
+
 
   return (
     <div>
@@ -110,7 +150,11 @@ export const SacarTurnoCard = ({ doc }) => {
                     <Button
                       key={j}
                       variant="outlined"
-                      onClick={() => handleTimeClick(`${date.day} ${time}`)} // Replace userId and doctorId with actual values
+                      onClick={() => handleTimeClick(`${date.day} ${time}`)}
+                      disabled={isTurnoOccupied(`${date.day} ${time}`)}
+                      sx={{
+                        textDecoration: isTurnoOccupied(`${date.day} ${time}`) ? 'line-through' : 'none',
+                      }}
                     >
                       {time}
                     </Button>
