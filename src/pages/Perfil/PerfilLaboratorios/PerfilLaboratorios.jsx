@@ -22,12 +22,12 @@ export const PerfilLaboratorios = () => {
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, justifyContent: 'center', paddingX: '20px', margin: 3.2 }}>
             <Grid container spacing={2} sx={{ margin: '' }}>
                 <Grid sx={{ display: "flex", flexDirection: "column", gap: 3 }} item md={4} >
-                    <Card sx={{ display: "flex", gap: 3, border: 'solid black 1px' }}>
+                    <Card sx={{ display: "flex", gap: 3,  }}>
                         <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-                            <CardMedia sx={{ display: 'flex', justifyContent: 'center', backgroundColor: 'gray', width: '100%', borderRadius: '2px', padding: 2, border: "solid 5px #17202A " }}>
+                            <CardMedia sx={{ display: 'flex', justifyContent: 'center', width: '100%', borderRadius: '2px', padding: 2, }}>
                                 <Avatar
                                     alt={user.fullName}
-                                    src={titan} sx={{ width: 180, height: 180, border: 'solid white 5px' }} />
+                                    src={titan} sx={{ width: 180, height: 180,  }} />
                             </CardMedia>
                             <Box className='text2' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
                                 <Typography variant="h5" component="div" text-align="center">
@@ -45,7 +45,7 @@ export const PerfilLaboratorios = () => {
                     <Mensajeria />
                 </Grid>
                 <Grid item md={8}>
-                    <Card sx={{ border: 'solid black 1px' }}>
+                    <Card sx={{  }}>
                         <CardContent >
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid white 1px', padding: '18.7px' }}>
                                 <Typography>Nombre:</Typography>

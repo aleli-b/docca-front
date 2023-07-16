@@ -100,9 +100,9 @@ export const Header = () => {
                             }}
                         >
 
-                            <MenuItem onClick={handleCloseNavMenu}>
+                            {/* <MenuItem onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">CONSULTA RAPIDA</Typography>
-                            </MenuItem>
+                            </MenuItem> */}
 
                             <MenuItem onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">ESPECIALISTAS</Typography>
@@ -131,14 +131,14 @@ export const Header = () => {
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 
-                        <Button
+                        {/* <Button
                             variant="text"
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                             href="/consulta"
                         >
                             CONSULTA RAPIDA
-                        </Button>
+                        </Button> */}
 
                         <Button
                             onClick={handleCloseNavMenu}
@@ -177,6 +177,18 @@ export const Header = () => {
                                     >
                                         <MenuItem onClick={() => {handleCloseUserMenu(); handleProfile()}}>
                                             <Typography textAlign="center">PERFIL</Typography>
+                                        </MenuItem>
+                                        <MenuItem onClick={() => {handleCloseUserMenu()}}>
+                                            <Typography textAlign="center">MIS CONSULTAS</Typography>
+                                        </MenuItem>
+                                        {
+                                            auth.user.userType === 'doctor' &&
+                                        <MenuItem onClick={() => {handleCloseUserMenu()}}>
+                                            <Typography textAlign="center">AGENDA</Typography>
+                                        </MenuItem>
+                                        }
+                                        <MenuItem onClick={() => {handleCloseUserMenu()}}>
+                                            <Typography textAlign="center">MEDIOS DE PAGO</Typography>
                                         </MenuItem>
                                         {
                                             auth.user.userType === 'doctor' &&

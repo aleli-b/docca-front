@@ -50,7 +50,7 @@ export const Mensajeria = () => {
     { label: 'Doctor 2 Otorrinolaringolo', year: 1972 },
     { label: 'Doctor 3 Medico Clinico', year: 1974 },]
   return (
-    <Card sx={{ border: 'solid black 1px',padding:1 }}>
+    <Card sx={{ padding: 1 }}>
       <CardContent>
         <Typography variant="h6" component="div">
           Mensajeria

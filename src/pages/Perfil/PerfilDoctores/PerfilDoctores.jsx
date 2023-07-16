@@ -12,13 +12,13 @@ export const PerfilDoctores = () => {
     user.userType = user.userType[0].toUpperCase() + user.userType.substring(1);
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, justifyContent: 'center', paddingX: '20px', margin: 3.2 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, justifyContent: 'center', paddingX: '20px', margin: 3.2, minHeight: '77.5dvh' }}>
             <Grid container spacing={2} sx={{ margin: '' }}>
                 <Grid item md={4} sx={{ marginRight: '', }}>
                     <Card sx={{  }}>
                         <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-                        <CardMedia sx={{ display: 'flex', justifyContent: 'center', backgroundColor: 'gray', width: '100%', borderRadius: '2px', padding: 2 }}>
-                            <Avatar alt={user.fullName} src={titan} sx={{ width: 180, height: 180, border: 'solid white 5px' }} />
+                        <CardMedia sx={{ display: 'flex', justifyContent: 'center', width: '100%', borderRadius: '2px', padding: 2 }}>
+                            <Avatar alt={user.fullName} src={titan} sx={{ width: 180, height: 180, }} />
                         </CardMedia>
                             <Box className='text2' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
                                 <Typography variant="h5" component="div" text-align="center">
@@ -70,7 +70,7 @@ export const PerfilDoctores = () => {
                     <ReseñasCard />
                 </Grid>
                 <Grid item md={4}>
-                    <TurnosCard />
+                    <TurnosCardDoctores />
                 </Grid>
             </Grid>
         </Box>
