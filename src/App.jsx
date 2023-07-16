@@ -12,12 +12,12 @@ import { PerfilDoctores } from "./pages/Perfil/PerfilDoctores/PerfilDoctores";
 import { PerfilPacientes } from "./pages/Perfil/PerfilPacientes/PerfilPacientes";
 import { PerfilLaboratorios } from "./pages/Perfil/PerfilLaboratorios/PerfilLaboratorios";
 import { ProfileRoute } from "./components/guard/ProfileRoute";
-import { Consulta } from "./pages/Consulta/Consulta"
 import { createTheme, CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import { Turnos } from "./pages/Turnos/Turnos";
-import { useAuth } from "./components/context/AuthContext";
 import { Register } from "./pages/Register/Register";
+import { AdminRoute } from "./components/guard/AdminRoute";
+import { useAuth } from "./components/context/AuthContext";
 
 const router = createBrowserRouter([
   { path: "*", Component: Root },
@@ -60,7 +60,7 @@ function Root() {
             <Route path="/login/*" element={<Login />} />
             <Route path="/register/*" element={<Register />} />
             <Route path="/especialistas/*" element={<Especialistas />} />
-            <Route path="/admin/*" element={<UserAdmin />} />
+            <Route path="/admin/*" element={<AdminRoute> <UserAdmin /> </AdminRoute>} />
             <Route path="/perfil/*" element={<ProfileRoute> <PerfilDoctores /> <PerfilLaboratorios /> <PerfilPacientes /> </ProfileRoute>} />
             <Route path="/consulta/*" element={<Error />} />
             <Route path="/turnos/*" element={<Turnos />} />

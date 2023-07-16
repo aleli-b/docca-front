@@ -3,7 +3,7 @@ import { Avatar, Box, Card, CardContent, CardMedia, Grid, Rating, Typography } f
 import titan from '../../../assets/titan.jpg'
 import { ReseñasCard } from '../../../components/ReseñasCard/ReseñasCard';
 import { RedesSocialesCard } from '../../../components/RedesSocialesCard/RedesSocialesCard';
-import { TurnosCard } from '../../../components/TurnosCard/TurnosCard';
+import { TurnosCardDoctores } from '../../../components/TurnosCardDoctores/TurnosCardDoctores';
 
 export const PerfilDoctores = () => {
     const user = JSON.parse(localStorage.getItem('user'));

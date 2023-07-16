@@ -34,7 +34,7 @@ export const Home = () => {
               height: '80dvh'
             }}>
             <Typography variant="h2" component="h1" textAlign='center'>
-              Bienvenido <br/> a DoccaPoint.
+              Bienvenido <br/> a Docappoint.
             </Typography>
             <Typography variant="h4" component="h2" align="center">
               Tu bienestar es nuestra solución

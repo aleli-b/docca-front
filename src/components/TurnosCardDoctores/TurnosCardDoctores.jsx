@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, Typography, List, ListItem, ListItemText, Divider, Button } from '@mui/material';
 
-export const TurnosReservadosCard = () => {
+export const TurnosCardDoctores = () => {
   const turnos = [
     {
       id: 1,
@@ -45,7 +45,6 @@ export const TurnosReservadosCard = () => {
           ))}
           <Divider />
         </List>
-
       </CardContent>
     </Card>
   );

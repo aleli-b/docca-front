@@ -132,8 +132,7 @@ export const SacarTurnoCard = ({ doc }) => {
 
 
   return (
-    <div>
-      <Slide direction="left" in={true}>
+    <div>      
         <Grid container spacing={2} sx={{ display: 'flex', flexWrap: 'nowrap' }}>
           <IconButton onClick={handlePrevClick} disabled={startIndex === 0} sx={{ height: '50px', width: '50px', marginTop: 1 }}>
             <KeyboardArrowLeftIcon />
@@ -167,7 +166,6 @@ export const SacarTurnoCard = ({ doc }) => {
             <KeyboardArrowRightIcon />
           </IconButton>
         </Grid>
-      </Slide>
     </div>
   );
 };

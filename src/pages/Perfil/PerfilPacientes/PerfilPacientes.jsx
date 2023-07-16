@@ -2,10 +2,8 @@ import React from 'react'
 import { Avatar, Box, Button, Card, CardActions, CardContent, CardMedia, Checkbox, Divider, FormControlLabel, Grid, Paper, Rating, Stack, Typography, styled } from '@mui/material'
 import titan from '../../../assets/titan.jpg'
 import axios from 'axios';
-import { TurnosReservadosCard } from '../../../components/TurnosReservadosCard/TurnosReservadosCard';
+import { TurnosCardPacientes } from '../../../components/TurnosCardPacientes/TurnosCardPacientes';
 import { Mensajeria } from '../../../components/Mensajeria/Mensajeria';
-
-
 
 export const PerfilPacientes = () => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -102,7 +100,7 @@ export const PerfilPacientes = () => {
             </Grid>
             <Grid container spacing={2}>
                 <Grid item md={12}>
-                    <TurnosReservadosCard />
+                    <TurnosCardPacientes />
                 </Grid>
             </Grid>
         </Box>

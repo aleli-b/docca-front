@@ -27,7 +27,7 @@ export const Especialistas = () => {
     const handleCategoryChange = async (category) => {
         try {
             setLoading(true);
-            if (category === 'todos') {
+            if (category === '') {
                 getDoctors();
             } else {
                 const response = await axios.get(`http://localhost:4000/users/categories/${category}`);
@@ -53,7 +53,7 @@ export const Especialistas = () => {
                 }} spacing={2}>
                 {/* <CategoryNavbar onCategoryChange={handleCategoryChange} /> */}
                 <Grid item md={2}>
-                    <FilterSideBar />
+                    <FilterSideBar handleCategoryChange={handleCategoryChange} />
                 </Grid>
                 <Grid item
                     sx={{

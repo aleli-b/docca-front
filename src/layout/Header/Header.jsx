@@ -49,8 +49,7 @@ export const Header = () => {
     return (
         <AppBar position="static" id='navBar'>
             <Container maxWidth="xl">
-                <Toolbar disableGutters>
-                    {/* <LocalHospitalIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
+                <Toolbar disableGutters>                    
                     <img src={docca} style={{ height: '5rem', width: '5rem'}}/>
                     <Typography
                         variant="h6"
@@ -68,7 +67,7 @@ export const Header = () => {
                             marginRight: '1.5em'
                         }}
                     >
-                        DOCCA-POINT
+                        DOCAPPOINT
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -128,7 +127,7 @@ export const Header = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        DOCCA-POINT
+                        DOCAPPOINT
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 
@@ -179,10 +178,12 @@ export const Header = () => {
                                         <MenuItem onClick={() => {handleCloseUserMenu(); handleProfile()}}>
                                             <Typography textAlign="center">PERFIL</Typography>
                                         </MenuItem>
-
+                                        {
+                                            auth.user.userType === 'doctor' &&
                                         <MenuItem onClick={() => {handleCloseUserMenu(); handleAdmin()}}>
                                             <Typography textAlign="center">ADMIN</Typography>
                                         </MenuItem>
+                                        }
 
                                         <MenuItem onClick={auth.logout}>
                                             <Typography textAlign="center">CERRAR SESION</Typography>
