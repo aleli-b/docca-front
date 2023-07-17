@@ -22,9 +22,7 @@ export const SacarTurnoCard = ({ doc }) => {
 
   const fetchOccupiedTurnos = async () => {
     try {
-      const response = await axios.post(`${svHost}/turnos-ocupados`, {
-        doctorId: doc.id,
-      });
+      const response = await axios.get(`${svHost}/turnos-ocupados?doctorId=${doc.id}`);
 
       if (response.status === 200) {
         const backendOccupiedDates = response.data.map((turno) => {
