@@ -9,9 +9,11 @@ export const TurnosCardDoctores = () => {
 
   const auth = useAuth();
 
+  const svHost = import.meta.env.VITE_HOST;
+
   async function getBackendTurnos() {
     try {
-      const response = await axios.post('http://localhost:4000/doctor-turnos', {
+      const response = await axios.post(`${svHost}/doctor-turnos`, {
         doctorId: auth.user.id
       })
       if (response.status === 200) {

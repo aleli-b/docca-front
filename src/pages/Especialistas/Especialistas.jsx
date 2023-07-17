@@ -15,12 +15,14 @@ export const Especialistas = () => {
     const [doctors, setDoctors] = React.useState([])
     const [loading, setLoading] = React.useState(false);
 
+    const svHost = import.meta.env.VITE_HOST;
+
     React.useEffect(() => {
         getDoctors();
     }, []);
 
     const getDoctors = async () => {
-        const userData = await axios.get('http://localhost:4000/doctors');
+        const userData = await axios.get(`${svHost}/doctors`);
         setDoctors(userData.data);
     }
 
@@ -30,7 +32,7 @@ export const Especialistas = () => {
             if (category === '') {
                 getDoctors();
             } else {
-                const response = await axios.get(`http://localhost:4000/users/categories/${category}`);
+                const response = await axios.get(`${svHost}/users/categories/${category}`);
                 setDoctors(response.data);
             }
         } catch (error) {

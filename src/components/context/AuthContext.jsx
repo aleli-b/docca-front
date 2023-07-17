@@ -10,9 +10,11 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(JSON.parse(localStorage.getItem('token'))) || [];
     const navigate = useNavigate();
 
+    const svHost = import.meta.env.VITE_HOST;
+
     const login = async (data) => {
         try {
-            const loginData = await axios.post(`http://localhost:4000/login`, data);
+            const loginData = await axios.post(`${svHost}/login`, data);
             localStorage.setItem('token', JSON.stringify(loginData.data.token));
             localStorage.setItem('user', JSON.stringify(loginData.data.user));
             setUser(loginData.data.user);

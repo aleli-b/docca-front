@@ -12,6 +12,7 @@ import { SacarTurnoCard } from '../SacarTurnoCard/SacarTurnoCard';
 export const DoctorCard = ({ doctor }) => {
     const doc = doctor;
 
+    const svHost = import.meta.env.VITE_HOST;
 
     const handleCategoryChange = async (category) => {
         // try {
@@ -19,7 +20,7 @@ export const DoctorCard = ({ doctor }) => {
         //     if (category === 'todos') {
         //         // getDoctors();
         //     } else {
-        //         // const response = await axios.get(`http://localhost:4000/users/categories/${category}`);
+        //         // const response = await axios.get(`${svHost}/users/categories/${category}`);
         //         // setDoctors(response.data);
         //     }
         // } catch (error) {

@@ -14,13 +14,15 @@ export const SacarTurnoCard = ({ doc }) => {
   const auth = useAuth();
   const doctor = doc;
 
+  const svHost = import.meta.env.VITE_HOST;
+
   useEffect(() => {
     fetchOccupiedTurnos();
   }, []);
 
   const fetchOccupiedTurnos = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/turnos-ocupados', {
+      const response = await axios.post(`${svHost}/turnos-ocupados`, {
         doctorId: doc.id,
       });
 
@@ -90,7 +92,7 @@ export const SacarTurnoCard = ({ doc }) => {
   const addTurno = async (date, userId, doctorId) => {
     try {
       const response = await axios.post(
-        'http://localhost:4000/turnos',
+        `${svHost}/turnos`,
         {
           date,
           userId,

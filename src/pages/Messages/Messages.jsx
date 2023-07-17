@@ -6,10 +6,12 @@ import { useAuth } from '../../components/context/AuthContext';
 export const Messages = ({ userId }) => {
   const [conversations, setConversations] = useState([]);
 
+  const svHost = import.meta.env.VITE_HOST;
+
   const auth = useAuth();
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/conversations/user?userId=${auth.user.id}`)
+    axios.get(`${svHost}/conversations/user?userId=${auth.user.id}`)
       .then((response) => setConversations(response.data))
       .catch((error) => console.error('Error fetching conversations:', error));
   }, [userId]);  

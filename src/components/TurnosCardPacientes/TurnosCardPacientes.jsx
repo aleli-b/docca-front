@@ -11,7 +11,7 @@ export const TurnosCardPacientes = () => {
 
   async function getBackendTurnos() {
     try {
-      const response = await axios.post('http://localhost:4000/user-turnos', {
+      const response = await axios.post(`${svHost}/user-turnos`, {
         userId: auth.user.id
       })
       if (response.status === 200) {

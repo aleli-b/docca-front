@@ -8,7 +8,9 @@ import { AdminTable } from '../../../components/Admin/AdminTable';
 import { AdminNavbar } from '../../../components/Admin/AdminNavbar';
 
 export const UserAdmin = () => {
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState([]);
+
+    const svHost = import.meta.env.VITE_HOST;
 
     const darkTheme = createTheme({
         palette: {
@@ -25,7 +27,7 @@ export const UserAdmin = () => {
     const handleUserBanState = async (id) => {
         try {
             // setLoading(true);                        
-            await axios.patch(`http://localhost:4000/users/${id}`);            
+            await axios.patch(`${svHost}/users/${id}`);            
             getUsers()            
         }
         catch (error) {
@@ -34,7 +36,7 @@ export const UserAdmin = () => {
     };
 
     const getUsers = async () => {
-        const userData = await axios.get('http://localhost:4000/users')
+        const userData = await axios.get(`${svHost}/users`)
         setUsers(userData.data)
     }
 

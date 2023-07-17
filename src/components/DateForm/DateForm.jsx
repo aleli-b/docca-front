@@ -15,10 +15,12 @@ export const DateForm = ({ doc }) => {
     const auth = useAuth();
     const doctor = doc;
 
+    const svHost = import.meta.env.VITE_HOST;
+
     useEffect(() => {
         const fetchOccupiedDates = async () => {
             try {
-                const response = await axios.post('http://localhost:4000/turnos-ocupados', {
+                const response = await axios.post(`${svHost}/turnos-ocupados`, {
                     doctorId: doctor.id
                 },
                 {
@@ -115,7 +117,7 @@ export const DateForm = ({ doc }) => {
             setSubmitting(true);
             console.log('id de doctor: ', doctor.id, 'id de paciente', auth.user.id);
             await axios.post(
-                'http://localhost:4000/turnos',
+                `${svHost}/turnos`,
                 { date: formattedDate.toISOString(), userId: auth.user.id, doctorId: doctor.id },
                 {
                     headers: {
