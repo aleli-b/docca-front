@@ -1,7 +1,2 @@
-# Redireccionar la página principal a "index.html"
-/    /index.html   200
 
-/especialistas /especialistas 200
-
-# Redireccionar todas las demás solicitudes a "index.html" para manejar rutas de una sola página (SPAs).
 /*   /index.html   200
