@@ -18,6 +18,7 @@ import { Turnos } from "./pages/Turnos/Turnos";
 import { Register } from "./pages/Register/Register";
 import { AdminRoute } from "./components/guard/AdminRoute";
 import { useAuth } from "./components/context/AuthContext";
+import { Messages } from "./pages/Messages/Messages";
 
 const router = createBrowserRouter([
   { path: "*", Component: Root },
@@ -64,6 +65,7 @@ function Root() {
             <Route path="/perfil/*" element={<ProfileRoute> <PerfilDoctores /> <PerfilLaboratorios /> <PerfilPacientes /> </ProfileRoute>} />
             <Route path="/consulta/*" element={<Error />} />
             <Route path="/turnos/*" element={<Turnos />} />
+            <Route path="/messages/*" element={<Messages />} />
           </Routes>
           <Footer />
         </AuthProvider>
