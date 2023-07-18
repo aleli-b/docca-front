@@ -20,6 +20,14 @@ export const SacarTurnoCard = ({ doc }) => {
     fetchOccupiedTurnos();
   }, []);
 
+  useEffect(() => {
+    console.log('Component re-rendered.');
+  }, []);
+
+  useEffect(() => {
+    console.log('Updated occupiedTurnos state:', occupiedTurnos);
+  }, [occupiedTurnos]);
+
   const fetchOccupiedTurnos = async () => {
     try {
       const response = await axios.get(`${svHost}/turnos-ocupados?doctorId=${doc.id}`);
