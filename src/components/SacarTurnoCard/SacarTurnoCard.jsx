@@ -41,7 +41,6 @@ export const SacarTurnoCard = ({ doc }) => {
         });
         setOccupiedTurnos(backendOccupiedDates);
         console.log('este es el backendOccupiedDates: ', backendOccupiedDates)
-        console.log('este es el state de los turnos: ', occupiedTurnos)
       } else {
         console.log('Failed to fetch occupied turnos:', response.status);
       }
