@@ -2,23 +2,23 @@ import { Box, Button, Grid, IconButton, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import { Slide } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
 import moment from 'moment';
 import axios from 'axios';
 
-export const SacarTurnoCard = ({ doc }) => {
+export const SacarTurnoCard =  React.memo(({ doc, turnos }) => {
   const [startIndex, setStartIndex] = useState(0);
-  const [occupiedTurnos, setOccupiedTurnos] = useState([]);
+  // const [occupiedTurnos, setOccupiedTurnos] = useState([]);
 
   const auth = useAuth();
   const doctor = doc;
+  const occupiedTurnos = turnos;
 
   const svHost = import.meta.env.VITE_HOST;
 
-  useEffect(() => {
-    fetchOccupiedTurnos();
-  }, []);
+  // useEffect(() => {
+  //   fetchOccupiedTurnos();
+  // }, []);
 
   useEffect(() => {
     console.log('Component re-rendered.');
@@ -28,26 +28,26 @@ export const SacarTurnoCard = ({ doc }) => {
     console.log('Updated occupiedTurnos state:', occupiedTurnos);
   }, [occupiedTurnos]);
 
-  const fetchOccupiedTurnos = async () => {
-    try {
-      const response = await axios.get(`${svHost}/turnos-ocupados?doctorId=${doc.id}`);
-      console.log('esta es la response: ', response)
-      console.log('esta es la response.data: ', response.data)
-      if (response.status === 200) {
-        const backendOccupiedDates = response.data.map((turno) => {
-          const formattedDate = moment(turno.date).format('DD [de] MMMM');
-          const hour = moment(turno.date).format('HH:mm');
-          return { dateTime: `${formattedDate} ${hour}`, doctorId: turno.doctorId };
-        });
-        setOccupiedTurnos(backendOccupiedDates);
-        console.log('este es el backendOccupiedDates: ', backendOccupiedDates)
-      } else {
-        console.log('Failed to fetch occupied turnos:', response.status);
-      }
-    } catch (error) {
-      console.error('Error fetching occupied turnos:', error);
-    }
-  };
+  // const fetchOccupiedTurnos = async () => {
+  //   try {
+  //     const response = await axios.get(`${svHost}/turnos-ocupados?doctorId=${doc.id}`);
+  //     console.log('esta es la response: ', response)
+  //     console.log('esta es la response.data: ', response.data)
+  //     if (response.status === 200) {
+  //       const backendOccupiedDates = response.data.map((turno) => {
+  //         const formattedDate = moment(turno.date).format('DD [de] MMMM');
+  //         const hour = moment(turno.date).format('HH:mm');
+  //         return { dateTime: `${formattedDate} ${hour}`, doctorId: turno.doctorId };
+  //       });
+  //       setOccupiedTurnos(backendOccupiedDates);
+  //       console.log('este es el backendOccupiedDates: ', backendOccupiedDates)
+  //     } else {
+  //       console.log('Failed to fetch occupied turnos:', response.status);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching occupied turnos:', error);
+  //   }
+  // };
 
 
   const generateDates = () => {
@@ -178,4 +178,4 @@ export const SacarTurnoCard = ({ doc }) => {
         </Grid>
     </div>
   );
-};
+});

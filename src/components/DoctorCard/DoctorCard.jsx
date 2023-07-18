@@ -6,30 +6,10 @@ import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import { Avatar, Box, Button, CardActionArea, CardHeader, Slide } from '@mui/material';
-import { AdressBar } from '../AdressSection/AdressBar';
 import { SacarTurnoCard } from '../SacarTurnoCard/SacarTurnoCard';
 
-export const DoctorCard = ({ doctor }) => {
+export const DoctorCard = ({ doctor, turnos }) => {
     const doc = doctor;
-
-    const svHost = import.meta.env.VITE_HOST;
-
-    const handleCategoryChange = async (category) => {
-        // try {
-        //     // setLoading(true);
-        //     if (category === 'todos') {
-        //         // getDoctors();
-        //     } else {
-        //         // const response = await axios.get(`${svHost}/users/categories/${category}`);
-        //         // setDoctors(response.data);
-        //     }
-        // } catch (error) {
-        //     setDoctors([]);
-        // } finally {
-        //     // setLoading(false);
-        // }
-        console.log('lol')
-    };
 
     return (
         <Card sx={{ display: 'flex', flexDirection: 'row', flexGrow: 1 }}>            
@@ -46,7 +26,6 @@ export const DoctorCard = ({ doctor }) => {
                             <Rating name="read-only" value={5} readOnly />
                         </Box>
                     </Box>
-                    {/* <AdressBar onCategoryChange={handleCategoryChange} /> */}
                     <Box>
                         <Typography variant='h5'>Dirección/es</Typography>
                         <Box sx={{ display: 'flex', gap: 1, paddingTop: 2}}>
@@ -56,7 +35,7 @@ export const DoctorCard = ({ doctor }) => {
                     </Box>
                 </CardContent>
                 <CardContent sx={{ width: 1 / 2 }}>
-                    <SacarTurnoCard doc={doc} />
+                    <SacarTurnoCard doc={doc} turnos={turnos} />
                 </CardContent>
         </Card >
     );
