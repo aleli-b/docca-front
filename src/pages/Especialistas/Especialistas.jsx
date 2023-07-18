@@ -24,7 +24,7 @@ export const Especialistas = () => {
 
     const getDoctors = async () => {
         const userData = await axios.get(`${svHost}/doctors`);
-        setDoctors(userData.data);        
+        setDoctors(userData.data);
     }
     doctors.map((doctor, i) => {
         console.log(doctor.id)
@@ -50,8 +50,6 @@ export const Especialistas = () => {
     const fetchOccupiedTurnos = async () => {
         try {
             const response = await axios.get(`${svHost}/turnos-ocupados`);
-            console.log('esta es la response: ', response)
-            console.log('esta es la response.data: ', response.data)
             if (response.status === 200) {
                 const backendOccupiedDates = response.data.map((turno, i) => {
                     const formattedDate = moment(turno.date).format('DD [de] MMMM');
@@ -59,7 +57,6 @@ export const Especialistas = () => {
                     return { dateTime: `${formattedDate} ${hour}`, doctorId: turno.doctorId };
                 });
                 setOccupiedTurnos(backendOccupiedDates);
-                console.log('este es el backendOccupiedDates: ', backendOccupiedDates)
             } else {
                 console.log('Failed to fetch occupied turnos:', response.status);
             }
@@ -72,6 +69,7 @@ export const Especialistas = () => {
     return (
         <>
             <CssBaseline />
+
             <Grid container
                 sx={{
                     display: 'flex',
@@ -79,7 +77,6 @@ export const Especialistas = () => {
                     padding: 4,
                     justifyContent: 'center'
                 }} spacing={2}>
-                {/* <CategoryNavbar onCategoryChange={handleCategoryChange} /> */}
                 <Grid item md={2}>
                     <FilterSideBar handleCategoryChange={handleCategoryChange} />
                 </Grid>

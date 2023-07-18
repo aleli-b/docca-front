@@ -5,50 +5,17 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useAuth } from '../context/AuthContext';
 import moment from 'moment';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-export const SacarTurnoCard =  React.memo(({ doc, turnos }) => {
+export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
   const [startIndex, setStartIndex] = useState(0);
-  // const [occupiedTurnos, setOccupiedTurnos] = useState([]);
 
   const auth = useAuth();
   const doctor = doc;
   const occupiedTurnos = turnos;
 
   const svHost = import.meta.env.VITE_HOST;
-
-  // useEffect(() => {
-  //   fetchOccupiedTurnos();
-  // }, []);
-
-  useEffect(() => {
-    console.log('Component re-rendered.');
-  }, []);
-
-  useEffect(() => {
-    console.log('Updated occupiedTurnos state:', occupiedTurnos);
-  }, [occupiedTurnos]);
-
-  // const fetchOccupiedTurnos = async () => {
-  //   try {
-  //     const response = await axios.get(`${svHost}/turnos-ocupados?doctorId=${doc.id}`);
-  //     console.log('esta es la response: ', response)
-  //     console.log('esta es la response.data: ', response.data)
-  //     if (response.status === 200) {
-  //       const backendOccupiedDates = response.data.map((turno) => {
-  //         const formattedDate = moment(turno.date).format('DD [de] MMMM');
-  //         const hour = moment(turno.date).format('HH:mm');
-  //         return { dateTime: `${formattedDate} ${hour}`, doctorId: turno.doctorId };
-  //       });
-  //       setOccupiedTurnos(backendOccupiedDates);
-  //       console.log('este es el backendOccupiedDates: ', backendOccupiedDates)
-  //     } else {
-  //       console.log('Failed to fetch occupied turnos:', response.status);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error fetching occupied turnos:', error);
-  //   }
-  // };
-
 
   const generateDates = () => {
     const today = moment();
@@ -114,21 +81,62 @@ export const SacarTurnoCard =  React.memo(({ doc, turnos }) => {
       );
 
       if (response.status === 200) {
-        const data = response.data;
-        console.log('Turno added successfully:', data);
-      } else {
-        console.log('Failed to add turno:', response.status);
-      }
+        toast.success('Turno sacado con exito!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      } 
     } catch (error) {
-      console.error('Error adding turno:', error);
+      const status = error.response ? error.response.status : null;
+      if (status === 400){
+        toast.error('El usuario ya tiene turno', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      } else{
+        toast.error('Error al sacar turno', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      }
     }
   };
 
   const handleTimeClick = (dateTime) => {
-    const userId = auth.user.id;
-    const doctorId = doctor.id;
-
-    addTurno(dateTime, userId, doctorId);
+    try {
+      const userId = auth.user.id      
+      const doctorId = doctor.id    
+      addTurno(dateTime, userId, doctorId);
+    } catch (error) {
+      toast.error('Debes iniciar sesion', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+    }
   };
 
   const isTurnoOccupied = (dateTime) => {
@@ -142,40 +150,40 @@ export const SacarTurnoCard =  React.memo(({ doc, turnos }) => {
 
 
   return (
-    <div>      
-        <Grid container spacing={2} sx={{ display: 'flex', flexWrap: 'nowrap' }}>
-          <IconButton onClick={handlePrevClick} disabled={startIndex === 0} sx={{ height: '50px', width: '50px', marginTop: 1 }}>
-            <KeyboardArrowLeftIcon />
-          </IconButton>
-          {dates.slice(startIndex, endIndex).map((date, i) => (
-            <Grid item xs={3} key={i} sx={{ display: 'flex', flexDirection: 'column' }}>
-              <Typography component="div">{date.label}</Typography>
-              <Typography variant="body2" gutterBottom color="text.secondary" component="div">
-                {date.day}
-              </Typography>
-              {date.time.length > 0 && (
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                  {date.time?.map((time, j) => (
-                    <Button
-                      key={j}
-                      variant="outlined"
-                      onClick={() => handleTimeClick(`${date.day} ${time}`)}
-                      disabled={isTurnoOccupied(`${date.day} ${time}`)}
-                      sx={{
-                        textDecoration: isTurnoOccupied(`${date.day} ${time}`) ? 'line-through' : 'none',
-                      }}
-                    >
-                      {time}
-                    </Button>
-                  ))}
-                </Box>
-              )}
-            </Grid>
-          ))}
-          <IconButton onClick={handleNextClick} disabled={endIndex >= dates.length} sx={{ height: '50px', width: '50px', marginTop: 1 }}>
-            <KeyboardArrowRightIcon />
-          </IconButton>
-        </Grid>
+    <div>
+      <Grid container spacing={2} sx={{ display: 'flex', flexWrap: 'nowrap' }}>        
+        <IconButton onClick={handlePrevClick} disabled={startIndex === 0} sx={{ height: '50px', width: '50px', marginTop: 1 }}>
+          <KeyboardArrowLeftIcon />
+        </IconButton>
+        {dates.slice(startIndex, endIndex).map((date, i) => (
+          <Grid item xs={3} key={i} sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Typography component="div">{date.label}</Typography>
+            <Typography variant="body2" gutterBottom color="text.secondary" component="div">
+              {date.day}
+            </Typography>
+            {date.time.length > 0 && (
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                {date.time?.map((time, j) => (
+                  <Button
+                    key={j}
+                    variant="outlined"
+                    onClick={() => handleTimeClick(`${date.day} ${time}`)}
+                    disabled={isTurnoOccupied(`${date.day} ${time}`)}
+                    sx={{
+                      textDecoration: isTurnoOccupied(`${date.day} ${time}`) ? 'line-through' : 'none',
+                    }}
+                  >
+                    {time}
+                  </Button>
+                ))}
+              </Box>
+            )}
+          </Grid>
+        ))}
+        <IconButton onClick={handleNextClick} disabled={endIndex >= dates.length} sx={{ height: '50px', width: '50px', marginTop: 1 }}>
+          <KeyboardArrowRightIcon />
+        </IconButton>
+      </Grid>
     </div>
   );
 });
