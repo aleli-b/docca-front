@@ -23,7 +23,8 @@ export const SacarTurnoCard = ({ doc }) => {
   const fetchOccupiedTurnos = async () => {
     try {
       const response = await axios.get(`${svHost}/turnos-ocupados?doctorId=${doc.id}`);
-      console.log(response)
+      console.log('esta es la response: ', response)
+      console.log('esta es la response.data: ', response.data)
       if (response.status === 200) {
         const backendOccupiedDates = response.data.map((turno) => {
           const formattedDate = moment(turno.date).format('DD [de] MMMM');
@@ -31,7 +32,8 @@ export const SacarTurnoCard = ({ doc }) => {
           return { dateTime: `${formattedDate} ${hour}`, doctorId: turno.doctorId };
         });
         setOccupiedTurnos(backendOccupiedDates);
-        console.log(occupiedTurnos)
+        console.log('este es el backendOccupiedDates: ', backendOccupiedDates)
+        console.log('este es el state de los turnos: ', occupiedTurnos)
       } else {
         console.log('Failed to fetch occupied turnos:', response.status);
       }
