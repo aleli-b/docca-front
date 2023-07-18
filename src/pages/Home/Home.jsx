@@ -40,9 +40,11 @@ export const Home = () => {
               Tu bienestar es nuestra solución
             </Typography>
             <Box>
-              <Button sx={{ gap: 2, backgroundColor: '#82BF45', '&:hover': { backgroundColor: '#037F8C' } }} variant="contained" href="/especialistas">
+            <Link href="/especialistas">
+              <Button sx={{ gap: 2, backgroundColor: '#82BF45', '&:hover': { backgroundColor: '#037F8C' } }} variant="contained" >
                 Encuentra a tu especialista <ArrowForwardIcon />
               </Button>
+            </Link>
             </Box>
             <Box sx={{ display: 'flex', gap: 2 }}>
               <Link sx={{ gap: 2, color: 'black' }} href='#' underline='hover'>

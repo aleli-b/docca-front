@@ -13,22 +13,32 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useAuth } from '../context/AuthContext';
 import { MenuItem } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export const RegisterForm = () => {
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
+    const [age, setAge] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [userType, setUserType] = React.useState('doctor');
+    const [userType, setUserType] = React.useState('patient');
     const [emailError, setEmailError] = React.useState(false);
     const [passwordError, setPasswordError] = React.useState(false);
+    const [ageError, setAgeError] = React.useState(false);
 
     const auth = useAuth();
+    const navigate = useNavigate();
 
     const validateEmail = (value) => {
         const emailRegex = /.+@.+\..+/;
         setEmail(value);
         setEmailError(!emailRegex.test(value));
+    };
+
+    const validateAge = (value) => {
+        const ageRegex = /^[0-9]+$/;
+        setAge(value);
+        setAgeError(!ageRegex.test(value));
     };
 
     const validatePassword = (value) => {
@@ -45,18 +55,19 @@ export const RegisterForm = () => {
         if (!emailError && !passwordError) {
             const formData = new FormData(event.currentTarget);
             const data = {
-                firstName: formData.get('firstName'),
+                name: formData.get('firstName'),
                 lastName: formData.get('lastName'),
+                age: formData.get('age'),
                 email: formData.get('email'),
                 password: formData.get('password'),
                 userType: formData.get('userType'),
             };
-            auth.register(data); // Reemplaza `login` con la función de registro adecuada
+            auth.register(data)
         }
     };
 
     return (
-        <Container component="main" maxWidth="xs" sx={{ minHeight: '100dvh', display: 'flex', alignItems: 'center'}}>
+        <Container component="main" maxWidth="xs" sx={{ minHeight: '100dvh', display: 'flex', alignItems: 'center' }}>
             <CssBaseline />
             <Box
                 sx={{
@@ -81,9 +92,9 @@ export const RegisterForm = () => {
                         onChange={handleUserTypeChange}
                         margin="normal"
                     >
+                        <MenuItem value="patient">Patient</MenuItem>
                         <MenuItem value="doctor">Doctor</MenuItem>
-                        <MenuItem value="paciente">Paciente</MenuItem>
-                        <MenuItem value="laboratorio">Laboratorio</MenuItem>
+                        <MenuItem value="lab">Lab</MenuItem>
                     </TextField>
                     <TextField
                         onChange={(e) => setFirstName(e.target.value)}
@@ -107,6 +118,19 @@ export const RegisterForm = () => {
                         label="Apellido"
                         name="lastName"
                         autoComplete="family-name"
+                    />
+                    <TextField
+                        onChange={(e) => validateAge(e.target.value)}
+                        value={age}
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="age"
+                        label="Edad"
+                        name="age"
+                        autoComplete="family-name"
+                        error={ageError}
+                        helperText={ageError ? 'Edad inválida' : ''}
                     />
                     <TextField
                         onChange={(e) => validateEmail(e.target.value)}

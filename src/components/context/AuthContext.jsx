@@ -12,6 +12,16 @@ export const AuthProvider = ({ children }) => {
 
     const svHost = import.meta.env.VITE_HOST;
 
+    const register = async (data) => {
+        try {
+            await axios.post(`${svHost}/users`, data);
+            const loginData = {email: data.email, password: data.password};
+            login(loginData);
+        } catch (error) {
+            if (error.tokenInvalid) logout()
+        }
+    }
+
     const login = async (data) => {
         try {
             const loginData = await axios.post(`${svHost}/login`, data);
@@ -35,6 +45,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const auth = {
+        register,
         login,
         logout,
         user,
