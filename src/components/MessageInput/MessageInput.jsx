@@ -14,12 +14,12 @@ export const MessageInput = ({ getMessages }) => {
     const svHost = import.meta.env.VITE_HOST;
     const auth = useAuth();
 
-    const sendMessage = () => {
+    const sendMessage = (value) => {
         axios
             .post(`${svHost}/messages`, {
                 content: messageContent,
                 senderId: auth.user.id,
-                receiverId: messageContent,
+                receiverId: selectedValue,
             })
             .then((response) => {
                 console.log('Message sent:', response.data);
@@ -50,7 +50,7 @@ export const MessageInput = ({ getMessages }) => {
                     onChange={handleChange}
                     label="Selecciona un nombre"
                 >
-                    <MenuItem value="78f9588c-685c-4238-ba50-dc33f262b02e">Pedro</MenuItem>
+                    <MenuItem value="78f9588c-685c-4238-ba50-dc33f262b02e" on>Pedro</MenuItem>
                     <MenuItem value="02f117df-d88c-4e03-a8d1-bd102d33871c">Ale</MenuItem>
                 </Select>
             </FormControl>
