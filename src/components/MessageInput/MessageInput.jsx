@@ -14,7 +14,7 @@ export const MessageInput = ({ getMessages }) => {
       .post(`${svHost}/messages`, {
         content: messageContent,
         senderId: auth.user.id,
-        receiverId: '0757f5ae-1c60-456c-8d57-9f5b541fb7da', // Pass the specific conversationId here
+        receiverId: '78f9588c-685c-4238-ba50-dc33f262b02e',
       })
       .then((response) => {
         console.log('Message sent:', response.data);
