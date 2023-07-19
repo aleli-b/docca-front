@@ -32,6 +32,10 @@ export const Header = () => {
         navigate('/admin');
     };
 
+    const handleMessages = () => {
+        navigate('/messages')
+    }
+
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -98,12 +102,7 @@ export const Header = () => {
                             sx={{
                                 display: { xs: 'block', md: 'none' },
                             }}
-                        >
-
-                            {/* <MenuItem onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">CONSULTA RAPIDA</Typography>
-                            </MenuItem> */}
-
+                        >                    
                             <MenuItem onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">ESPECIALISTAS</Typography>
                             </MenuItem>
@@ -130,16 +129,6 @@ export const Header = () => {
                         DOCAPPOINT
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-
-                        {/* <Button
-                            variant="text"
-                            onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                            href="/consulta"
-                        >
-                            CONSULTA RAPIDA
-                        </Button> */}
-
                         <Button
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}
@@ -189,6 +178,9 @@ export const Header = () => {
                                         }
                                         <MenuItem onClick={() => {handleCloseUserMenu()}}>
                                             <Typography textAlign="center">MEDIOS DE PAGO</Typography>
+                                        </MenuItem>
+                                        <MenuItem onClick={() => {handleCloseUserMenu(); handleMessages()}}>
+                                            <Typography textAlign="center">MENSAJES</Typography>
                                         </MenuItem>
                                         {
                                             auth.user.userType === 'doctor' &&

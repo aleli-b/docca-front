@@ -27,7 +27,6 @@ export const RegisterForm = () => {
     const [ageError, setAgeError] = React.useState(false);
 
     const auth = useAuth();
-    const navigate = useNavigate();
 
     const validateEmail = (value) => {
         const emailRegex = /.+@.+\..+/;
