@@ -1,6 +1,5 @@
-import React from 'react';
-import { Autocomplete, Avatar, Box, Card, CardContent, Grid, IconButton, Link, Typography } from '@mui/material';
-
+import React, { useEffect, useState } from 'react';
+import { Box, Card, CardContent, FormControl, InputLabel, Link, MenuItem, Select, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -8,35 +7,43 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import axios from 'axios';
+import { useMessageContext } from '../context/MessageContext';
+import { toast } from 'react-toastify';
+
+
 export const Mensajeria = () => {
-  const redesSociales = [
-    {
-      id: 1,
-      nombre: 'Facebook',
-      enlace: 'https://www.facebook.com/tu_perfil'
-    },
-    {
-      id: 2,
-      nombre: 'Instagram',
-      enlace: 'https://www.instagram.com/tu_perfil'
-    },
-    {
-      id: 3,
-      nombre: 'LinkedIn',
-      enlace: 'https://www.linkedin.com/in/tu_perfil'
-    },
-    {
-      id: 4,
-      nombre: 'GitHub',
-      enlace: 'https://github.com/tu_perfil'
-    },
-    {
-      id: 5,
-      nombre: 'Twitter',
-      enlace: 'https://twitter.com/tu_perfil'
+  const [open, setOpen] = useState(false);
+  const [doctors, setDoctors] = React.useState([])
+  const [messageContent, setMessageContent] = useState('');
+  const [selectedValue, setSelectedValue] = useState('');
+
+  const { sendMessage, getMessages } = useMessageContext();
+
+  const svHost = import.meta.env.VITE_HOST;
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
+  const getDoctors = async () => {
+    const userData = await axios.get(`${svHost}/doctors`);
+    setDoctors(userData.data);
+  }
+  useEffect(() => {
+    getDoctors();
+  }, []);
+
+  const handleSubmit = async () => {
+    setMessageContent('');
+    if (selectedValue === '') {
+      toast.error('Selecciona un usuario a mensajear');
+    } else {      
+        await sendMessage(messageContent, selectedValue);
+        getMessages();
+        toast.success('Mensaje enviado con exito');     
     }
-  ];
-  const [open, setOpen] = React.useState(false);
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -45,10 +52,7 @@ export const Mensajeria = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const top100Films = [
-    { label: 'Doctor 1 Cardiologo', year: 1994 },
-    { label: 'Doctor 2 Otorrinolaringolo', year: 1972 },
-    { label: 'Doctor 3 Medico Clinico', year: 1974 },]
+
   return (
     <Card sx={{ padding: 1 }}>
       <CardContent>
@@ -56,49 +60,44 @@ export const Mensajeria = () => {
           Mensajeria
         </Typography>
         <Box>
-
-
           <Link target="_blank" rel="noopener noreferrer" underline="none" color="inherit">
-            {/* {redSocial.nombre} */}
             <div>
-              <Button   variant="contained" color="primary" onClick={handleClickOpen}>
+              <Button variant="contained" color="primary" onClick={handleClickOpen}>
                 Chat con Doctores
               </Button>
               <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Mensaje</DialogTitle>
-                <DialogContent>
-                  <DialogContentText>
-                    Seleccione Un Doctor Para Chatear
-                  </DialogContentText>
-                  <Autocomplete
-                    disablePortal
-                    id="combo-box-demo"
-                    options={top100Films}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label="Doctores" />}
-                  />
-
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Mensaje"
-                    type="email"
-                    fullWidth
-                    variant="standard"
-                  />
+                <DialogContent >
+                  <FormControl variant="outlined" sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                    <DialogContentText id="select-label">Selecciona un nombre</DialogContentText>
+                    <Select
+                      labelId="select-label"
+                      id="select"
+                      value={selectedValue}
+                      onChange={handleChange}
+                      label="asdasd"
+                    >
+                      {doctors.map((doctor) => (
+                        <MenuItem key={doctor.id} value={doctor.id}>{`Dr. ${doctor.name} ${doctor.lastName}`}</MenuItem>
+                      ))}
+                    </Select>
+                    <TextField
+                      label="Type your message"
+                      variant="outlined"
+                      value={messageContent}
+                      onChange={(e) => setMessageContent(e.target.value)}
+                    />
+                    <Button variant="contained" onClick={handleSubmit}>
+                      Enviar
+                    </Button>
+                  </FormControl>
                 </DialogContent>
                 <DialogActions>
-                  <Button  onClick={handleClose}>Cancelar</Button>
-                  <Button   onClick={handleClose}>Enviar</Button>
+                  <Button onClick={handleClose}>Cancelar</Button>
                 </DialogActions>
               </Dialog>
             </div>
-
           </Link>
-
-
-
         </Box>
       </CardContent>
     </Card>

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
+import { useMessageContext } from '../../components/context/MessageContext';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -12,6 +13,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import { useAuth } from '../../components/context/AuthContext';
 import './Header.css'
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +24,13 @@ export const Header = () => {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
     const auth = useAuth();
+    const { conversations } = useMessageContext();
     const navigate = useNavigate();
+
+    const totalMessages = conversations.reduce(
+        (total, conversation) => total + conversation.messages.length,
+        0
+      );
 
     const handleProfile = () => {
         navigate('/perfil');
@@ -53,8 +61,8 @@ export const Header = () => {
     return (
         <AppBar position="static" id='navBar'>
             <Container maxWidth="xl">
-                <Toolbar disableGutters>                    
-                    <img src={docca} style={{ height: '5rem', width: '5rem'}}/>
+                <Toolbar disableGutters>
+                    <img src={docca} style={{ height: '5rem', width: '5rem' }} />
                     <Typography
                         variant="h6"
                         noWrap
@@ -102,7 +110,7 @@ export const Header = () => {
                             sx={{
                                 display: { xs: 'block', md: 'none' },
                             }}
-                        >                    
+                        >
                             <MenuItem onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">ESPECIALISTAS</Typography>
                             </MenuItem>
@@ -142,10 +150,16 @@ export const Header = () => {
                         {
                             auth.user
                                 ?
-                                <div>
+                                <Container sx={{ display: 'flex', alignItems: 'center', gap: 2, }}>
+                                    <Container sx={{display: 'flex', alignItems: 'center',}}>
+                                        <Button sx={{ color: 'white', }} onClick={() => { handleMessages() }}>
+                                            <QuestionAnswerIcon />
+                                        </Button>
+                                        <div style={{backgroundColor: 'red', borderRadius: 100, textAlign: 'center', minHeight: '1.5rem', minWidth: '1.5rem '}}>{totalMessages}</div>
+                                    </Container>
                                     <Tooltip title="Open settings">
                                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                            <Avatar alt="Remy Sharp"/>
+                                            <Avatar alt="Remy Sharp" />
                                         </IconButton>
                                     </Tooltip>
                                     <Menu
@@ -164,29 +178,26 @@ export const Header = () => {
                                         open={Boolean(anchorElUser)}
                                         onClose={handleCloseUserMenu}
                                     >
-                                        <MenuItem onClick={() => {handleCloseUserMenu(); handleProfile()}}>
+                                        <MenuItem onClick={() => { handleCloseUserMenu(); handleProfile() }}>
                                             <Typography textAlign="center">PERFIL</Typography>
                                         </MenuItem>
-                                        <MenuItem onClick={() => {handleCloseUserMenu()}}>
+                                        <MenuItem onClick={() => { handleCloseUserMenu() }}>
                                             <Typography textAlign="center">MIS CONSULTAS</Typography>
                                         </MenuItem>
                                         {
                                             auth.user.userType === 'doctor' &&
-                                        <MenuItem onClick={() => {handleCloseUserMenu()}}>
-                                            <Typography textAlign="center">AGENDA</Typography>
-                                        </MenuItem>
+                                            <MenuItem onClick={() => { handleCloseUserMenu() }}>
+                                                <Typography textAlign="center">AGENDA</Typography>
+                                            </MenuItem>
                                         }
-                                        <MenuItem onClick={() => {handleCloseUserMenu()}}>
+                                        <MenuItem onClick={() => { handleCloseUserMenu() }}>
                                             <Typography textAlign="center">MEDIOS DE PAGO</Typography>
-                                        </MenuItem>
-                                        <MenuItem onClick={() => {handleCloseUserMenu(); handleMessages()}}>
-                                            <Typography textAlign="center">MENSAJES</Typography>
                                         </MenuItem>
                                         {
                                             auth.user.userType === 'doctor' &&
-                                        <MenuItem onClick={() => {handleCloseUserMenu(); handleAdmin()}}>
-                                            <Typography textAlign="center">ADMIN</Typography>
-                                        </MenuItem>
+                                            <MenuItem onClick={() => { handleCloseUserMenu(); handleAdmin() }}>
+                                                <Typography textAlign="center">ADMIN</Typography>
+                                            </MenuItem>
                                         }
 
                                         <MenuItem onClick={auth.logout}>
@@ -194,7 +205,7 @@ export const Header = () => {
                                         </MenuItem>
 
                                     </Menu>
-                                </div>
+                                </Container>
                                 :
                                 <Button
                                     onClick={handleCloseNavMenu}

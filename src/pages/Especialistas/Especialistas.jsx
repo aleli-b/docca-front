@@ -26,9 +26,6 @@ export const Especialistas = () => {
         const userData = await axios.get(`${svHost}/doctors`);
         setDoctors(userData.data);
     }
-    doctors.map((doctor, i) => {
-        console.log(doctor.id)
-    })
 
     const handleCategoryChange = async (category) => {
         try {

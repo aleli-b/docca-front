@@ -1,71 +1,74 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { List, ListItem, ListItemText, Typography, Divider, TextField, Button } from '@mui/material';
-import { useAuth } from '../../components/context/AuthContext';
+import React from 'react';
+import { List, ListItem, ListItemText, Typography, Divider, CircularProgress, Container, } from '@mui/material';
+import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import { MessageInput } from '../../components/MessageInput/MessageInput';
+import { useMessageContext } from '../../components/context/MessageContext';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import './Messages.css'
 
-export const Messages = ({ userId }) => {
-  const [conversations, setConversations] = useState([]);
+export const Messages = () => {
+  const { conversations } = useMessageContext();
 
-  const svHost = import.meta.env.VITE_HOST;
-
-  const auth = useAuth();
-
-  const getMessages = () => {
-    axios.get(`${svHost}/conversations/user?userId=${auth.user.id}`)
-      .then((response) => setConversations(response.data))
-      .catch((error) => console.error('Error fetching conversations:', error));
+  if (conversations.length === 0) {
+    return (
+      <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100dvh' }}>
+        <CircularProgress color="success" />
+      </Container>
+    );
   }
 
-  useEffect(() => {
-    getMessages();
-  }, [userId]);
-
   return (
-    <List>
-      {conversations.map((conversation) => (
-        <React.Fragment key={conversation.id}>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography>{`${conversation.participant2.name} ${conversation.participant2.lastName}`}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>            
-              <ListItem>
-                <ListItemText>
-                  <Typography variant="h6">Conversation ID: {conversation.id}</Typography>
-                  <Typography variant="subtitle1">
-                    Participant 1: {conversation.participant1.name}
-                  </Typography>
-                  <Typography variant="subtitle1">
-                    Participant 2: {conversation.participant2.name}
-                  </Typography>
-                </ListItemText>
-              </ListItem>
-              <Divider />
-              {conversation.messages.map((message, i) => (
-                <ListItem key={message.id}>
+    <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', minHeight: '100dvh', minWidth: '99%', margin: 2 }}>
+      <Typography variant='h1' sx={{ color: '#145C6C', fontSize: '3rem' }}>Mis Conversaciones </Typography>
+      <List>
+        {conversations.map((conversation) => (
+          <React.Fragment key={conversation.id}>
+            <Accordion sx={{ display: 'flex', flexDirection: 'column', margin: 2, }}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                sx={{ backgroundColor: 'gray', padding: 4, }}
+              >
+                <Container id='bardero' sx={{ display: 'flex', gap: 2, justifyContent: 'space-between' }}>
+                  <AddCircleRoundedIcon />
+                  <Typography>{`${conversation.participant2.userType === 'doctor' && 'Dr.' || ''} ${conversation.participant2.name} ${conversation.participant2.lastName}`}</Typography>
+                  <Typography>{`${conversation.participant2.category || 'paciente'}`}</Typography>
+                </Container>
+              </AccordionSummary>
+              <AccordionDetails>
+                <ListItem>
                   <ListItemText>
-                    <Typography variant="body1">{message.content}</Typography>
-                    <Typography variant="caption">
-                      Sent by: {message.sender.name} | Received by: {message.receiver.name}
+                    <Typography variant="h6">Conversation ID: {conversation.id}</Typography>
+                    <Typography variant="subtitle1">
+                      Participant 1: {conversation.participant1.name}
+                    </Typography>
+                    <Typography variant="subtitle1">
+                      Participant 2: {conversation.participant2.name} {conversation.participant2.id}
                     </Typography>
                   </ListItemText>
                 </ListItem>
-              ))}
-              <Divider />
-              <MessageInput getMessages={getMessages}/>
-            </AccordionDetails>
-          </Accordion>
-        </React.Fragment>
-      ))}
-    </List>
+                <Divider />
+                {conversation.messages.map((message) => (
+                  <ListItem key={message.id}>
+                    <ListItemText>
+                      <Typography variant="body1">{message.content}</Typography>
+                      <Typography variant="caption">
+                        Sent by: {message.sender.name} | Received by: {message.receiver.name}
+                      </Typography>
+                    </ListItemText>
+                  </ListItem>
+                ))}
+                <Divider />
+                <MessageInput doctorId={conversation.participant2.id} />
+              </AccordionDetails>
+            </Accordion>
+          </React.Fragment>
+        ))}
+      </List>
+    </Container>
   );
 };

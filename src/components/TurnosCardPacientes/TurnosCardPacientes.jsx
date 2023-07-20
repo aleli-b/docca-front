@@ -6,6 +6,8 @@ import { useAuth } from '../context/AuthContext';
 
 export const TurnosCardPacientes = () => {
   const [turnos, setTurnos] = useState([]);
+  
+  const svHost = import.meta.env.VITE_HOST;
 
   const auth = useAuth();
 
