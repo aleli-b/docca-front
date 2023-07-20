@@ -8,6 +8,7 @@ export const MessageContext = createContext();
 
 export const MessageProvider = ({ children }) => {
     const [conversations, setConversations] = useState([]);
+    const [loading, setLoading] = useState(true);
     const svHost = import.meta.env.VITE_HOST;
     const auth = useAuth()
 
@@ -15,8 +16,6 @@ export const MessageProvider = ({ children }) => {
         axios.get(`${svHost}/conversations/user?userId=${auth.user.id}`)
             .then((response) => {
                 const conversationsData = response.data;
-                setConversations(conversationsData);
-
                 const updatedConversations = conversationsData.map((conversation) => {
                     if (
                         `${auth.user.name} ${auth.user.lastName}` ===
@@ -33,6 +32,7 @@ export const MessageProvider = ({ children }) => {
                 });
                 
                 setConversations(updatedConversations);
+                setLoading(false);
             })
             .catch((error) => console.error('Error fetching conversations:', error));
     }
@@ -64,6 +64,7 @@ export const MessageProvider = ({ children }) => {
 
     const value = {
         conversations,
+        loading,
         getMessages,
         sendMessage,
     };

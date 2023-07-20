@@ -10,18 +10,23 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import './Messages.css'
 
 export const Messages = () => {
-  const { conversations } = useMessageContext();
+  const { conversations, loading } = useMessageContext();
 
-  if (conversations.length === 0) {
+  if (loading) {
     return (
       <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100dvh' }}>
         <CircularProgress color="success" />
       </Container>
     );
   }
-  conversations.map((conversation, i) => {
-    console.log(conversation.participant2)
-  })
+
+  if (conversations.length === 0) {
+    return (
+      <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+        <p>No conversations found.</p>
+      </Container>
+    );
+  }
 
   return (
     <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', minHeight: '100dvh', minWidth: '99%', margin: 2 }}>
