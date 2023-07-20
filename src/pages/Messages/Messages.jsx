@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { List, ListItem, ListItemText, Typography, Divider, CircularProgress, Container, } from '@mui/material';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import { MessageInput } from '../../components/MessageInput/MessageInput';
@@ -10,7 +10,13 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import './Messages.css'
 
 export const Messages = () => {
-  const { conversations, loading } = useMessageContext();
+  const { conversations, loading, joinConversation  } = useMessageContext();
+
+  useEffect(() => {    
+    conversations.forEach((conversation) => {
+      joinConversation(conversation.id);
+    });
+  }, [conversations, joinConversation]);
 
   if (loading) {
     return (
@@ -27,6 +33,7 @@ export const Messages = () => {
       </Container>
     );
   }
+  console.log(conversations)
 
   return (
     <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', minHeight: '100dvh', minWidth: '99%', margin: 2 }}>
@@ -60,16 +67,19 @@ export const Messages = () => {
                   </ListItemText>
                 </ListItem>
                 <Divider />
-                {conversation.messages.map((message) => (
-                  <ListItem key={message.id}>
-                    <ListItemText>
-                      <Typography variant="body1">{message.content}</Typography>
-                      <Typography variant="caption">
-                        Sent by: {message.sender.name} | Received by: {message.receiver.name}
-                      </Typography>
-                    </ListItemText>
-                  </ListItem>
-                ))}
+                {conversation.messages
+                  .slice() 
+                  .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+                  .map((message, i) => (
+                    <ListItem key={i}>
+                      <ListItemText>
+                        <Typography variant="body1">{message.content}</Typography>
+                        <Typography variant="caption">  
+                
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+                  ))}
                 <Divider />
                 <MessageInput doctorId={conversation.participant2.id} />
               </AccordionDetails>

@@ -18,13 +18,19 @@ export const Mensajeria = () => {
   const [messageContent, setMessageContent] = useState('');
   const [selectedValue, setSelectedValue] = useState('');
 
-  const { sendMessage, getMessages } = useMessageContext();
+  const { sendMessage, getMessages, joinConversation, conversations } = useMessageContext();
 
   const svHost = import.meta.env.VITE_HOST;
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
+
+  useEffect(() => {    
+    conversations.forEach((conversation) => {
+      joinConversation(conversation.id);
+    });
+  }, [conversations, joinConversation]);
 
   const getDoctors = async () => {
     const userData = await axios.get(`${svHost}/doctors`);
