@@ -59,8 +59,13 @@ export const MessageProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        getMessages();
-    }, [auth.user.id]);
+        if(auth.user){
+            getMessages();
+        } else {
+            setConversations([]);
+            setLoading(false);
+        }
+    }, [auth.user]);
 
     const value = {
         conversations,

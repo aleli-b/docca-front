@@ -18,7 +18,6 @@ import { createTheme, CssBaseline } from "@mui/material";
 import { Turnos } from "./pages/Turnos/Turnos";
 import { Register } from "./pages/Register/Register";
 import { AdminRoute } from "./components/guard/AdminRoute";
-import { useAuth } from "./components/context/AuthContext";
 import { Messages } from "./pages/Messages/Messages";
 
 const router = createBrowserRouter([
@@ -31,7 +30,6 @@ export default function App() {
 }
 
 function Root() {
-  const auth = useAuth();
 
   const darkTheme = createTheme({
     palette: {
@@ -52,9 +50,9 @@ function Root() {
 
   return (
     <>
-      <ThemeProvider theme={darkTheme}>
-        <AuthProvider>
-          <MessageProvider>
+      <AuthProvider>
+        <MessageProvider>
+          <ThemeProvider theme={darkTheme}>
             <CssBaseline />
             <Header />
             <Routes>
@@ -70,9 +68,9 @@ function Root() {
               <Route path="/messages/*" element={<Messages />} />
             </Routes>
             <Footer />
-          </MessageProvider>
-        </AuthProvider>
-      </ThemeProvider>
+          </ThemeProvider>
+        </MessageProvider>
+      </AuthProvider>
     </>
   )
 }
