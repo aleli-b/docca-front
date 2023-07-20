@@ -19,6 +19,9 @@ export const Messages = () => {
       </Container>
     );
   }
+  conversations.map((conversation, i) => {
+    console.log(conversation.participant2)
+  })
 
   return (
     <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', minHeight: '100dvh', minWidth: '99%', margin: 2 }}>
