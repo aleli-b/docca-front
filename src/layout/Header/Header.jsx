@@ -30,7 +30,7 @@ export const Header = () => {
     const totalMessages = conversations.reduce(
         (total, conversation) => total + conversation.messages.length,
         0
-      );
+    );
 
     const handleProfile = () => {
         navigate('/perfil');
@@ -81,7 +81,6 @@ export const Header = () => {
                     >
                         DOCAPPOINT
                     </Typography>
-
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
@@ -117,7 +116,6 @@ export const Header = () => {
 
                         </Menu>
                     </Box>
-                    <LocalHospitalIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                     <Typography
                         variant="h5"
                         noWrap
@@ -125,7 +123,7 @@ export const Header = () => {
                         href="/"
                         sx={{
                             mr: 2,
-                            display: { xs: 'flex', md: 'none' },
+                            display: { xs: 'none', md: 'none' },
                             flexGrow: 1,
                             fontFamily: 'monospace',
                             fontWeight: 700,
@@ -150,12 +148,12 @@ export const Header = () => {
                         {
                             auth.user
                                 ?
-                                <Container id='kilombero' sx={{ display: 'flex', alignItems: 'center', gap: 2,}}>
-                                    <Container sx={{display: 'flex', alignItems: 'center',}}>
+                                <Container id='kilombero' sx={{ display: 'flex', alignItems: 'center', gap: 2, }}>
+                                    <Container sx={{ display: 'flex', alignItems: 'center', }}>
                                         <Button sx={{ color: 'white', }} onClick={() => { handleMessages() }}>
                                             <QuestionAnswerIcon />
+                                            <div style={{ backgroundColor: 'red', borderRadius: 100, textAlign: 'center', minHeight: '1.5rem', minWidth: '1.5rem ', position: 'relative', bottom: '8px' }}>{totalMessages}</div>
                                         </Button>
-                                        <div style={{backgroundColor: 'red', borderRadius: 100, textAlign: 'center', minHeight: '1.5rem', minWidth: '1.5rem '}}>{totalMessages}</div>
                                     </Container>
                                     <Tooltip title="Open settings">
                                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

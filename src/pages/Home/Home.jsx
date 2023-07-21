@@ -21,8 +21,8 @@ export const Home = () => {
             minHeight: '100vh',
             width: '100%'
           }}>
-          <Grid item md={6} sx={{ display: 'flex', justifyContent: 'center', padding: 4, height: '80dvh'  }}>
-            <img src={esteto} style={{ minHeight: '100%' }} />
+          <Grid item md={6} sx={{ display: {xs: 'none', md: 'flex'}, justifyContent: 'center', padding: 4, height: '80dvh'  }}>
+            <img src={esteto} style={{ minHeight: '100%', }} />
           </Grid>
           <Grid item md={6}
             sx={{
