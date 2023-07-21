@@ -12,7 +12,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import { useAuth } from '../../components/context/AuthContext';
 import './Header.css'
@@ -22,6 +21,14 @@ import docca from '../../assets/Ic2.svg'
 export const Header = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [anchorElReg, setAnchorElReg] = React.useState(null);
+
+    React.useEffect(() => {
+        handleCloseUserMenu(); // This will close the user menu when the component mounts
+        return () => {
+          handleCloseUserMenu(); // This will also close the user menu when navigating away from the current page
+        };
+      }, []);
 
     const auth = useAuth();
     const { conversations } = useMessageContext();
@@ -47,8 +54,13 @@ export const Header = () => {
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
+
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
+    };
+
+    const handleOpenRegMenu = (event) => {
+        setAnchorElReg(event.currentTarget);
     };
 
     const handleCloseNavMenu = () => {
@@ -58,6 +70,15 @@ export const Header = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const handleCloseRegMenu = () => {
+        setAnchorElReg(null);
+    };
+
+    const handleRegister = (userValue) => {
+        navigate(`/register-${userValue}`);
+    }
+
     return (
         <AppBar position="static" id='navBar'>
             <Container maxWidth="xl">
@@ -93,7 +114,7 @@ export const Header = () => {
                             <MenuIcon />
                         </IconButton>
                         <Menu
-                            id="menu-appbar"
+                            id="nav-appbar"
                             anchorEl={anchorElNav}
                             anchorOrigin={{
                                 vertical: 'bottom',
@@ -113,7 +134,6 @@ export const Header = () => {
                             <MenuItem onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">ESPECIALISTAS</Typography>
                             </MenuItem>
-
                         </Menu>
                     </Box>
                     <Typography
@@ -162,7 +182,7 @@ export const Header = () => {
                                     </Tooltip>
                                     <Menu
                                         sx={{ mt: '45px' }}
-                                        id="menu-appbar"
+                                        id="user-appbar"
                                         anchorEl={anchorElUser}
                                         anchorOrigin={{
                                             vertical: 'top',
@@ -201,17 +221,52 @@ export const Header = () => {
                                         <MenuItem onClick={auth.logout}>
                                             <Typography textAlign="center">CERRAR SESION</Typography>
                                         </MenuItem>
-
                                     </Menu>
                                 </Container>
                                 :
-                                <Button
-                                    onClick={handleCloseNavMenu}
-                                    sx={{ mr: 2, color: 'white', display: 'block', }}
-                                    href="login"
-                                >
-                                    INICIO SESION
-                                </Button>
+                                <Container sx={{ display: 'flex' }}>
+                                    <Button
+                                        onClick={handleCloseNavMenu}
+                                        sx={{ mr: 2, color: 'white', display: 'block', }}
+                                        href="login"
+                                    >
+                                        INICIO SESION
+                                    </Button>
+                                    <Tooltip title="Ver Opciones">
+                                        <Button
+                                            onClick={handleOpenRegMenu}
+                                            sx={{ mr: 2, color: 'white', display: 'block' }}
+                                        >
+                                            REGISTRARSE
+                                        </Button>
+                                    </Tooltip>
+                                    <Menu
+                                        sx={{ mt: '45px' }}
+                                        id="reg-appbar"
+                                        anchorEl={anchorElReg}
+                                        anchorOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        keepMounted
+                                        transformOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        open={Boolean(anchorElReg)}
+                                        onClose={handleCloseRegMenu}
+                                    >
+                                        <MenuItem onClick={() => { handleRegister('doctor'); handleCloseRegMenu() }}>
+                                            <Typography textAlign="center">COMO DOCTOR</Typography>
+                                        </MenuItem>
+                                        <MenuItem onClick={() => { handleRegister('laboratorio'); handleCloseRegMenu() }}>
+                                            <Typography textAlign="center">COMO LABORATORIO</Typography>
+                                        </MenuItem>
+                                        <MenuItem onClick={() => { handleRegister('paciente'); handleCloseRegMenu() }}>
+                                            <Typography textAlign="center">COMO PACIENTE</Typography>
+                                        </MenuItem>
+                                    </Menu>
+                                </Container>
                         }
                     </Box>
                 </Toolbar>

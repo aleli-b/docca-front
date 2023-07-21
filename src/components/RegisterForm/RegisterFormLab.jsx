@@ -12,13 +12,16 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useAuth } from '../context/AuthContext';
+import { MenuItem } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-export const RegisterForm = () => {
+export const RegisterFormLab = () => {
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
     const [age, setAge] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [userType, setUserType] = React.useState('patient');
     const [emailError, setEmailError] = React.useState(false);
     const [passwordError, setPasswordError] = React.useState(false);
     const [ageError, setAgeError] = React.useState(false);
@@ -42,6 +45,10 @@ export const RegisterForm = () => {
         setPasswordError(value.length === 0);
     };
 
+    const handleUserTypeChange = (event) => {
+        setUserType(event.target.value);
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
         if (!emailError && !passwordError) {
@@ -52,7 +59,7 @@ export const RegisterForm = () => {
                 age: formData.get('age'),
                 email: formData.get('email'),
                 password: formData.get('password'),
-                userType: 'patient',
+                userType: 'lab',
             };
             auth.register(data)
         }
@@ -72,7 +79,7 @@ export const RegisterForm = () => {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Registrarse
+                    Registrarse como laboratorio
                 </Typography>
                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>                    
                     <TextField
@@ -146,11 +153,16 @@ export const RegisterForm = () => {
                         Registrarse
                     </Button>
                     <Grid container>
-                        <Grid items xs={12}>
+                        <Grid item xs>
                             <Link href="#" variant="body2">
                                 ¿Olvidaste tu contraseña?
                             </Link>
-                        </Grid>                        
+                        </Grid>
+                        <Grid item>
+                            <Link href="#" variant="body2">
+                                ¿No tienes cuenta? Regístrate
+                            </Link>
+                        </Grid>
                     </Grid>
                 </Box>
             </Box>

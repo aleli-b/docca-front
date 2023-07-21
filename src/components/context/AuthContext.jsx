@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
                 theme: "light",
             });
             setTimeout(() => {
-                navigate('/');
+                window.location.href = '/';
                 setUser(loginData.data.user);
                 setToken(loginData.data.token);
             }, 3600)

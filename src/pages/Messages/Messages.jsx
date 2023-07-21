@@ -38,7 +38,7 @@ export const Messages = () => {
   return (
     <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', minHeight: '100dvh', minWidth: '99%', margin: 2 }}>
       <Typography variant='h1' sx={{ color: '#145C6C', fontSize: '3rem' }}>Mis Conversaciones </Typography>
-      <List>
+      <List sx={{ justifySelf: 'center'}}>
         {conversations.map((conversation) => (
           <React.Fragment key={conversation.id}>
             <Accordion sx={{ display: 'flex', flexDirection: 'column', margin: 2, }}>

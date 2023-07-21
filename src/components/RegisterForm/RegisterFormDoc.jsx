@@ -12,8 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useAuth } from '../context/AuthContext';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
-export const RegisterForm = () => {
+export const RegisterFormDoc = () => {
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
     const [age, setAge] = React.useState('');
@@ -22,6 +23,7 @@ export const RegisterForm = () => {
     const [emailError, setEmailError] = React.useState(false);
     const [passwordError, setPasswordError] = React.useState(false);
     const [ageError, setAgeError] = React.useState(false);
+    const [category, setCategory] = React.useState('')
 
     const auth = useAuth();
 
@@ -42,6 +44,10 @@ export const RegisterForm = () => {
         setPasswordError(value.length === 0);
     };
 
+    const handleCategoryChange = (event) => {
+        setCategory(event.target.value);
+      };
+
     const handleSubmit = (event) => {
         event.preventDefault();
         if (!emailError && !passwordError) {
@@ -52,8 +58,10 @@ export const RegisterForm = () => {
                 age: formData.get('age'),
                 email: formData.get('email'),
                 password: formData.get('password'),
-                userType: 'patient',
+                userType: 'doctor',
+                category: category,
             };
+            console.log(data)
             auth.register(data)
         }
     };
@@ -72,9 +80,25 @@ export const RegisterForm = () => {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Registrarse
+                    Registrarse como doctor
                 </Typography>
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>                    
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <FormControl fullWidth margin="normal">
+                        <InputLabel id="category-label">Especialidad</InputLabel>
+                        <Select
+                            labelId="category-label"
+                            id="category"
+                            value={category}
+                            label="Especialidad"
+                            onChange={handleCategoryChange}
+                        >
+                            <MenuItem value="otorrinolaringologo">Otorrinolaringólogo</MenuItem>
+                            <MenuItem value="odontologo">Odontólogo</MenuItem>
+                            <MenuItem value="endocrinologo">Endocrinólogo</MenuItem>
+                            <MenuItem value="infectologo">Infectólogo</MenuItem>
+                            <MenuItem value="cardiologo">Cardiólogo</MenuItem>
+                        </Select>
+                    </FormControl>
                     <TextField
                         onChange={(e) => setFirstName(e.target.value)}
                         value={firstName}
@@ -146,11 +170,16 @@ export const RegisterForm = () => {
                         Registrarse
                     </Button>
                     <Grid container>
-                        <Grid items xs={12}>
+                        <Grid item xs>
                             <Link href="#" variant="body2">
                                 ¿Olvidaste tu contraseña?
                             </Link>
-                        </Grid>                        
+                        </Grid>
+                        <Grid item>
+                            <Link href="#" variant="body2">
+                                ¿No tienes cuenta? Regístrate
+                            </Link>
+                        </Grid>
                     </Grid>
                 </Box>
             </Box>

@@ -94,7 +94,7 @@ export const Especialistas = () => {
                             display: 'flex',
                             justifyContent: 'center',
                             flexWrap: 'wrap',
-                            gap: 5,
+                            gap: 2,
                             borderRadius: '12px',
                         }}>
                             {
