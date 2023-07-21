@@ -17,41 +17,44 @@ export const Home = () => {
           sx={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-around',
-            minHeight: '100vh',
-            width: '100%'
+            justifyContent: 'center',
+            minHeight: '100dvh',
           }}>
-          <Grid item md={6} sx={{ display: {xs: 'none', md: 'flex'}, justifyContent: 'center', padding: 4, height: '80dvh'  }}>
+          <Grid item md={4} sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'center', height: '80dvh' }}>
             <img src={esteto} style={{ minHeight: '100%', }} />
           </Grid>
-          <Grid item md={6}
+          <Grid item md={3}
             sx={{
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'space-around',
               gap: 1,
-              height: '80dvh'
+              height: '60dvh'
             }}>
             <Typography variant="h2" component="h1" textAlign='center'>
-              Bienvenido <br/> a Docappoint.
+              Bienvenido <br /> a Docappoint.
             </Typography>
             <Typography variant="h4" component="h2" align="center">
               Tu bienestar es nuestra solución
             </Typography>
-            <Box>
-            <Link href="/especialistas">
-              <Button sx={{ gap: 2, backgroundColor: '#82BF45', '&:hover': { backgroundColor: '#037F8C' } }} variant="contained" >
-                Encuentra a tu especialista <ArrowForwardIcon />
-              </Button>
-            </Link>
-            </Box>
-            <Box sx={{ display: 'flex', gap: 2 }}>
-              <Link sx={{ gap: 2, color: 'black' }} href='#' underline='hover'>
-                Soy Doctor
+            <Box sx={{ display: 'flex', gap: 12}}>
+              <Link sx={{ color: 'black' }} href='#'>
+                <Button variant='contained' sx={{ borderRadius: '20px', width: '12em' }}>
+                  Soy Doctor
+                </Button>
               </Link>
-              <Link sx={{ gap: 2, color: 'black' }} href='#' underline='hover'>
-                Soy Laboratorio
+              <Link sx={{ color: 'black' }} href='#'>
+                <Button variant='contained' sx={{ borderRadius: '20px', width: '12em' }}>
+                  Soy Laboratorio
+                </Button>
+              </Link>
+            </Box>
+            <Box>
+              <Link href="/especialistas">
+                <Button sx={{ gap: 2, backgroundColor: '#82BF45', '&:hover': { backgroundColor: '#037F8C' }, borderRadius: '20px' }} variant="contained" >
+                  Encuentra a tu especialista <ArrowForwardIcon />
+                </Button>
               </Link>
             </Box>
           </Grid>
