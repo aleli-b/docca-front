@@ -150,7 +150,7 @@ export const Header = () => {
                         {
                             auth.user
                                 ?
-                                <Container sx={{ display: 'flex', alignItems: 'center', gap: 2, }}>
+                                <Container id='kilombero' sx={{ display: 'flex', alignItems: 'center', gap: 2,}}>
                                     <Container sx={{display: 'flex', alignItems: 'center',}}>
                                         <Button sx={{ color: 'white', }} onClick={() => { handleMessages() }}>
                                             <QuestionAnswerIcon />

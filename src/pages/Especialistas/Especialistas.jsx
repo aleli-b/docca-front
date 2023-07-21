@@ -66,15 +66,15 @@ export const Especialistas = () => {
     return (
         <>
             <CssBaseline />
-
             <Grid container
                 sx={{
                     display: 'flex',
                     minHeight: '100vh',
                     padding: 4,
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    flexDirection: {xs: 'column', md: 'row'}
                 }} spacing={2}>
-                <Grid item md={2}>
+                <Grid item xs={12} md={2}>
                     <FilterSideBar handleCategoryChange={handleCategoryChange} />
                 </Grid>
                 <Grid item
@@ -82,6 +82,7 @@ export const Especialistas = () => {
 
                     }}
                     id="doctor-container"
+                    xs={12}
                     md={10}
                 >
                     {loading ? (

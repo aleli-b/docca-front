@@ -17,15 +17,15 @@ export const FilterSideBar = ({ handleCategoryChange }) => {
 
 
     return (
-        <Card sx={{ minHeight: '85dvh', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 2, position: 'sticky', top: '15px', gap: 2 }}>
+        <Card sx={{  display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 2, position: {xs: 'inherit', md: 'sticky'}, top: '15px', gap: 2, minHeight: {sx: 'inherit', md: '100dvh'} }}>
             <Typography variant='p'>Filtrar Por:</Typography>
-            <FormControl sx={{ minWidth: 200, }}>
+            <FormControl sx={{minWidth: '80%', margin: 2}}>
                 <InputLabel htmlFor="select-option">Especialidad</InputLabel>
                 <Select
                     value={selectedOption}
                     onChange={handleChange}
                     label="Select Option"
-                    id="select-option"
+                    id="select-option"                    
                 >
                     <MenuItem value="">
                         <em>Ninguna</em>

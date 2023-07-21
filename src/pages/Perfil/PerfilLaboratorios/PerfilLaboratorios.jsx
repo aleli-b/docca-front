@@ -44,7 +44,7 @@ export const PerfilLaboratorios = () => {
                     </Card>
                     <Mensajeria />
                 </Grid>
-                <Grid item md={8}>
+                <Grid item md={8} xs={12}>
                     <Card sx={{  }}>
                         <CardContent >
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid white 1px', padding: '18.7px' }}>

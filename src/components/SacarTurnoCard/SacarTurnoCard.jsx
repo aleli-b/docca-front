@@ -10,12 +10,34 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
   const [startIndex, setStartIndex] = useState(0);
+  const [numColumns, setNumColumns] = useState(4);
 
   const auth = useAuth();
   const doctor = doc;
   const occupiedTurnos = turnos;
 
   const svHost = import.meta.env.VITE_HOST;
+
+  const updateNumColumns = () => {
+    if (window.innerWidth < 600) {
+      // For smaller devices, display 1 column
+      setNumColumns(1);
+    } else if (window.innerWidth < 960) {
+      // For medium-sized devices, display 2 columns
+      setNumColumns(2);
+    } else {
+      // For larger devices, display 4 columns
+      setNumColumns(4);
+    }
+  }
+
+  useEffect(() => {
+    updateNumColumns();
+    window.addEventListener('resize', updateNumColumns);
+    return () => {
+      window.removeEventListener('resize', updateNumColumns);
+    };
+  }, []);
 
   const generateDates = () => {
     const today = moment();
@@ -54,7 +76,7 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
 
   const dates = generateDates();
 
-  const endIndex = Math.min(startIndex + 4, dates.length);
+  const endIndex = Math.min(startIndex + numColumns, dates.length);
 
   const handlePrevClick = () => {
     setStartIndex(Math.max(startIndex - 1, 0));
@@ -91,10 +113,10 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
           progress: undefined,
           theme: "light",
         })
-      } 
+      }
     } catch (error) {
       const status = error.response ? error.response.status : null;
-      if (status === 400){
+      if (status === 400) {
         toast.error('El usuario ya tiene turno', {
           position: "top-right",
           autoClose: 5000,
@@ -105,7 +127,7 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
           progress: undefined,
           theme: "light",
         })
-      } else{
+      } else {
         toast.error('Error al sacar turno', {
           position: "top-right",
           autoClose: 5000,
@@ -122,8 +144,8 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
 
   const handleTimeClick = (dateTime) => {
     try {
-      const userId = auth.user.id      
-      const doctorId = doctor.id    
+      const userId = auth.user.id
+      const doctorId = doctor.id
       addTurno(dateTime, userId, doctorId);
     } catch (error) {
       toast.error('Debes iniciar sesion', {
@@ -151,12 +173,12 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
 
   return (
     <div>
-      <Grid container spacing={2} sx={{ display: 'flex', flexWrap: 'nowrap' }}>        
+      <Grid container spacing={2} sx={{ display: 'flex', flexWrap: 'nowrap' }}>
         <IconButton onClick={handlePrevClick} disabled={startIndex === 0} sx={{ height: '50px', width: '50px', marginTop: 1 }}>
           <KeyboardArrowLeftIcon />
         </IconButton>
         {dates.slice(startIndex, endIndex).map((date, i) => (
-          <Grid item xs={3} key={i} sx={{ display: 'flex', flexDirection: 'column' }}>
+          <Grid item xs={12} md={3} key={i} sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography component="div">{date.label}</Typography>
             <Typography variant="body2" gutterBottom color="text.secondary" component="div">
               {date.day}

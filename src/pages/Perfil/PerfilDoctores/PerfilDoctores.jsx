@@ -14,7 +14,7 @@ export const PerfilDoctores = () => {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, justifyContent: 'center', paddingX: '20px', margin: 3.2, minHeight: '77.5dvh' }}>
             <Grid container spacing={2} sx={{ margin: '' }}>
-                <Grid item md={4} sx={{ marginRight: '', }}>
+                <Grid item md={4} xs={12} sx={{ }}>
                     <Card sx={{  }}>
                         <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
                         <CardMedia sx={{ display: 'flex', justifyContent: 'center', width: '100%', borderRadius: '2px', padding: 2 }}>
@@ -35,8 +35,8 @@ export const PerfilDoctores = () => {
                         </CardContent>
                     </Card>
                 </Grid>
-                <Grid item md={8}>
-                    <Card sx={{  }}>
+                <Grid item md={8} xs={12}>
+                    <Card sx={{ minHeight: '100%' }}>
                         <CardContent >
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid gray 1px', padding: '18.7px' }}>
                                 <Typography>Nombre:</Typography>
@@ -63,13 +63,13 @@ export const PerfilDoctores = () => {
                 </Grid>
             </Grid>
             <Grid container spacing={2}>
-                <Grid item md={4}>
+                <Grid item md={4} xs={12}>
                     <RedesSocialesCard />
                 </Grid>
-                <Grid item md={4}>
+                <Grid item md={4} xs={12}>
                     <ReseñasCard />
                 </Grid>
-                <Grid item md={4}>
+                <Grid item md={4} xs={12}>
                     <TurnosCardDoctores />
                 </Grid>
             </Grid>

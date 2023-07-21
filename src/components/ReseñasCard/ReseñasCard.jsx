@@ -24,7 +24,7 @@ export const ReseñasCard = () => {
   ];
 
   return (
-    <Card sx={{  }}>
+    <Card sx={{ minHeight: '100%' }}>
       <CardContent>
         <Typography variant="h6" component="div">
           Reseñas

@@ -20,9 +20,9 @@ export const PerfilPacientes = () => {
     }));
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, justifyContent: 'center', paddingX: '20px', margin: 3.2 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingX: '20px', gap: 2, minHeight: '100dvh', marginY: 2 }}>
             <Grid container spacing={2} sx={{ margin: '' }}>
-                <Grid sx={{ display: "flex", flexDirection: "column", gap: 3 }} item md={4} >
+                <Grid item sx={{ display: "flex", flexDirection: "column", gap: 2 }} md={4} >
                     <Card sx={{ display: "flex", gap: 3,  }}>
                         <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
                             <CardMedia sx={{ display: 'flex', justifyContent: 'center', width: '100%', borderRadius: '2px', padding: 2, }}>
@@ -43,7 +43,7 @@ export const PerfilPacientes = () => {
                     </Card>
                     <Mensajeria />
                 </Grid>
-                <Grid item md={8}>
+                <Grid item md={8} xs={12}>
                     <Card sx={{  }}>
                         <CardContent >
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid white 1px', padding: '18.7px' }}>
@@ -99,7 +99,7 @@ export const PerfilPacientes = () => {
                 </Grid>
             </Grid>
             <Grid container spacing={2}>
-                <Grid item md={12}>
+                <Grid item md={12} xs={12}>
                     <TurnosCardPacientes />
                 </Grid>
             </Grid>

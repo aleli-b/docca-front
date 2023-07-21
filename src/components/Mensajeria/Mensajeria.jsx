@@ -30,7 +30,7 @@ export const Mensajeria = () => {
     conversations.forEach((conversation) => {
       joinConversation(conversation.id);
     });
-  }, [conversations, joinConversation]);
+  }, [conversations]);
 
   const getDoctors = async () => {
     const userData = await axios.get(`${svHost}/doctors`);
@@ -60,7 +60,7 @@ export const Mensajeria = () => {
   };
 
   return (
-    <Card sx={{ padding: 1 }}>
+    <Card sx={{ padding: 1, display: 'flex', flex: 1, alignItems: 'center'}}>
       <CardContent>
         <Typography variant="h6" component="div">
           Mensajeria
