@@ -10,6 +10,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useAuth } from '../context/AuthContext';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 export const RegisterFormLab = () => {
     const [firstName, setFirstName] = React.useState('');
@@ -17,10 +18,10 @@ export const RegisterFormLab = () => {
     const [age, setAge] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [userType, setUserType] = React.useState('patient');
     const [emailError, setEmailError] = React.useState(false);
     const [passwordError, setPasswordError] = React.useState(false);
     const [ageError, setAgeError] = React.useState(false);
+    const [category, setCategory] = React.useState('');
 
     const auth = useAuth();
 
@@ -41,8 +42,8 @@ export const RegisterFormLab = () => {
         setPasswordError(value.length === 0);
     };
 
-    const handleUserTypeChange = (event) => {
-        setUserType(event.target.value);
+    const handleCategoryChange = (event) => {
+        setCategory(event.target.value);
     };
 
     const handleSubmit = (event) => {
@@ -56,6 +57,7 @@ export const RegisterFormLab = () => {
                 email: formData.get('email'),
                 password: formData.get('password'),
                 userType: 'lab',
+                lab_category: category,
             };
             auth.register(data)
         }
@@ -78,6 +80,20 @@ export const RegisterFormLab = () => {
                     Registrarse como laboratorio
                 </Typography>
                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <FormControl fullWidth margin="normal">
+                        <InputLabel id="category-label">Especialidad</InputLabel>
+                        <Select
+                            labelId="category-label"
+                            id="category"
+                            value={category}
+                            label="Especialidad"
+                            onChange={handleCategoryChange}
+                        >
+                            <MenuItem value="bioquimico">Bioquímico</MenuItem>
+                            <MenuItem value="radiografia">Radiografía</MenuItem>
+                            <MenuItem value="tomografia">Tomografía</MenuItem>
+                        </Select>
+                    </FormControl>
                     <TextField
                         onChange={(e) => setFirstName(e.target.value)}
                         value={firstName}
@@ -140,7 +156,7 @@ export const RegisterFormLab = () => {
                         autoComplete="new-password"
                         error={passwordError}
                         helperText={passwordError ? 'Se requiere una contraseña' : ''}
-                    />                   
+                    />
                     <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                         Registrarse
                     </Button>

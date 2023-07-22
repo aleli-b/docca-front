@@ -21,7 +21,7 @@ export const RegisterFormDoc = () => {
     const [emailError, setEmailError] = React.useState(false);
     const [passwordError, setPasswordError] = React.useState(false);
     const [ageError, setAgeError] = React.useState(false);
-    const [category, setCategory] = React.useState('')
+    const [category, setCategory] = React.useState('');
 
     const auth = useAuth();
 
