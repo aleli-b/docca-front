@@ -219,14 +219,14 @@ export const Header = () => {
                                                 sx={{ display: 'block', }}
                                                 href="login"
                                             >
-                                                INICIO SESION
+                                                INICIO DE SESION
                                             </Button>
                                             <Tooltip title="Ver Opciones">
                                                 <Button
                                                     onClick={handleOpenRegMenu}
                                                     sx={{ display: 'block' }}
                                                 >
-                                                    REGISTRARSE
+                                                    REGISTRARME
                                                 </Button>
                                             </Tooltip>
                                             <Menu
@@ -263,14 +263,14 @@ export const Header = () => {
                                             sx={{ display: 'block', color: 'white' }}
                                             href="login"
                                         >
-                                            INICIO SESION
+                                            INICIAR SESION
                                         </Button>
                                         <Tooltip title="Ver Opciones">
                                             <Button
                                                 onClick={handleOpenRegMenu}
                                                 sx={{ display: 'block', color: 'white' }}
                                             >
-                                                REGISTRARSE
+                                                REGISTRARME
                                             </Button>
                                         </Tooltip>
                                         <Menu

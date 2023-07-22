@@ -25,9 +25,8 @@ export const UserAdmin = () => {
     });
 
     const handleUserBanState = async (id) => {
-        try {
-            // setLoading(true);                        
-            await axios.patch(`${svHost}/users/${id}`);            
+        try {                  
+            await axios.patch(`${svHost}/users/${id}/ban`);            
             getUsers()            
         }
         catch (error) {

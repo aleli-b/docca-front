@@ -1,15 +1,13 @@
 import axios from 'axios';
 import React, { createContext, useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const AuthContext = createContext();
 
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user'))) || [];
-    const [token, setToken] = useState(JSON.parse(localStorage.getItem('token'))) || [];
-    const navigate = useNavigate();
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user'))) || {};
+    const [token, setToken] = useState(JSON.parse(localStorage.getItem('token'))) || {};
 
     const svHost = import.meta.env.VITE_HOST;
 
@@ -62,7 +60,7 @@ export const AuthProvider = ({ children }) => {
                 window.location.href = '/';
                 setUser(loginData.data.user);
                 setToken(loginData.data.token);
-            }, 3600)
+            }, 2000)
         } catch (error) {
             const status = error.response ? error.response.status : null;
             if (error.tokenInvalid) logout()
@@ -92,6 +90,38 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const editUser = async (data) => {
+        try {
+            await axios.patch(`${svHost}/users/${user.id}`, data, {
+                headers: {
+                    authorization: token,
+                }
+            });
+            toast.success('Usuario editado con éxito, los cambios se efectuarán la próxima vez que inicie sesión', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        } catch (error) {
+            console.error(error);
+            toast.error('Ha habido un error.', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
+    }
+
     const logout = () => {
         window.location.href = '/';
         setUser(null)
@@ -103,6 +133,7 @@ export const AuthProvider = ({ children }) => {
     const auth = {
         register,
         login,
+        editUser,
         logout,
         user,
         token
