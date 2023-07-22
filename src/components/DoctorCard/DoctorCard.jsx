@@ -5,11 +5,12 @@ import titan from '../../assets/titan.jpg'
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
-import { Avatar, Box, Button, CardActionArea, CardHeader, Slide } from '@mui/material';
+import { Avatar, Box, } from '@mui/material';
 import { SacarTurnoCard } from '../SacarTurnoCard/SacarTurnoCard';
 
 export const DoctorCard = ({ doctor, turnos }) => {
     const doc = doctor;
+    doc.category = doc.category[0].toUpperCase() + doc.category.substring(1);
 
     return (
         <Card sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, flexGrow: 1, flexWrap: 'noWrap'}}>            

@@ -13,7 +13,7 @@ export const FilterSideBar = ({ handleCategoryChange }) => {
         handleCategoryChange(selectedOption.toLowerCase());
     }
 
-    const options = ['Otorrinolaringologo', 'Odontologo', 'Endocrinologo', 'Infectologo', 'Cardiologo'];
+    const options = ['Otorrinolaringólogo', 'Odontólogo', 'Endocrinólogo', 'Infectólogo', 'Cardiólogo'];
 
 
     return (

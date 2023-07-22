@@ -18,6 +18,15 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
 
   const svHost = import.meta.env.VITE_HOST;
 
+  moment.updateLocale('es', {
+    months: [
+      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ],
+    monthsShort: [
+      'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'
+    ]
+  });
+
   const updateNumColumns = () => {
     if (window.innerWidth < 600) {
       // For smaller devices, display 1 column
@@ -41,7 +50,7 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
 
   const generateDates = () => {
     const today = moment();
-    const daysOfWeekSpanish = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+    const daysOfWeekSpanish = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     const generatedDates = [];
 
     for (let i = 0; i < 30; i++) {
