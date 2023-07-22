@@ -11,7 +11,7 @@ import { SacarTurnoCard } from '../SacarTurnoCard/SacarTurnoCard';
 export const DoctorCard = ({ doctor, turnos }) => {
     const doc = doctor;
     doc.category = doc.category[0].toUpperCase() + doc.category.substring(1);
-
+    
     return (
         <Card sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, flexGrow: 1, flexWrap: 'noWrap'}}>            
                 <CardContent sx={{  width: {xs: 'inherit', md: 1 / 2}, marginLeft: {xs: 'none', md: 2}, display: 'flex', flexDirection: 'column', gap: 1, borderRight: {sx: 'none', md: 'solid 1px gray'}, borderBottom: {xs: 'solid 1px gray', md: 'none'}}}>

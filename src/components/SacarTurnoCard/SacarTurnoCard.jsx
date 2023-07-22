@@ -8,6 +8,15 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+moment.updateLocale('es', {
+  months: [
+    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+  ],
+  monthsShort: [
+    'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'
+  ]
+});
+
 export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
   const [startIndex, setStartIndex] = useState(0);
   const [numColumns, setNumColumns] = useState(4);
@@ -17,15 +26,6 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
   const occupiedTurnos = turnos;
 
   const svHost = import.meta.env.VITE_HOST;
-
-  moment.updateLocale('es', {
-    months: [
-      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-    ],
-    monthsShort: [
-      'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'
-    ]
-  });
 
   const updateNumColumns = () => {
     if (window.innerWidth < 600) {
