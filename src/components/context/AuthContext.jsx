@@ -93,7 +93,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const logout = () => {
-        navigate('/')
+        window.location.href = '/';
         setUser(null)
         setToken(null)
         localStorage.removeItem('token')

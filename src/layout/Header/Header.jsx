@@ -26,9 +26,9 @@ export const Header = () => {
     React.useEffect(() => {
         handleCloseUserMenu(); // This will close the user menu when the component mounts
         return () => {
-          handleCloseUserMenu(); // This will also close the user menu when navigating away from the current page
+            handleCloseUserMenu(); // This will also close the user menu when navigating away from the current page
         };
-      }, []);
+    }, []);
 
     const auth = useAuth();
     const { conversations } = useMessageContext();
@@ -82,88 +82,48 @@ export const Header = () => {
     return (
         <AppBar position="static" id='navBar'>
             <Container maxWidth="xl">
-                <Toolbar disableGutters>
-                    <img src={docca} style={{ height: '5rem', width: '5rem' }} />
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="/"
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'black',
-                            textDecoration: 'none',
-                            marginRight: '1.5em'
-                        }}
-                    >
-                        DOCAPPOINT
-                    </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Menu
-                            id="nav-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
+                <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center'}}>
+                        <a href='/'>
+                            <img src={docca} style={{ height: '5rem', width: '5rem' }} />
+                        </a>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="a"
+                            href="/"
                             sx={{
-                                display: { xs: 'block', md: 'none' },
+                                mr: 2,
+                                display: { xs: 'none', md: 'flex' },
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: 'black',
+                                textDecoration: 'none',
+                                marginRight: '1.5em'
                             }}
                         >
-                            <MenuItem onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">ESPECIALISTAS</Typography>
-                            </MenuItem>
-                        </Menu>
-                    </Box>
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="a"
-                        href="/"
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'none', md: 'none' },
-                            flexGrow: 1,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        DOCAPPOINT
-                    </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        <Button
-                            onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                            href="/especialistas"
+                            DOCAPPOINT
+                        </Typography>
+                        <Typography
+                            variant="h5"
+                            noWrap
+                            component="a"
+                            href="/"
+                            sx={{
+                                mr: 2,
+                                display: { xs: 'none', md: 'none' },
+                                flexGrow: 1,
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: 'inherit',
+                                textDecoration: 'none',
+                            }}
                         >
-                            ESPECIALISTAS
-                        </Button>
+                            DOCAPPOINT
+                        </Typography>
                     </Box>
-
                     <Box sx={{ display: 'flex', flexGrow: 0, flexDirection: 'row', }}>
                         {
                             auth.user
@@ -224,53 +184,127 @@ export const Header = () => {
                                     </Menu>
                                 </Container>
                                 :
-                                <Container sx={{ display: 'flex' }}>
-                                    <Button
-                                        onClick={handleCloseNavMenu}
-                                        sx={{ mr: 2, color: 'white', display: 'block', }}
-                                        href="login"
-                                    >
-                                        INICIO SESION
-                                    </Button>
-                                    <Tooltip title="Ver Opciones">
-                                        <Button
-                                            onClick={handleOpenRegMenu}
-                                            sx={{ mr: 2, color: 'white', display: 'block' }}
+                                <Container>
+                                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                                        <IconButton
+                                            size="large"
+                                            aria-label="account of current user"
+                                            aria-controls="menu-appbar"
+                                            aria-haspopup="true"
+                                            onClick={handleOpenNavMenu}
+                                            color="inherit"
                                         >
-                                            REGISTRARSE
+                                            <MenuIcon />
+                                        </IconButton>
+                                        <Menu
+                                            id="nav-appbar"
+                                            anchorEl={anchorElNav}
+                                            anchorOrigin={{
+                                                vertical: 'bottom',
+                                                horizontal: 'left',
+                                            }}
+                                            keepMounted
+                                            transformOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'left',
+                                            }}
+                                            open={Boolean(anchorElNav)}
+                                            onClose={handleCloseNavMenu}
+                                            sx={{
+                                                display: { xs: 'block', md: 'none' },
+                                            }}
+                                        >
+                                            <Button
+                                                onClick={handleCloseNavMenu}
+                                                sx={{ display: 'block', }}
+                                                href="login"
+                                            >
+                                                INICIO SESION
+                                            </Button>
+                                            <Tooltip title="Ver Opciones">
+                                                <Button
+                                                    onClick={handleOpenRegMenu}
+                                                    sx={{ display: 'block' }}
+                                                >
+                                                    REGISTRARSE
+                                                </Button>
+                                            </Tooltip>
+                                            <Menu
+                                                sx={{ mt: '45px' }}
+                                                id="reg-appbar"
+                                                anchorEl={anchorElReg}
+                                                anchorOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'right',
+                                                }}
+                                                keepMounted
+                                                transformOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'right',
+                                                }}
+                                                open={Boolean(anchorElReg)}
+                                                onClose={handleCloseRegMenu}
+                                            >
+                                                <MenuItem onClick={() => { handleRegister('doctor'); handleCloseRegMenu(); handleCloseNavMenu() }}>
+                                                    <Typography textAlign="center">COMO DOCTOR</Typography>
+                                                </MenuItem>
+                                                <MenuItem onClick={() => { handleRegister('laboratorio'); handleCloseRegMenu(); handleCloseNavMenu() }}>
+                                                    <Typography textAlign="center">COMO LABORATORIO</Typography>
+                                                </MenuItem>
+                                                <MenuItem onClick={() => { handleRegister('paciente'); handleCloseRegMenu(); handleCloseNavMenu() }}>
+                                                    <Typography textAlign="center">COMO PACIENTE</Typography>
+                                                </MenuItem>
+                                            </Menu>
+                                        </Menu>
+                                    </Box>
+                                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                                        <Button
+                                            onClick={handleCloseNavMenu}
+                                            sx={{ display: 'block', color: 'white' }}
+                                            href="login"
+                                        >
+                                            INICIO SESION
                                         </Button>
-                                    </Tooltip>
-                                    <Menu
-                                        sx={{ mt: '45px' }}
-                                        id="reg-appbar"
-                                        anchorEl={anchorElReg}
-                                        anchorOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        keepMounted
-                                        transformOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        open={Boolean(anchorElReg)}
-                                        onClose={handleCloseRegMenu}
-                                    >
-                                        <MenuItem onClick={() => { handleRegister('doctor'); handleCloseRegMenu() }}>
-                                            <Typography textAlign="center">COMO DOCTOR</Typography>
-                                        </MenuItem>
-                                        <MenuItem onClick={() => { handleRegister('laboratorio'); handleCloseRegMenu() }}>
-                                            <Typography textAlign="center">COMO LABORATORIO</Typography>
-                                        </MenuItem>
-                                        <MenuItem onClick={() => { handleRegister('paciente'); handleCloseRegMenu() }}>
-                                            <Typography textAlign="center">COMO PACIENTE</Typography>
-                                        </MenuItem>
-                                    </Menu>
+                                        <Tooltip title="Ver Opciones">
+                                            <Button
+                                                onClick={handleOpenRegMenu}
+                                                sx={{ display: 'block', color: 'white' }}
+                                            >
+                                                REGISTRARSE
+                                            </Button>
+                                        </Tooltip>
+                                        <Menu
+                                            sx={{ mt: '45px' }}
+                                            id="reg-appbar"
+                                            anchorEl={anchorElReg}
+                                            anchorOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right',
+                                            }}
+                                            keepMounted
+                                            transformOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right',
+                                            }}
+                                            open={Boolean(anchorElReg)}
+                                            onClose={handleCloseRegMenu}
+                                        >
+                                            <MenuItem onClick={() => { handleRegister('doctor'); handleCloseRegMenu(); }}>
+                                                <Typography textAlign="center">COMO DOCTOR</Typography>
+                                            </MenuItem>
+                                            <MenuItem onClick={() => { handleRegister('laboratorio'); handleCloseRegMenu(); }}>
+                                                <Typography textAlign="center">COMO LABORATORIO</Typography>
+                                            </MenuItem>
+                                            <MenuItem onClick={() => { handleRegister('paciente'); handleCloseRegMenu(); }}>
+                                                <Typography textAlign="center">COMO PACIENTE</Typography>
+                                            </MenuItem>
+                                        </Menu>
+                                    </Box>
                                 </Container>
                         }
                     </Box>
                 </Toolbar>
             </Container>
-        </AppBar>
+        </AppBar >
     )
 }

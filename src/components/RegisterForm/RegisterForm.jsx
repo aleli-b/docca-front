@@ -146,11 +146,16 @@ export const RegisterForm = () => {
                         Registrarse
                     </Button>
                     <Grid container>
-                        <Grid items xs={12}>
-                            <Link href="#" variant="body2">
-                                ¿Olvidaste tu contraseña?
+                    <Grid item xs>
+                            <Link href="register-doctor" variant="body2">
+                                Registrarse como doctor
                             </Link>
-                        </Grid>                        
+                        </Grid>
+                        <Grid item>
+                            <Link href="register-laboratorio" variant="body2">
+                                Registrarse como laboratorio
+                            </Link>
+                        </Grid>                      
                     </Grid>
                 </Box>
             </Box>

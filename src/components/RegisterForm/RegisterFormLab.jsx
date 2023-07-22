@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -12,8 +10,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useAuth } from '../context/AuthContext';
-import { MenuItem } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 
 export const RegisterFormLab = () => {
     const [firstName, setFirstName] = React.useState('');
@@ -81,7 +77,7 @@ export const RegisterFormLab = () => {
                 <Typography component="h1" variant="h5">
                     Registrarse como laboratorio
                 </Typography>
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>                    
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     <TextField
                         onChange={(e) => setFirstName(e.target.value)}
                         value={firstName}
@@ -144,23 +140,19 @@ export const RegisterFormLab = () => {
                         autoComplete="new-password"
                         error={passwordError}
                         helperText={passwordError ? 'Se requiere una contraseña' : ''}
-                    />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Recuérdame"
-                    />
+                    />                   
                     <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                         Registrarse
                     </Button>
                     <Grid container>
                         <Grid item xs>
-                            <Link href="#" variant="body2">
-                                ¿Olvidaste tu contraseña?
+                            <Link href="register-paciente" variant="body2">
+                                Registrarse como paciente
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link href="#" variant="body2">
-                                ¿No tienes cuenta? Regístrate
+                            <Link href="register-doctor" variant="body2">
+                                Registrarse como doctor
                             </Link>
                         </Grid>
                     </Grid>

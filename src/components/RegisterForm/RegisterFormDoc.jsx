@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -46,7 +44,7 @@ export const RegisterFormDoc = () => {
 
     const handleCategoryChange = (event) => {
         setCategory(event.target.value);
-      };
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -162,22 +160,18 @@ export const RegisterFormDoc = () => {
                         error={passwordError}
                         helperText={passwordError ? 'Se requiere una contraseña' : ''}
                     />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Recuérdame"
-                    />
                     <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                         Registrarse
                     </Button>
                     <Grid container>
                         <Grid item xs>
-                            <Link href="#" variant="body2">
-                                ¿Olvidaste tu contraseña?
+                            <Link href="register-paciente" variant="body2">
+                                Registrarse como paciente
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link href="#" variant="body2">
-                                ¿No tienes cuenta? Regístrate
+                            <Link href="register-laboratorio" variant="body2">
+                                Registrarse como laboratorio
                             </Link>
                         </Grid>
                     </Grid>
