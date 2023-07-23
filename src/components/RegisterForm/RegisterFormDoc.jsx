@@ -163,7 +163,7 @@ export const RegisterFormDoc = () => {
                     <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                         Registrarme
                     </Button>
-                    <Grid container>
+                    {/* <Grid container>
                         <Grid item xs>
                             <Link href="register-paciente" variant="body2">
                                 Registrarme como paciente
@@ -174,7 +174,7 @@ export const RegisterFormDoc = () => {
                                 Registrarme como laboratorio
                             </Link>
                         </Grid>
-                    </Grid>
+                    </Grid> */}
                 </Box>
             </Box>
         </Container>

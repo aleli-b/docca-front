@@ -74,7 +74,7 @@ export const RegisterForm = () => {
                 <Typography component="h1" variant="h5">
                     Registrarse
                 </Typography>
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>                    
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     <TextField
                         onChange={(e) => setFirstName(e.target.value)}
                         value={firstName}
@@ -145,7 +145,7 @@ export const RegisterForm = () => {
                     <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                         Registrarme
                     </Button>
-                    <Grid container>
+                    {/* <Grid container>
                     <Grid item xs>
                             <Link href="register-doctor" variant="body2">
                                 Registrarme como doctor
@@ -156,7 +156,7 @@ export const RegisterForm = () => {
                                 Registrarme como laboratorio
                             </Link>
                         </Grid>                      
-                    </Grid>
+                    </Grid> */}
                 </Box>
             </Box>
         </Container>
