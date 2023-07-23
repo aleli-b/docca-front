@@ -159,7 +159,7 @@ export const Header = () => {
                                         <MenuItem onClick={() => { handleCloseUserMenu(); handleProfile() }}>
                                             <Typography textAlign="center">PERFIL</Typography>
                                         </MenuItem>
-                                        <MenuItem onClick={() => { handleCloseUserMenu() }}>
+                                        {/* <MenuItem onClick={() => { handleCloseUserMenu() }}>
                                             <Typography textAlign="center">MIS CONSULTAS</Typography>
                                         </MenuItem>
                                         {
@@ -170,7 +170,7 @@ export const Header = () => {
                                         }
                                         <MenuItem onClick={() => { handleCloseUserMenu() }}>
                                             <Typography textAlign="center">MEDIOS DE PAGO</Typography>
-                                        </MenuItem>
+                                        </MenuItem> */}
                                         {
                                             auth.user.userType === 'doctor' &&
                                             <MenuItem onClick={() => { handleCloseUserMenu(); handleAdmin() }}>
@@ -263,7 +263,7 @@ export const Header = () => {
                                             sx={{ display: 'block', color: 'white' }}
                                             href="login"
                                         >
-                                            INICIAR SESION
+                                            INICIO DE SESION
                                         </Button>
                                         <Tooltip title="Ver Opciones">
                                             <Button

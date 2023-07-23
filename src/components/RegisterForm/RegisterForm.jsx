@@ -143,17 +143,17 @@ export const RegisterForm = () => {
                         label="Recuérdame"
                     />
                     <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                        Registrarse
+                        Registrarme
                     </Button>
                     <Grid container>
                     <Grid item xs>
                             <Link href="register-doctor" variant="body2">
-                                Registrarse como doctor
+                                Registrarme como doctor
                             </Link>
                         </Grid>
                         <Grid item>
                             <Link href="register-laboratorio" variant="body2">
-                                Registrarse como laboratorio
+                                Registrarme como laboratorio
                             </Link>
                         </Grid>                      
                     </Grid>

@@ -60,7 +60,7 @@ export default function LoginForm() {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Iniciar Sesión
+                    Inicio de Sesión
                 </Typography>
                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     <TextField
@@ -102,7 +102,7 @@ export default function LoginForm() {
                         </Grid>
                         <Grid item>
                             <Link href="/register" variant="body2">
-                                {"¿No tenés cuenta? Registrate"}
+                                {"¿No tienes cuenta? Registrarme"}
                             </Link>
                         </Grid>
                     </Grid>

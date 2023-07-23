@@ -78,7 +78,7 @@ export const RegisterFormDoc = () => {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Registrarse como doctor
+                    Registrarme como doctor
                 </Typography>
                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     <FormControl fullWidth margin="normal">
@@ -161,17 +161,17 @@ export const RegisterFormDoc = () => {
                         helperText={passwordError ? 'Se requiere una contraseña' : ''}
                     />
                     <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                        Registrarse
+                        Registrarme
                     </Button>
                     <Grid container>
                         <Grid item xs>
                             <Link href="register-paciente" variant="body2">
-                                Registrarse como paciente
+                                Registrarme como paciente
                             </Link>
                         </Grid>
                         <Grid item>
                             <Link href="register-laboratorio" variant="body2">
-                                Registrarse como laboratorio
+                                Registrarme como laboratorio
                             </Link>
                         </Grid>
                     </Grid>

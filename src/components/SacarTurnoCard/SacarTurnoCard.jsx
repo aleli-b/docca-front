@@ -55,7 +55,7 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
 
     for (let i = 0; i < 30; i++) {
       const date = today.clone().add(i, 'days');
-      const formattedDate = date.format('D [de] MMMM');
+      const formattedDate = date.local().format('D [de] MMMM');
       const dayOfWeek = daysOfWeekSpanish[date.day()];
 
       const timeSlots = [];

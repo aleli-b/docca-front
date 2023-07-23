@@ -29,7 +29,7 @@ export const Messages = () => {
   if (conversations.length === 0) {
     return (
       <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
-        <p>No conversations found.</p>
+        <p>No tienes conversaciones.</p>
       </Container>
     );
   }
