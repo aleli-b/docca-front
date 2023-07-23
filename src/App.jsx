@@ -21,6 +21,7 @@ import { AdminRoute } from "./components/guard/AdminRoute";
 import { Messages } from "./pages/Messages/Messages";
 import { RegisterDoctor } from "./pages/Register/RegisterDoctor";
 import { RegisterLab } from "./pages/Register/RegisterLab";
+import { RegRoute } from "./components/guard/RegRoute";
 
 const router = createBrowserRouter([
   { path: "*", Component: Root },
@@ -61,9 +62,9 @@ function Root() {
               <Route path="*" element={<Error />} />
               {/* <Route path="/" element={<Home />} /> */}
               <Route path="/login/*" element={<Login />} />
-              <Route path="/register-paciente" element={<Register />} />
-              <Route path="/register-doctor" element={<RegisterDoctor />} />
-              <Route path="/register-laboratorio" element={<RegisterLab />} />
+              <Route path="/register-paciente" element={<RegRoute> <Register /> </RegRoute>} />
+              <Route path="/register-doctor" element={<RegRoute> <RegisterDoctor /> </RegRoute>} />
+              <Route path="/register-laboratorio" element={<RegRoute> <RegisterLab /> </RegRoute>} />
               <Route path="/" element={<Especialistas />} />
               <Route path="/admin/*" element={<AdminRoute> <UserAdmin /> </AdminRoute>} />
               <Route path="/perfil/*" element={<ProfileRoute> <PerfilDoctores /> <PerfilLaboratorios /> <PerfilPacientes /> </ProfileRoute>} />
