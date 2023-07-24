@@ -48,10 +48,7 @@ export const PerfilLaboratorios = () => {
                             <Box className='text2' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, }}>
                                 <Typography variant="h5" component="div" text-align="center">
                                     {user.fullName}
-                                </Typography>
-                                <Rating
-                                    name="simple-controlled"
-                                    value={5} />
+                                </Typography>                                
                                 {user.description ? <Typography> {user.description} </Typography> : (
                                     <Button
                                         onClick={() => {

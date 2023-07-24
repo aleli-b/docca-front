@@ -1,20 +1,21 @@
 import React, { useState } from 'react'
 import { Avatar, Box, Button, Card, CardContent, CardMedia, Grid, Rating, Typography } from '@mui/material'
 import titan from '../../../assets/titan.jpg'
-import { ReseñasCard } from '../../../components/ReseñasCard/ReseñasCard';
 import { RedesSocialesCard } from '../../../components/RedesSocialesCard/RedesSocialesCard';
 import { TurnosCardDoctores } from '../../../components/TurnosCardDoctores/TurnosCardDoctores';
 import { useAuth } from '../../../components/context/AuthContext';
 import { EditModal } from '../../../components/EditModal/EditModal';
 import EditIcon from '@mui/icons-material/Edit';
+import './styles.css'
 
 export const PerfilDoctores = () => {
     const { user, editUser } = useAuth();
     const [editing, setEditing] = useState(false);
     const [fieldToEdit, setFieldToEdit] = useState(''); // To indicate the field being edited
     const [newValue, setNewValue] = useState(''); // To hold the new value being edited
+    const [isHovered, setIsHovered] = useState(false);
+
     user.fullName = user.name + " " + user.lastName;
-    user.category = user.category[0].toUpperCase() + user.category.substring(1);
     user.userType = user.userType[0].toUpperCase() + user.userType.substring(1);
 
     const handleSaveField = (field, value) => {
@@ -29,19 +30,40 @@ export const PerfilDoctores = () => {
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, justifyContent: 'center', paddingX: '20px', margin: 3.2, minHeight: '77.5dvh' }}>
             <Grid container spacing={2} sx={{ margin: '' }}>
                 <Grid item md={4} xs={12} sx={{}}>
-                    <Card sx={{}}>
+                    <Card sx={{ minHeight: "100%" }}>
                         <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-                            <CardMedia sx={{ display: 'flex', justifyContent: 'center', width: '100%', borderRadius: '2px', padding: 2 }}>
-                                <Avatar alt={user.fullName} src={titan} sx={{ width: 180, height: 180, }} />
+                            <CardMedia
+                                onMouseEnter={() => setIsHovered(true)}
+                                onMouseLeave={() => setIsHovered(false)}
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    width: '100%',
+                                    borderRadius: '2px',
+                                    padding: 2,
+                                    position: 'relative',
+                                }}
+                                className="avatar-container"
+                            >
+                                <Avatar alt={user.fullName} src={titan} sx={{ width: 180, height: 180 }} />
+                                <Button
+                                    className="upload-button"
+                                    onMouseEnter={() => setIsHovered(false)} // Set isHovered to false on button hover
+                                    onClick={() => {
+                                        /* Add your logic to handle the "Upload Picture" button click */
+                                    }}
+                                >
+                                    Agregar / Cambiar Foto
+                                </Button>
                             </CardMedia>
                             <Box className='text2' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
                                 <Typography variant="h5" component="div" text-align="center">
                                     {user.fullName}
                                 </Typography>
-                                <Rating
+                                {/* <Rating
                                     name="simple-controlled"
                                     value={5}
-                                />
+                                /> */}
                                 {user.description ? <Typography> {user.description} </Typography> : (
                                     <Button
                                         onClick={() => {
@@ -101,10 +123,10 @@ export const PerfilDoctores = () => {
                 <Grid item md={4} xs={12}>
                     <RedesSocialesCard />
                 </Grid>
-                <Grid item md={4} xs={12}>
+                {/* <Grid item md={4} xs={12}>
                     <ReseñasCard />
-                </Grid>
-                <Grid item md={4} xs={12}>
+                </Grid> */}
+                <Grid item md={8} xs={12}>
                     <TurnosCardDoctores />
                 </Grid>
             </Grid>

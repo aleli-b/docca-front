@@ -90,11 +90,12 @@ export const RegisterFormDoc = () => {
                             label="Especialidad"
                             onChange={handleCategoryChange}
                         >
-                            <MenuItem value="otorrinolaringologo">Otorrinolaringólogo</MenuItem>
-                            <MenuItem value="odontologo">Odontólogo</MenuItem>
-                            <MenuItem value="endocrinologo">Endocrinólogo</MenuItem>
-                            <MenuItem value="infectologo">Infectólogo</MenuItem>
-                            <MenuItem value="cardiologo">Cardiólogo</MenuItem>
+                            <MenuItem value="Otorrinolaringólogo">Otorrinolaringólogo</MenuItem>
+                            <MenuItem value="Odontólogo">Odontólogo</MenuItem>
+                            <MenuItem value="Endocrinólogo">Endocrinólogo</MenuItem>
+                            <MenuItem value="Infectólogo">Infectólogo</MenuItem>
+                            <MenuItem value="Cardiólogo">Cardiólogo</MenuItem>
+                            <MenuItem value="Ortopédico">Ortopédico</MenuItem>
                         </Select>
                     </FormControl>
                     <TextField

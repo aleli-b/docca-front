@@ -10,7 +10,6 @@ import { SacarTurnoCard } from '../SacarTurnoCard/SacarTurnoCard';
 
 export const DoctorCard = ({ doctor, turnos }) => {
     const doc = doctor;
-    doc.category = doc.category[0].toUpperCase() + doc.category.substring(1);
     
     return (
         <Card sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, flexGrow: 1, flexWrap: 'noWrap'}}>            
@@ -24,14 +23,14 @@ export const DoctorCard = ({ doctor, turnos }) => {
                             <Typography variant="body2" color="text.secondary">
                                 {doc.category}
                             </Typography>
-                            <Rating name="read-only" value={5} readOnly />
+                            {/* <Rating name="read-only" value={5} readOnly /> */}
                         </Box>
                     </Box>
                     <Box sx={{ }}>
                         <Typography variant='h5'>Dirección/es</Typography>
                         <Box sx={{ display: 'flex', gap: 1, paddingTop: 2}}>
                             <AddLocationIcon />
-                            <Typography>Corrientes 4567, CABA, Argentina</Typography>
+                            <Typography>{doc.adress || "Aún no se ha agregado una dirección"}</Typography>
                         </Box>
                     </Box>
                 </CardContent>

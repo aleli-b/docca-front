@@ -55,7 +55,7 @@ export const AdminTable = ({ users, handleUserBanState }) => {
         banned: user.banned,
         admin: user.admin,
         userType: user.userType[0].toUpperCase() + user.userType.substring(1),
-        category: user.category ? user.category[0].toUpperCase() + user.category.substring(1) : '-',
+        category: user.category,
         actions: () => handleUserBanState(user.id)
     }));
 
