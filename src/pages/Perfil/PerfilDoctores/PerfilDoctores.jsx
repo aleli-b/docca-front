@@ -7,16 +7,25 @@ import { useAuth } from '../../../components/context/AuthContext';
 import { EditModal } from '../../../components/EditModal/EditModal';
 import EditIcon from '@mui/icons-material/Edit';
 import './styles.css'
+import axios from 'axios';
 
 export const PerfilDoctores = () => {
     const { user, editUser } = useAuth();
     const [editing, setEditing] = useState(false);
-    const [fieldToEdit, setFieldToEdit] = useState(''); // To indicate the field being edited
-    const [newValue, setNewValue] = useState(''); // To hold the new value being edited
+    const [fieldToEdit, setFieldToEdit] = useState('');
+    const [newValue, setNewValue] = useState('');
     const [isHovered, setIsHovered] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
 
     user.fullName = user.name + " " + user.lastName;
     user.userType = user.userType[0].toUpperCase() + user.userType.substring(1);
+
+    const svHost = import.meta.env.VITE_HOST;
+
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        setSelectedImage(file);
+    };
 
     const handleSaveField = (field, value) => {
         try {
@@ -25,6 +34,21 @@ export const PerfilDoctores = () => {
             console.error('Ha habido un error')
         }
     };
+
+    const handleImageUpload = () => {
+        const formData = new FormData();
+        formData.append('image', selectedImage);
+    
+        axios.post(`${svHost}/upload/${user.id}`, formData)
+          .then((response) => {
+            console.log('Image uploaded successfully:', response.data);
+            // Handle any success response from the backend if needed
+          })
+          .catch((error) => {
+            console.error('Error uploading image:', error);
+            // Handle any error that occurred during the upload
+          });
+      };
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, justifyContent: 'center', paddingX: '20px', margin: 3.2, minHeight: '77.5dvh' }}>
@@ -45,16 +69,28 @@ export const PerfilDoctores = () => {
                                 }}
                                 className="avatar-container"
                             >
-                                <Avatar alt={user.fullName} src={titan} sx={{ width: 180, height: 180 }} />
-                                <Button
-                                    className="upload-button"
-                                    onMouseEnter={() => setIsHovered(false)} // Set isHovered to false on button hover
-                                    onClick={() => {
-                                        /* Add your logic to handle the "Upload Picture" button click */
-                                    }}
-                                >
-                                    Agregar / Cambiar Foto
-                                </Button>
+                                <Avatar alt={user.fullName} src={user.profile_picture_url} sx={{ width: 180, height: 180 }} />
+                                {selectedImage ? (
+                                    <Button
+                                        className="upload-button"
+                                        onClick={handleImageUpload}
+                                    >
+                                        Upload Image
+                                    </Button>
+                                ) : (
+                                    <label htmlFor="image-upload">
+                                        <input
+                                            id="image-upload"
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={handleImageChange}
+                                            style={{ display: 'none' }}
+                                        />
+                                        <Button component="span" className="upload-button">
+                                            Select Image
+                                        </Button>
+                                    </label>
+                                )}
                             </CardMedia>
                             <Box className='text2' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
                                 <Typography variant="h5" component="div" text-align="center">

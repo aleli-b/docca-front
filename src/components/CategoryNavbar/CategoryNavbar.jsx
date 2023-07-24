@@ -4,10 +4,11 @@ import Tab from '@mui/material/Tab';
 
 const categories = [
   { label: 'Todos', value: 'todos' },
-  { label: 'Otorrinolaringólogo', value: 'otorrinolaringologo' },
-  { label: 'Cardiólogo', value: 'cardiologo' },
-  { label: 'Infectólogo', value: 'infectologo' },
-  { label: 'Odontólogo', value: 'odontologo' },
+  { label: 'Otorrinolaringólogo', value: 'Otorrinolaringólogo' },
+  { label: 'Cardiólogo', value: 'Cardiólogo' },
+  { label: 'Infectólogo', value: 'Infectólogo' },
+  { label: 'Odontólogo', value: 'Odontólogo' },
+  { label: 'Ortopédico', value: 'Ortopédico' },
 ];
 
 const CategoryNavbar = ({ onCategoryChange }) => {

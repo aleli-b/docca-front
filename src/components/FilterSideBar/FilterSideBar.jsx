@@ -10,10 +10,10 @@ export const FilterSideBar = ({ handleCategoryChange }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        handleCategoryChange(selectedOption.toLowerCase());
+        handleCategoryChange(selectedOption);
     }
 
-    const options = ['Otorrinolaringólogo', 'Odontólogo', 'Endocrinólogo', 'Infectólogo', 'Cardiólogo'];
+    const options = ['Otorrinolaringólogo', 'Odontólogo', 'Endocrinólogo', 'Infectólogo', 'Cardiólogo', 'Ortopédico'];
 
 
     return (
