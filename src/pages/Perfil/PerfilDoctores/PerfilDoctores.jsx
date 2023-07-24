@@ -38,17 +38,17 @@ export const PerfilDoctores = () => {
     const handleImageUpload = () => {
         const formData = new FormData();
         formData.append('image', selectedImage);
-    
+
         axios.post(`${svHost}/upload/${user.id}`, formData)
-          .then((response) => {
-            console.log('Image uploaded successfully:', response.data);
-            // Handle any success response from the backend if needed
-          })
-          .catch((error) => {
-            console.error('Error uploading image:', error);
-            // Handle any error that occurred during the upload
-          });
-      };
+            .then((response) => {
+                console.log('Image uploaded successfully:', response.data);
+                // Handle any success response from the backend if needed
+            })
+            .catch((error) => {
+                console.error('Error uploading image:', error);
+                // Handle any error that occurred during the upload
+            });
+    };
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, justifyContent: 'center', paddingX: '20px', margin: 3.2, minHeight: '77.5dvh' }}>
@@ -65,33 +65,29 @@ export const PerfilDoctores = () => {
                                     width: '100%',
                                     borderRadius: '2px',
                                     padding: 2,
-                                    position: 'relative',
+                                    position: 'relative', // Add position relative to the CardMedia container
                                 }}
-                                className="avatar-container"
                             >
                                 <Avatar alt={user.fullName} src={user.profile_picture_url} sx={{ width: 180, height: 180 }} />
-                                {selectedImage ? (
-                                    <Button
-                                        className="upload-button"
-                                        onClick={handleImageUpload}
+                                {isHovered && ( // Show the prompt when the avatar is hovered
+                                    <Box
+                                        sx={{
+                                            position: 'absolute',
+                                            bottom: 0,
+                                            left: 0,
+                                            right: 0,
+                                            background: 'rgba(0, 0, 0, 0.7)',
+                                            color: '#fff',
+                                            padding: '8px 12px',
+                                            borderRadius: '4px',
+                                            textAlign: 'center',
+                                        }}
                                     >
-                                        Upload Image
-                                    </Button>
-                                ) : (
-                                    <label htmlFor="image-upload">
-                                        <input
-                                            id="image-upload"
-                                            type="file"
-                                            accept="image/*"
-                                            onChange={handleImageChange}
-                                            style={{ display: 'none' }}
-                                        />
-                                        <Button component="span" className="upload-button">
-                                            Select Image
-                                        </Button>
-                                    </label>
+                                        Subir Foto (No disponible)
+                                    </Box>
                                 )}
                             </CardMedia>
+
                             <Box className='text2' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
                                 <Typography variant="h5" component="div" text-align="center">
                                     {user.fullName}
