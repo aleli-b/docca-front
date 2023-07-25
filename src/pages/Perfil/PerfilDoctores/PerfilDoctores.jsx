@@ -68,8 +68,7 @@ export const PerfilDoctores = () => {
                                     position: 'relative', // Add position relative to the CardMedia container
                                 }}
                             >
-                                <Avatar alt={user.fullName} src={user.profile_picture_url} sx={{ width: 180, height: 180 }} />
-                                
+                                <Avatar alt={user.fullName} src={user.profile_picture_url} sx={{ width: 180, height: 180 }} />                                
                                 {isHovered && ( // Show the prompt when the avatar is hovered
                                     <Box
                                         sx={{
