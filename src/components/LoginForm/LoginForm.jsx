@@ -101,7 +101,7 @@ export default function LoginForm() {
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link href="/register" variant="body2">
+                            <Link href="/register-paciente" variant="body2">
                                 {"¿No tienes cuenta? Registrarme"}
                             </Link>
                         </Grid>

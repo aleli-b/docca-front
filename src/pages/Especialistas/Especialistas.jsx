@@ -53,6 +53,7 @@ export const Especialistas = () => {
                     const hour = moment(turno.date).format('HH:mm');
                     return { dateTime: `${formattedDate} ${hour}`, doctorId: turno.doctorId };
                 });
+                console.log(response.data)
                 setOccupiedTurnos(backendOccupiedDates);
             } else {
                 console.log('Failed to fetch occupied turnos:', response.status);

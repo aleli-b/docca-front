@@ -8,6 +8,7 @@ import { EditModal } from '../../../components/EditModal/EditModal';
 import EditIcon from '@mui/icons-material/Edit';
 import './styles.css'
 import axios from 'axios';
+import { Mensajeria } from '../../../components/Mensajeria/Mensajeria';
 
 export const PerfilDoctores = () => {
     const { user, editUser } = useAuth();
@@ -53,8 +54,8 @@ export const PerfilDoctores = () => {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, justifyContent: 'center', paddingX: '20px', margin: 3.2, minHeight: '77.5dvh' }}>
             <Grid container spacing={2} sx={{ margin: '' }}>
-                <Grid item md={4} xs={12} sx={{}}>
-                    <Card sx={{ minHeight: "100%" }}>
+                <Grid item md={4} xs={12} sx={{ display: 'flex', flexDirection: 'column', gap: 2}}>
+                    <Card sx={{ }}>
                         <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
                             <CardMedia
                                 onMouseEnter={() => setIsHovered(true)}
@@ -68,7 +69,7 @@ export const PerfilDoctores = () => {
                                     position: 'relative', // Add position relative to the CardMedia container
                                 }}
                             >
-                                <Avatar alt={user.fullName} src={user.profile_picture_url} sx={{ width: 180, height: 180 }} />                                
+                                <Avatar alt={user.fullName} src={user.profile_picture_url} sx={{ width: 180, height: 180 }} />
                                 {isHovered && ( // Show the prompt when the avatar is hovered
                                     <Box
                                         sx={{
@@ -110,9 +111,10 @@ export const PerfilDoctores = () => {
                             </Box>
                         </CardContent>
                     </Card>
+                    <Mensajeria />
                 </Grid>
                 <Grid item md={8} xs={12}>
-                    <Card sx={{ minHeight: '100%' }}>
+                    <Card sx={{ minHeight: '100%', paddingTop: 4 }}>
                         <CardContent >
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid gray 1px', padding: '18.7px' }}>
                                 <Typography>Nombre:</Typography>

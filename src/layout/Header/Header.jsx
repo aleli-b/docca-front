@@ -22,6 +22,7 @@ export const Header = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [anchorElReg, setAnchorElReg] = React.useState(null);
+    const [anchorElRegXs, setAnchorElRegXs] = React.useState(null);
 
     React.useEffect(() => {
         handleCloseUserMenu(); // This will close the user menu when the component mounts
@@ -59,8 +60,12 @@ export const Header = () => {
         setAnchorElUser(event.currentTarget);
     };
 
-    const handleOpenRegMenu = (event) => {
-        setAnchorElReg(event.currentTarget);
+    const handleOpenRegMenu = (event, size) => {
+        if (size === 'xs') {
+            setAnchorElRegXs(event.currentTarget);
+        } else {
+            setAnchorElReg(event.currentTarget);
+        }
     };
 
     const handleCloseNavMenu = () => {
@@ -71,8 +76,12 @@ export const Header = () => {
         setAnchorElUser(null);
     };
 
-    const handleCloseRegMenu = () => {
-        setAnchorElReg(null);
+    const handleCloseRegMenu = (size) => {
+        if (size === 'xs') {
+            setAnchorElRegXs(null);
+        } else {
+            setAnchorElReg(null);
+        }
     };
 
     const handleRegister = (userValue) => {
@@ -83,7 +92,7 @@ export const Header = () => {
         <AppBar position="static" id='navBar'>
             <Container maxWidth="xl">
                 <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center'}}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <a href='/'>
                             <img src={docca} style={{ height: '5rem', width: '5rem' }} />
                         </a>
@@ -223,7 +232,7 @@ export const Header = () => {
                                             </Button>
                                             <Tooltip title="Ver Opciones">
                                                 <Button
-                                                    onClick={handleOpenRegMenu}
+                                                    onClick={(event) => handleOpenRegMenu(event, 'xs')}
                                                     sx={{ display: 'block' }}
                                                 >
                                                     REGISTRARME
@@ -232,7 +241,7 @@ export const Header = () => {
                                             <Menu
                                                 sx={{ mt: '45px' }}
                                                 id="reg-appbar"
-                                                anchorEl={anchorElReg}
+                                                anchorEl={anchorElRegXs}
                                                 anchorOrigin={{
                                                     vertical: 'top',
                                                     horizontal: 'right',
@@ -242,17 +251,17 @@ export const Header = () => {
                                                     vertical: 'top',
                                                     horizontal: 'right',
                                                 }}
-                                                open={Boolean(anchorElReg)}
-                                                onClose={handleCloseRegMenu}
+                                                open={Boolean(anchorElRegXs)}
+                                                onClose={() => handleCloseRegMenu('xs')}
                                             >
                                                 <MenuItem onClick={() => { handleRegister('doctor'); handleCloseRegMenu(); handleCloseNavMenu() }}>
-                                                    <Typography textAlign="center">COMO DOCTOR</Typography>
+                                                    <Typography textAlign="center">DOCTOR</Typography>
                                                 </MenuItem>
                                                 <MenuItem onClick={() => { handleRegister('laboratorio'); handleCloseRegMenu(); handleCloseNavMenu() }}>
-                                                    <Typography textAlign="center">COMO LABORATORIO</Typography>
+                                                    <Typography textAlign="center">LABORATORIO</Typography>
                                                 </MenuItem>
                                                 <MenuItem onClick={() => { handleRegister('paciente'); handleCloseRegMenu(); handleCloseNavMenu() }}>
-                                                    <Typography textAlign="center">COMO PACIENTE</Typography>
+                                                    <Typography textAlign="center">PACIENTE</Typography>
                                                 </MenuItem>
                                             </Menu>
                                         </Menu>
@@ -267,7 +276,7 @@ export const Header = () => {
                                         </Button>
                                         <Tooltip title="Ver Opciones">
                                             <Button
-                                                onClick={handleOpenRegMenu}
+                                                onClick={(event) => handleOpenRegMenu(event, 'md')}
                                                 sx={{ display: 'block', color: 'white' }}
                                             >
                                                 REGISTRARME
@@ -287,16 +296,16 @@ export const Header = () => {
                                                 horizontal: 'right',
                                             }}
                                             open={Boolean(anchorElReg)}
-                                            onClose={handleCloseRegMenu}
+                                            onClose={() => handleCloseRegMenu('md')}
                                         >
                                             <MenuItem onClick={() => { handleRegister('doctor'); handleCloseRegMenu(); }}>
-                                                <Typography textAlign="center">COMO DOCTOR</Typography>
+                                                <Typography textAlign="center">DOCTOR</Typography>
                                             </MenuItem>
                                             <MenuItem onClick={() => { handleRegister('laboratorio'); handleCloseRegMenu(); }}>
-                                                <Typography textAlign="center">COMO LABORATORIO</Typography>
+                                                <Typography textAlign="center">LABORATORIO</Typography>
                                             </MenuItem>
                                             <MenuItem onClick={() => { handleRegister('paciente'); handleCloseRegMenu(); }}>
-                                                <Typography textAlign="center">COMO PACIENTE</Typography>
+                                                <Typography textAlign="center">PACIENTE</Typography>
                                             </MenuItem>
                                         </Menu>
                                     </Box>
