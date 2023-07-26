@@ -46,13 +46,13 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
   }, []);
 
   const generateDates = () => {
-    const today = moment().utc();
+    const today = moment();
     const daysOfWeekSpanish = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     const generatedDates = [];
 
     for (let i = 0; i < 30; i++) {
-      const date = today.add(i, 'days');
-      const formattedDate = date.local().tz('America/Hermosillo').format('D [de] MMMM');
+      const date = today.clone().add(i, 'days');
+      const formattedDate = date.format('DD [de] MMMM');
       const dayOfWeek = daysOfWeekSpanish[date.day()];
 
       const timeSlots = [];

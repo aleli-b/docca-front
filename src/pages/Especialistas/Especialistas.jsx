@@ -47,12 +47,14 @@ export const Especialistas = () => {
     const fetchOccupiedTurnos = async () => {
         try {
           const response = await axios.get(`${svHost}/turnos-ocupados`);
+          console.log(response.data)
           if (response.status === 200) {
-            const backendOccupiedDates = response.data.map((turno) => {
-              const formattedDate = moment(turno.date).format('DD [de] MMMM');
-              const hour = moment(turno.date).format('HH:mm');
-              return { dateTime: `${formattedDate} ${hour}`, doctorId: turno.doctorId };
-            });
+              const backendOccupiedDates = response.data.map((turno) => {
+                  const formattedDate = moment(turno.date).format('DD [de] MMMM');
+                  const hour = moment(turno.date).format('HH:mm');
+                  return { dateTime: `${formattedDate} ${hour}`, doctorId: turno.doctorId };
+                });
+                console.log(backendOccupiedDates)
       
             setOccupiedTurnos(backendOccupiedDates);
           } else {

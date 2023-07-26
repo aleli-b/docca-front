@@ -3,8 +3,10 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -22,8 +24,21 @@ export const RegisterFormDoc = () => {
     const [passwordError, setPasswordError] = React.useState(false);
     const [ageError, setAgeError] = React.useState(false);
     const [category, setCategory] = React.useState('');
+    const [confirmPassword, setConfirmPassword] = React.useState('');
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [passwordMatchError, setPasswordMatchError] = React.useState(false);
 
     const auth = useAuth();
+
+    const getPasswordStrength = (value) => {
+        if (value.length < 8) {
+            return 'Débil';
+        } else if (value.length < 12) {
+            return 'Media';
+        } else {
+            return 'Segura';
+        }
+    };
 
     const validateEmail = (value) => {
         const emailRegex = /.+@.+\..+/;
@@ -39,7 +54,13 @@ export const RegisterFormDoc = () => {
 
     const validatePassword = (value) => {
         setPassword(value);
-        setPasswordError(value.length === 0);
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+        setPasswordError(!passwordRegex.test(value));
+    };
+
+    const validateConfirmPassword = (value) => {
+        setConfirmPassword(value);
+        setPasswordMatchError(value !== password);
     };
 
     const handleCategoryChange = (event) => {
@@ -63,6 +84,8 @@ export const RegisterFormDoc = () => {
             auth.register(data)
         }
     };
+
+    const options = ['Otorrinolaringólogo', 'Odontólogo', 'Endocrinólogo', 'Infectólogo', 'Cardiólogo', 'Ortopédico', 'Dermatólogo', 'Estilo de Vida',];
 
     return (
         <Container component="main" maxWidth="xs" sx={{ minHeight: '100dvh', display: 'flex', alignItems: 'center' }}>
@@ -90,12 +113,9 @@ export const RegisterFormDoc = () => {
                             label="Especialidad"
                             onChange={handleCategoryChange}
                         >
-                            <MenuItem value="Otorrinolaringólogo">Otorrinolaringólogo</MenuItem>
-                            <MenuItem value="Odontólogo">Odontólogo</MenuItem>
-                            <MenuItem value="Endocrinólogo">Endocrinólogo</MenuItem>
-                            <MenuItem value="Infectólogo">Infectólogo</MenuItem>
-                            <MenuItem value="Cardiólogo">Cardiólogo</MenuItem>
-                            <MenuItem value="Ortopédico">Ortopédico</MenuItem>
+                            {options.map((option, i) =>
+                                <MenuItem key={i} value={option}>{option}</MenuItem>
+                            )}
                         </Select>
                     </FormControl>
                     <TextField
@@ -155,11 +175,37 @@ export const RegisterFormDoc = () => {
                         fullWidth
                         name="password"
                         label="Contraseña"
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         id="password"
                         autoComplete="new-password"
                         error={passwordError}
-                        helperText={passwordError ? 'Se requiere una contraseña' : ''}
+                        helperText={passwordError ? 'La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número.' : ''}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <Typography variant="body2" gutterBottom color="text.secondary">
+                        Seguridad de la contraseña: {getPasswordStrength(password)}
+                    </Typography>
+                    <TextField
+                        onChange={(e) => validateConfirmPassword(e.target.value)}
+                        value={confirmPassword}
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="confirmPassword"
+                        label="Confirmar Contraseña"
+                        type="password"
+                        id="confirmPassword"
+                        autoComplete="new-password"
+                        error={passwordMatchError}
+                        helperText={passwordMatchError ? 'Las contraseñas no coinciden.' : ''}
                     />
                     <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                         Registrarme

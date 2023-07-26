@@ -3,14 +3,13 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useAuth } from '../context/AuthContext';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, IconButton, InputAdornment, InputLabel, MenuItem, Select } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export const RegisterFormLab = () => {
     const [firstName, setFirstName] = React.useState('');
@@ -22,8 +21,21 @@ export const RegisterFormLab = () => {
     const [passwordError, setPasswordError] = React.useState(false);
     const [ageError, setAgeError] = React.useState(false);
     const [category, setCategory] = React.useState('');
+    const [confirmPassword, setConfirmPassword] = React.useState('');
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [passwordMatchError, setPasswordMatchError] = React.useState(false);
 
     const auth = useAuth();
+
+    const getPasswordStrength = (value) => {
+        if (value.length < 8) {
+            return 'Débil';
+        } else if (value.length < 12) {
+            return 'Media';
+        } else {
+            return 'Segura';
+        }
+    };
 
     const validateEmail = (value) => {
         const emailRegex = /.+@.+\..+/;
@@ -39,7 +51,13 @@ export const RegisterFormLab = () => {
 
     const validatePassword = (value) => {
         setPassword(value);
-        setPasswordError(value.length === 0);
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+        setPasswordError(!passwordRegex.test(value));
+    };
+
+    const validateConfirmPassword = (value) => {
+        setConfirmPassword(value);
+        setPasswordMatchError(value !== password);
     };
 
     const handleCategoryChange = (event) => {
@@ -151,11 +169,37 @@ export const RegisterFormLab = () => {
                         fullWidth
                         name="password"
                         label="Contraseña"
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         id="password"
                         autoComplete="new-password"
                         error={passwordError}
-                        helperText={passwordError ? 'Se requiere una contraseña' : ''}
+                        helperText={passwordError ? 'La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número.' : ''}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <Typography variant="body2" gutterBottom color="text.secondary">
+                        Seguridad de la contraseña: {getPasswordStrength(password)}
+                    </Typography>
+                    <TextField
+                        onChange={(e) => validateConfirmPassword(e.target.value)}
+                        value={confirmPassword}
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="confirmPassword"
+                        label="Confirmar Contraseña"
+                        type="password"
+                        id="confirmPassword"
+                        autoComplete="new-password"
+                        error={passwordMatchError}
+                        helperText={passwordMatchError ? 'Las contraseñas no coinciden.' : ''}
                     />
                     <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                         Registrarme
