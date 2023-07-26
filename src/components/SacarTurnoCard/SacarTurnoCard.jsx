@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useAuth } from '../context/AuthContext';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,13 +29,10 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
 
   const updateNumColumns = () => {
     if (window.innerWidth < 600) {
-      // For smaller devices, display 1 column
       setNumColumns(1);
     } else if (window.innerWidth < 960) {
-      // For medium-sized devices, display 2 columns
       setNumColumns(2);
     } else {
-      // For larger devices, display 4 columns
       setNumColumns(4);
     }
   }
@@ -49,13 +46,13 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
   }, []);
 
   const generateDates = () => {
-    const today = moment();
+    const today = moment().utc();
     const daysOfWeekSpanish = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     const generatedDates = [];
 
     for (let i = 0; i < 30; i++) {
-      const date = today.clone().add(i, 'days');
-      const formattedDate = date.local().format('D [de] MMMM');
+      const date = today.add(i, 'days');
+      const formattedDate = date.local().tz('America/Hermosillo').format('D [de] MMMM');
       const dayOfWeek = daysOfWeekSpanish[date.day()];
 
       const timeSlots = [];
@@ -97,10 +94,11 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
 
   const addTurno = async (date, userId, doctorId) => {
     try {
+      const formattedDateUTC = moment(date, 'D [de] MMMM HH:mm').format('YYYY-MM-DD HH:mm');
       const response = await axios.post(
         `${svHost}/turnos`,
         {
-          date,
+          date: formattedDateUTC,
           userId,
           doctorId,
         },
