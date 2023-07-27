@@ -1,10 +1,9 @@
-import { createBrowserRouter, Route, RouterProvider, Routes } from "react-router-dom";
+import { createBrowserRouter, Route, RouterProvider, Routes, useLocation } from "react-router-dom";
 import './App.css'
 import { AuthProvider } from "./components/context/AuthContext";
 import { ThemeProvider } from "@emotion/react";
 import { MessageProvider } from './components/context/MessageContext.jsx';
 import { Header } from "./layout/Header/Header";
-import { Home } from "./pages/Home/Home";
 import { Footer } from "./layout/Footer/Footer";
 import { Login } from "./pages/Login/Login";
 import { Especialistas } from "./pages/Especialistas/Especialistas";
@@ -22,6 +21,7 @@ import { Messages } from "./pages/Messages/Messages";
 import { RegisterDoctor } from "./pages/Register/RegisterDoctor";
 import { RegisterLab } from "./pages/Register/RegisterLab";
 import { RegRoute } from "./components/guard/RegRoute";
+import { LoginRoute } from "./components/guard/LoginRoute";
 
 const router = createBrowserRouter([
   { path: "*", Component: Root },
@@ -50,6 +50,8 @@ function Root() {
       },
     },
   });
+  
+  const location = useLocation();
 
   return (
     <>
@@ -69,7 +71,7 @@ function Root() {
               <Route path="/admin/*" element={<AdminRoute> <UserAdmin /> </AdminRoute>} />
               <Route path="/perfil/*" element={<ProfileRoute> <PerfilDoctores /> <PerfilLaboratorios /> <PerfilPacientes /> </ProfileRoute>} />
               <Route path="/consulta/*" element={<Error />} />
-              <Route path="/turnos/*" element={<Turnos />} />
+              <Route path="/turnos/*" element={<LoginRoute><Turnos location={location} /></LoginRoute>} />
               <Route path="/messages/*" element={<Messages />} />
             </Routes>
             <Footer />

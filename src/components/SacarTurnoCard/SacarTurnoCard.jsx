@@ -7,6 +7,7 @@ import moment from 'moment-timezone';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 moment.updateLocale('es', {
   months: [
@@ -25,7 +26,7 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
   const doctor = doc;
   const occupiedTurnos = turnos;
 
-  const svHost = import.meta.env.VITE_HOST;
+  const navigate = useNavigate();
 
   const updateNumColumns = () => {
     if (window.innerWidth < 600) {
@@ -92,39 +93,17 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
     setStartIndex(Math.min(startIndex + 1, dates.length - 4));
   };
 
-  const addTurno = async (date, userId, doctorId) => {
-    try {
-      const formattedDateUTC = moment(date, 'D [de] MMMM HH:mm').format('YYYY-MM-DD HH:mm');
-      const response = await axios.post(
-        `${svHost}/turnos`,
-        {
-          date: formattedDateUTC,
-          userId,
-          doctorId,
-        },
-        {
-          headers: {
-            authorization: auth.token,
-          },
-        }
-      );
 
-      if (response.status === 200) {
-        toast.success('Turno sacado con exito!', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        })
-      }
-    } catch (error) {
-      const status = error.response ? error.response.status : null;
-      if (status === 400) {
-        toast.error('El usuario ya tiene turno', {
+  const isTurnoOccupied = (dateTime) => {
+    const occupied = occupiedTurnos.find((turno) => {
+      return turno.date === dateTime && turno.doctorId === doctor.id;
+    });
+    return occupied ? true : false;
+  };
+
+  const handleClickTurno = (dateTime) => {
+      if (!auth.user) {
+        toast.error('Debes iniciar sesion', {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -135,48 +114,9 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
           theme: "light",
         })
       } else {
-        toast.error('Error al sacar turno', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        })
-      }
-    }
-  };
-
-  const handleTimeClick = (dateTime) => {
-    try {
-      const userId = auth.user.id
-      const doctorId = doctor.id
-      addTurno(dateTime, userId, doctorId);
-    } catch (error) {
-      toast.error('Debes iniciar sesion', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      })
-    }
-  };
-
-  const isTurnoOccupied = (dateTime) => {
-    const occupied = occupiedTurnos.find((turno) => {
-      return turno.dateTime === dateTime && turno.doctorId === doctor.id;
-    });
-
-    return occupied ? true : false;
-  };
-
-
+        navigate(`/turnos?doctor=${doctor.id}&turno=${dateTime}`);
+      }           
+  }
 
   return (
     <div>
@@ -196,7 +136,7 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
                   <Button
                     key={j}
                     variant="outlined"
-                    onClick={() => handleTimeClick(`${date.day} ${time}`)}
+                    onClick={() => handleClickTurno(`${date.day} ${time}`)}
                     disabled={isTurnoOccupied(`${date.day} ${time}`)}
                     sx={{
                       textDecoration: isTurnoOccupied(`${date.day} ${time}`) ? 'line-through' : 'none',

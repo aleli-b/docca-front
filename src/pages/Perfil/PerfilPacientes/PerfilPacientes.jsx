@@ -65,7 +65,7 @@ export const PerfilPacientes = () => {
                     <Mensajeria />
                 </Grid>
                 <Grid item md={8} xs={12}>
-                    <Card sx={{}}>
+                    <Card sx={{ minHeight: '100%',}}>
                         <CardContent >
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid white 1px', padding: '18.7px' }}>
                                 <Typography>Nombre:</Typography>
