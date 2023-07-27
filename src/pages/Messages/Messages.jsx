@@ -10,6 +10,7 @@ import {
   Box,
   SvgIcon,
   Button,
+  Link,
 } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import AddIcon from "@mui/icons-material/Add";
@@ -134,7 +135,7 @@ export const Messages = () => {
                       ).toLocaleDateString("es-ES")}
                     </Typography>
                     <Typography sx={{ flexBasis: "50%" }}>{`${
-                      conversation.participant2.category || "paciente"
+                      conversation.participant2.category || (conversation.participant2.userType === "lab" ? "Laboratorio" : "Paciente")
                     }`}</Typography>
 
                     <SvgIcon component={ExpandMoreIcon} inheritViewBox />
@@ -235,15 +236,12 @@ export const Messages = () => {
                       }}
                     >
                       <Button>
-                        <SvgIcon component={AttachFileIcon}></SvgIcon>
-                      </Button>
-                      <Button>
-                        <SvgIcon component={PhoneCallbackIcon}></SvgIcon>
+                        <SvgIcon component={AttachFileIcon} sx={{color:"white"}}></SvgIcon>
                       </Button>
 
-                      <Typography sx={{ fontSize: "1.5rem", color: "#FFF" }}>
+                      <Link sx={{ fontSize: "1.5rem", color: "#FFF" }} underline="none">
                         Ir al meet
-                      </Typography>
+                      </Link>
                     </Box>
                     <MessageInput doctorId={conversation.participant2.id} />
                   </Box>
