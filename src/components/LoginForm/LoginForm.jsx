@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { ForgotPasswordForm } from './ForgotPasswordForm';
 import { useAuth } from '../context/AuthContext';
 
 export default function LoginForm() {
@@ -16,6 +17,8 @@ export default function LoginForm() {
     const [password, setPassword] = React.useState('');
     const [emailError, setEmailError] = React.useState(false);
     const [passwordError, setPasswordError] = React.useState(false);
+    const [showForgotPassword, setShowForgotPassword] = React.useState(false);
+
 
     const auth = useAuth();
 
@@ -44,6 +47,10 @@ export default function LoginForm() {
         } catch (error) {
             console.log(error)
         }
+    };
+
+    const handleForgotPasswordLinkClick = () => {
+        setShowForgotPassword(true);
     };
 
     return (
@@ -90,13 +97,13 @@ export default function LoginForm() {
                         autoComplete="current-password"
                         error={passwordError}
                         helperText={passwordError ? 'Password is required' : ''}
-                    />                   
+                    />
                     <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                         Ingresar
                     </Button>
                     <Grid container>
                         <Grid item xs>
-                            <Link href="#" variant="body2">
+                            <Link onClick={handleForgotPasswordLinkClick} variant="body2">
                                 ¿Olvidaste la contraseña?
                             </Link>
                         </Grid>
@@ -108,6 +115,9 @@ export default function LoginForm() {
                     </Grid>
                 </Box>
             </Box>
+            {showForgotPassword && (
+                <ForgotPasswordForm onClose={() => setShowForgotPassword(false)} />
+            )}
         </Container>
     );
 }
