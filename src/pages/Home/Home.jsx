@@ -438,6 +438,7 @@ export const Home = () => {
                 width: "100%",
                 flexDirection: "column",
                 gap: 4,
+                pb:4
               }}
             >
               <Box

@@ -3,6 +3,7 @@ import './App.css'
 import { AuthProvider } from "./components/context/AuthContext";
 import { ThemeProvider } from "@emotion/react";
 import { MessageProvider } from './components/context/MessageContext.jsx';
+import { Home } from "./pages/Home/Home";
 import { Header } from "./layout/Header/Header";
 import { Footer } from "./layout/Footer/Footer";
 import { Login } from "./pages/Login/Login";
