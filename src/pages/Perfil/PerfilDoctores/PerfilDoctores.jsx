@@ -149,6 +149,19 @@ export const PerfilDoctores = () => {
                                     </Button>
                                 </Box>
                             </Box>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '18.7px' }}>
+                                <Typography>Precio de consulta:</Typography>
+                                <Box>
+                                    {user.price ? '$' + user.price : 'No has añadido un precio aún'}
+                                    <Button onClick={() => {
+                                        setFieldToEdit('price');
+                                        setNewValue(user.price || '');
+                                        setEditing(true);
+                                    }}>
+                                        <EditIcon />
+                                    </Button>
+                                </Box>
+                            </Box>
                         </CardContent>
                     </Card>
                 </Grid>
