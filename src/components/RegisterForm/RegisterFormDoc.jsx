@@ -91,7 +91,7 @@ export const RegisterFormDoc = () => {
             color: "#5F5F5F",
             fontWeight: "700",
             fontSize: "20px",
-            pt: isMobile ? 4 : "",
+            pt: isMobile ? 4 : 4,
           }}
         >
           Registrarse

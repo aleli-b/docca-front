@@ -60,19 +60,19 @@ function Root() {
             <Header />
             <Routes>
               <Route path="*" element={<Error />} />
-              {/* <Route path="/" element={<Home />} /> */}
+              <Route path="/" element={<Home />} />
               <Route path="/login/*" element={<Login />} />
               <Route path="/register-paciente" element={<RegRoute> <Register /> </RegRoute>} />
               <Route path="/register-doctor" element={<RegRoute> <RegisterDoctor /> </RegRoute>} />
               <Route path="/register-laboratorio" element={<RegRoute> <RegisterLab /> </RegRoute>} />
-              <Route path="/" element={<Especialistas />} />
+              <Route path="/especialistas" element={<Especialistas />} />
               <Route path="/admin/*" element={<AdminRoute> <UserAdmin /> </AdminRoute>} />
               <Route path="/perfil/*" element={<ProfileRoute> <PerfilDoctores /> <PerfilLaboratorios /> <PerfilPacientes /> </ProfileRoute>} />
               <Route path="/consulta/*" element={<Error />} />
               <Route path="/turnos/*" element={<Turnos />} />
               <Route path="/messages/*" element={<Messages />} />
             </Routes>
-            <Footer />
+            <Footer sx={{mp:"auto" }} />
           </ThemeProvider>
         </MessageProvider>
       </AuthProvider>

@@ -16,7 +16,7 @@ export const MessageInput = ({ doctorId }) => {
 
   return (
     <div>
-      <FormControl variant="outlined" sx={{ mt: "10px", width: "100%",p:1 }}>
+      <FormControl variant="outlined" sx={{ mt: "10px", width: "100%", p: 1 }}>
         <Box
           sx={{
             display: "flex",
@@ -27,7 +27,7 @@ export const MessageInput = ({ doctorId }) => {
         >
           <TextField
             placeholder="Escribir..."
-            sx={{ width: "100%", bgcolor: "white", borderRadius:"10px",}}
+            sx={{ width: "100%", bgcolor: "white", borderRadius: "10px" }}
             variant="outlined"
             value={messageContent}
             onChange={(e) => setMessageContent(e.target.value)}
