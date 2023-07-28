@@ -1,22 +1,22 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import { useMessageContext } from "../../components/context/MessageContext";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
-import { useAuth } from "../../components/context/AuthContext";
-import "./Header.css";
-import { useNavigate } from "react-router-dom";
-import docca from "../../assets/Ic2.svg";
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import { useMessageContext } from '../../components/context/MessageContext';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import { useAuth } from '../../components/context/AuthContext';
+import './Header.css'
+import { useNavigate } from 'react-router-dom';
+import docca from '../../assets/Ic2.svg'
 
 export const Header = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -24,67 +24,75 @@ export const Header = () => {
     const [anchorElReg, setAnchorElReg] = React.useState(null);
     const [anchorElRegXs, setAnchorElRegXs] = React.useState(null);
 
-  React.useEffect(() => {
-    handleCloseUserMenu(); // This will close the user menu when the component mounts
-    return () => {
-      handleCloseUserMenu(); // This will also close the user menu when navigating away from the current page
-    };
-  }, []);
+    React.useEffect(() => {
+        handleCloseUserMenu(); // This will close the user menu when the component mounts
+        return () => {
+            handleCloseUserMenu(); // This will also close the user menu when navigating away from the current page
+        };
+    }, []);
 
-  const auth = useAuth();
-  const { conversations } = useMessageContext();
-  const navigate = useNavigate();
+    const auth = useAuth();
+    const { conversations } = useMessageContext();
+    const navigate = useNavigate();
 
-  const totalMessages = conversations.reduce(
-    (total, conversation) => total + conversation.messages.length,
-    0
-  );
+    const totalMessages = conversations.reduce(
+        (total, conversation) => total + conversation.messages.length,
+        0
+    );
 
-  const handleProfile = () => {
-    navigate("/perfil");
-  };
-
-  const handleAdmin = () => {
-    navigate("/admin");
-  };
-
-  const handleMessages = () => {
-    navigate("/messages");
-  };
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-    const handleOpenRegMenu = (event) => {
-        setAnchorElReg(event.currentTarget);
+    const handleProfile = () => {
+        navigate('/perfil');
     };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
-    const handleCloseRegMenu = () => {
-        setAnchorElReg(null);
+    const handleAdmin = () => {
+        navigate('/admin');
     };
 
-  const handleRegister = (userValue) => {
-    navigate(`/register-${userValue}`);
-  };
+    const handleMessages = () => {
+        navigate('/messages')
+    }
+
+    const handleOpenNavMenu = (event) => {
+        setAnchorElNav(event.currentTarget);
+    };
+
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
+    };
+
+    const handleOpenRegMenu = (event, size) => {
+        if (size === 'xs') {
+            setAnchorElRegXs(event.currentTarget);
+        } else {
+            setAnchorElReg(event.currentTarget);
+        }
+    };
+
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+    };
+
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
+
+    const handleCloseRegMenu = (size) => {
+        if (size === 'xs') {
+            setAnchorElRegXs(null);
+        } else {
+            setAnchorElReg(null);
+        }
+    };
+
+    const handleRegister = (userValue) => {
+        navigate(`/register-${userValue}`);
+    }
 
     return (
         <AppBar position="static" id='navBar'>
             <Container maxWidth="xl">
                 <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center'}}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <a href='/'>
                             <img src={docca} style={{ height: '5rem', width: '5rem' }} />
                         </a>
@@ -172,16 +180,12 @@ export const Header = () => {
                                         <MenuItem onClick={() => { handleCloseUserMenu() }}>
                                             <Typography textAlign="center">MEDIOS DE PAGO</Typography>
                                         </MenuItem> */}
-                  {auth.user.userType === "doctor" && (
-                    <MenuItem
-                      onClick={() => {
-                        handleCloseUserMenu();
-                        handleAdmin();
-                      }}
-                    >
-                      <Typography textAlign="center">ADMIN</Typography>
-                    </MenuItem>
-                  )}
+                                        {
+                                            auth.user.userType === 'doctor' &&
+                                            <MenuItem onClick={() => { handleCloseUserMenu(); handleAdmin() }}>
+                                                <Typography textAlign="center">ADMIN</Typography>
+                                            </MenuItem>
+                                        }
 
                                         <MenuItem onClick={auth.logout}>
                                             <Typography textAlign="center">CERRAR SESION</Typography>
@@ -228,7 +232,7 @@ export const Header = () => {
                                             </Button>
                                             <Tooltip title="Ver Opciones">
                                                 <Button
-                                                    onClick={handleOpenRegMenu}
+                                                    onClick={(event) => handleOpenRegMenu(event, 'xs')}
                                                     sx={{ display: 'block' }}
                                                 >
                                                     REGISTRARME
@@ -237,7 +241,7 @@ export const Header = () => {
                                             <Menu
                                                 sx={{ mt: '45px' }}
                                                 id="reg-appbar"
-                                                anchorEl={anchorElReg}
+                                                anchorEl={anchorElRegXs}
                                                 anchorOrigin={{
                                                     vertical: 'top',
                                                     horizontal: 'right',
@@ -247,17 +251,17 @@ export const Header = () => {
                                                     vertical: 'top',
                                                     horizontal: 'right',
                                                 }}
-                                                open={Boolean(anchorElReg)}
-                                                onClose={handleCloseRegMenu}
+                                                open={Boolean(anchorElRegXs)}
+                                                onClose={() => handleCloseRegMenu('xs')}
                                             >
                                                 <MenuItem onClick={() => { handleRegister('doctor'); handleCloseRegMenu(); handleCloseNavMenu() }}>
-                                                    <Typography textAlign="center">COMO DOCTOR</Typography>
+                                                    <Typography textAlign="center">DOCTOR</Typography>
                                                 </MenuItem>
                                                 <MenuItem onClick={() => { handleRegister('laboratorio'); handleCloseRegMenu(); handleCloseNavMenu() }}>
-                                                    <Typography textAlign="center">COMO LABORATORIO</Typography>
+                                                    <Typography textAlign="center">LABORATORIO</Typography>
                                                 </MenuItem>
                                                 <MenuItem onClick={() => { handleRegister('paciente'); handleCloseRegMenu(); handleCloseNavMenu() }}>
-                                                    <Typography textAlign="center">COMO PACIENTE</Typography>
+                                                    <Typography textAlign="center">PACIENTE</Typography>
                                                 </MenuItem>
                                             </Menu>
                                         </Menu>
@@ -272,7 +276,7 @@ export const Header = () => {
                                         </Button>
                                         <Tooltip title="Ver Opciones">
                                             <Button
-                                                onClick={handleOpenRegMenu}
+                                                onClick={(event) => handleOpenRegMenu(event, 'md')}
                                                 sx={{ display: 'block', color: 'white' }}
                                             >
                                                 REGISTRARME
@@ -292,16 +296,16 @@ export const Header = () => {
                                                 horizontal: 'right',
                                             }}
                                             open={Boolean(anchorElReg)}
-                                            onClose={handleCloseRegMenu}
+                                            onClose={() => handleCloseRegMenu('md')}
                                         >
                                             <MenuItem onClick={() => { handleRegister('doctor'); handleCloseRegMenu(); }}>
-                                                <Typography textAlign="center">COMO DOCTOR</Typography>
+                                                <Typography textAlign="center">DOCTOR</Typography>
                                             </MenuItem>
                                             <MenuItem onClick={() => { handleRegister('laboratorio'); handleCloseRegMenu(); }}>
-                                                <Typography textAlign="center">COMO LABORATORIO</Typography>
+                                                <Typography textAlign="center">LABORATORIO</Typography>
                                             </MenuItem>
                                             <MenuItem onClick={() => { handleRegister('paciente'); handleCloseRegMenu(); }}>
-                                                <Typography textAlign="center">COMO PACIENTE</Typography>
+                                                <Typography textAlign="center">PACIENTE</Typography>
                                             </MenuItem>
                                         </Menu>
                                     </Box>
