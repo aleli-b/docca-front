@@ -34,7 +34,7 @@ export const Turnos = ({ location }) => {
     setDoctor(backDoctor.data);
   };
 
-  const addTurno = async (date, userId, doctorId) => {
+  const addTurno = async (date, userId, doctorId, price) => {
     try {
       console.log(date, userId, doctorId);
       const response = await axios.post(
@@ -43,6 +43,7 @@ export const Turnos = ({ location }) => {
           date: date,
           userId,
           doctorId,
+          price
         },
         {
           headers: {
@@ -266,7 +267,7 @@ export const Turnos = ({ location }) => {
             variant="contained"
             color="primary"
             onClick={() => {
-              addTurno(turno, user.id, doctor.id);
+              addTurno(turno, user.id, doctor.id, doctor.price);
             }}
           >
             Pagar
