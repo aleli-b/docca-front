@@ -7,13 +7,14 @@ export const EditModal = ({ field, open, onClose, onSave, newValue, setNewValue 
         MAX_CHARACTERS = 50;
     } else if (field === 'phone') {
         MAX_CHARACTERS = 12; // Allow up to 12 characters for formatted phone number (xxx-xxx-xxxx)
+    } else {
+        MAX_CHARACTERS = 5;
     }
 
     const handleChange = (e) => {
         let value = e.target.value;
 
         if (field === 'phone'){
-            // Remove any non-numeric characters from the value
             value = value.replace(/[^0-9]/g, '');
     
             // Format the phone number as xxx-xxx-xxxx
@@ -23,6 +24,8 @@ export const EditModal = ({ field, open, onClose, onSave, newValue, setNewValue 
             if (value.length > 7) {
                 value = `${value.slice(0, 7)}-${value.slice(7)}`;
             }
+        } else if (field === 'price') {
+            value = value.replace(/[^0-9]/g, '');
         }
 
         if (value.length > MAX_CHARACTERS) {

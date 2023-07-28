@@ -17,13 +17,7 @@ export const TurnosCardDoctores = () => {
         doctorId: auth.user.id
       })
       if (response.status === 200) {
-        const backendTurnos = response.data.map((turno, i) => {
-          const formattedDate = moment(turno.date).format('DD [de] MMMM');
-          const hour = moment(turno.date).format('HH:mm');
-          return { id: response.data[i].id, dateTime: `${formattedDate} ${hour}`, name: response.data[i].paciente };
-        });
-        setTurnos(backendTurnos)
-        console.log(backendTurnos)
+        setTurnos(response.data)
       } else {
         console.log('Failed to fetch occupied turnos:', response.status);
       }
@@ -35,34 +29,7 @@ export const TurnosCardDoctores = () => {
   useEffect(() => {
     getBackendTurnos();
   }, []);
-  // const turnos = [
-  //   {
-  //     id: 1,
-  //     fecha: '2023-06-28',
-  //     usuario: 'Juan Pérez',
-  //     hora: '10:00'
-  //   },
-  //   {
-  //     id: 2,
-  //     fecha: '2023-06-30',
-  //     usuario: 'María López',
-  //     hora: '11:00'
-  //   },
-  //   {
-  //     id: 3,
-  //     fecha: '2023-07-02',
-  //     usuario: 'Pedro Gómez',
-  //     hora: '12:00'
 
-  //   }
-  // ];
-
-  const style = {
-    width: '100%',
-    maxWidth: 2000,
-    bgcolor: 'background.paper ',
-
-  };
   return (
     <Card sx={{ minHeight: '100%' }}>
       <CardContent>
@@ -73,7 +40,7 @@ export const TurnosCardDoctores = () => {
           {turnos.length > 0 ? (
             turnos.map((turno) => (
               <ListItem key={turno.id}>
-                <ListItemText primary={turno.dateTime} secondary={turno.name ? `Con el Paciente: ${turno.name.name} ${turno.name.lastName}` : 'Doctor no encontrado'} />
+                <ListItemText primary={turno.date} secondary={turno.paciente ? `Con el Paciente: ${turno.paciente.name} ${turno.paciente.lastName}` : 'Doctor no encontrado'} />
               </ListItem>
             ))
           ) : (

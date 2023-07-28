@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import titan from '../../assets/titan.jpg'
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import AddLocationIcon from '@mui/icons-material/AddLocation';

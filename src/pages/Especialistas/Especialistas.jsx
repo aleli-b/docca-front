@@ -6,7 +6,7 @@ import { CircularProgress, Grid } from '@mui/material';
 import axios from 'axios';
 import { DoctorCard } from '../../components/DoctorCard/DoctorCard';
 import { FilterSideBar } from '../../components/FilterSideBar/FilterSideBar';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import './Especialistas.css'
 
 
@@ -46,22 +46,22 @@ export const Especialistas = () => {
 
     const fetchOccupiedTurnos = async () => {
         try {
-            const response = await axios.get(`${svHost}/turnos-ocupados`);
-            if (response.status === 200) {
-                const backendOccupiedDates = response.data.map((turno, i) => {
-                    const formattedDate = moment(turno.date).format('DD [de] MMMM');
-                    const hour = moment(turno.date).format('HH:mm');
-                    return { dateTime: `${formattedDate} ${hour}`, doctorId: turno.doctorId };
-                });
-                setOccupiedTurnos(backendOccupiedDates);
-            } else {
-                console.log('Failed to fetch occupied turnos:', response.status);
-            }
+          const response = await axios.get(`${svHost}/turnos-ocupados`);
+          if (response.status === 200) {
+            //   const backendOccupiedDates = response.data.map((turno) => {
+            //       const formattedDate = moment(turno.date).format('DD [de] MMMM');
+            //       const hour = moment(turno.date).format('HH:mm');
+            //       return { dateTime: `${formattedDate} ${hour}`, doctorId: turno.doctorId };
+            //     });      
+            setOccupiedTurnos(response.data);
+          } else {
+            console.log('Failed to fetch occupied turnos:', response.status);
+          }
         } catch (error) {
-            console.error('Error fetching occupied turnos:', error);
+          console.error('Error fetching occupied turnos:', error);
         }
-    };
-
+      };
+      
 
     return (
         <>
