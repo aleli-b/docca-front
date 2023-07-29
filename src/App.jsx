@@ -22,6 +22,7 @@ import { RegisterDoctor } from "./pages/Register/RegisterDoctor";
 import { RegisterLab } from "./pages/Register/RegisterLab";
 import { RegRoute } from "./components/guard/RegRoute";
 import { LoginRoute } from "./components/guard/LoginRoute";
+import { ResetPasswordForm } from "./pages/ResetPassword/ResetPassword";
 
 const router = createBrowserRouter([
   { path: "*", Component: Root },
@@ -73,6 +74,7 @@ function Root() {
               <Route path="/consulta/*" element={<Error />} />
               <Route path="/turnos/*" element={<LoginRoute><Turnos location={location} /></LoginRoute>} />
               <Route path="/messages/*" element={<Messages />} />
+              <Route path="/reset-password/:token" element={<ResetPasswordForm />} />
             </Routes>
             <Footer />
           </ThemeProvider>

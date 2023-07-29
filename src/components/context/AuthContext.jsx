@@ -122,6 +122,16 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const forgotPassword = async (email) => {
+        try {
+          const response = await axios.post(`${svHost}/forgot-password`, { email });
+          return response.data.message; // Return the response message (e.g., 'Password reset email sent.')
+        } catch (error) {
+          console.error(error);
+          throw new Error('Failed to send reset password email.'); // You can handle the error as needed
+        }
+      }
+
     const logout = () => {
         window.location.href = '/';
         setUser(null)
@@ -135,6 +145,7 @@ export const AuthProvider = ({ children }) => {
         login,
         editUser,
         logout,
+        forgotPassword,
         user,
         token
     }
