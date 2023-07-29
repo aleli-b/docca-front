@@ -1,3 +1,4 @@
+// In your ForgotPasswordForm.js
 import * as React from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -6,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useAuth } from '../context/AuthContext';
 
-const ForgotPasswordForm = ({ onClose }) => {
+export const ForgotPasswordForm = ({ onClose }) => {
   const [email, setEmail] = React.useState('');
   const [emailError, setEmailError] = React.useState(false);
   const [isSent, setIsSent] = React.useState(false);
@@ -52,12 +53,12 @@ const ForgotPasswordForm = ({ onClose }) => {
         }}
       >
         <Typography variant="h6" id="forgot-password-modal-title" align="center">
-          {isSent ? 'Password Reset Email Sent' : 'Forgot Password'}
+          {isSent ? 'Correo Enviado' : 'Me olvidé mi contraseña'}
         </Typography>
         <Typography variant="body1" id="forgot-password-modal-description" align="center">
           {isSent
-            ? 'A password reset email has been sent to your email address.'
-            : 'Enter your email address to receive a password reset link.'}
+            ? 'Un mail de reinicio de contraseña ha sido enviado a tu correo.'
+            : 'Ingresa tu dirección de correo para recibir un mail de reinicio de contraseña'}
         </Typography>
         {!isSent ? (
           <form onSubmit={handleSubmit}>
@@ -68,25 +69,23 @@ const ForgotPasswordForm = ({ onClose }) => {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Email"
               name="email"
               autoComplete="email"
               autoFocus
               error={emailError}
-              helperText={emailError ? 'Invalid email address' : ''}
+              helperText={emailError ? 'Dirección de correo inválida' : ''}
             />
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 2 }}>
-              Send Reset Link
+              Enviar Correo de Reinicio
             </Button>
           </form>
         ) : (
           <Button onClick={onClose} fullWidth variant="contained" sx={{ mt: 2 }}>
-            Close
+            Cerrar
           </Button>
         )}
       </Box>
     </Modal>
   );
 };
-
-export default ForgotPasswordForm;
