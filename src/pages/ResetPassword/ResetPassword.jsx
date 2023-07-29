@@ -1,4 +1,3 @@
-// frontend/components/ResetPasswordForm.js
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
@@ -11,6 +10,8 @@ export const ResetPasswordForm = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const { token } = useParams();
 
+  const svHost = import.meta.env.VITE_HOST
+
   const validatePassword = () => {
     setPasswordError(newPassword !== confirmPassword);
   };
@@ -19,10 +20,10 @@ export const ResetPasswordForm = () => {
     event.preventDefault();
     if (newPassword === confirmPassword) {
       try {
-        const response = await fetch('/api/reset-password', {
+        const response = await fetch(`${svHost}/reset-password/${token}`, { // Send the token as part of the URL
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ token, newPassword }),
+          body: JSON.stringify({ newPassword }), // Don't include the token in the body
         });
 
         if (response.ok) {
