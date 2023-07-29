@@ -141,7 +141,7 @@ export default function LoginForm() {
               ¿Olvidaste la contraseña?
             </Link>
 
-            <Link href="/register" variant="body2" color={"#5F5F5F"}>
+            <Link href="/register-paciente" variant="body2" color={"#5F5F5F"}>
               {"¿No tienes cuenta? Registrarme"}
             </Link>
           </Box>
