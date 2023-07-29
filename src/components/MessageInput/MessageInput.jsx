@@ -6,7 +6,7 @@ import SendIcon from "@mui/icons-material/Send";
 export const MessageInput = ({ doctorId }) => {
   const [messageContent, setMessageContent] = useState("");
 
-  const { getMessages, sendMessage } = useMessageContext();
+  const { getMessages, sendMessage, } = useMessageContext();
 
   const handleSubmit = () => {
     setMessageContent("");

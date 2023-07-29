@@ -42,10 +42,6 @@ export const MessageProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    getMessages();
-  }, [getMessages]);
-
   const joinConversation = (conversationId) => {
     socket.emit("joinConversation", conversationId);
   };
@@ -97,21 +93,26 @@ export const MessageProvider = ({ children }) => {
         // Handle new messages received from the server
         console.log("New message received:", message);
 
-        // Update conversations state with the new message
-        setConversations((prevConversations) => {
-          const updatedConversations = prevConversations.map((conversation) => {
-            if (conversation.id === message.conversationId) {
-              return {
-                ...conversation,
-                messages: [...conversation.messages, message],
-              };
-            } else {
-              return conversation;
-            }
-          });
+        const conversationToUpdate = conversations.find(
+          (conversation) => conversation.id === message.conversationId
+        );        
 
-          return updatedConversations;
-        });
+        // Update conversations state with the new message
+        if (conversationToUpdate) {
+          setConversations((prevConversations) => {
+            const updatedConversations = prevConversations.map(
+              (conversation) =>
+                conversation.id === message.conversationId
+                  ? {
+                      ...conversation,
+                      messages: [...conversation.messages, message],
+                    }
+                  : conversation
+            );
+
+            return updatedConversations;
+          });
+        }
       });
 
       setSocket(socketConnection);
