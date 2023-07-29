@@ -23,7 +23,6 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import "./Messages.css";
-import { useAuth } from "../../components/context/AuthContext";
 import { debounce } from "lodash";
 
 export const Messages = () => {
@@ -33,12 +32,11 @@ export const Messages = () => {
 
   const containerRef = useRef(null);
 
-  const { user } = useAuth();
-
   // Llama a esta función después de renderizar los mensajes para establecer el scroll en la parte inferior
   function scrollContainerToBottom() {
     containerRef.current.scrollTop = containerRef.current.scrollHeight;
   }
+
 
   useEffect(() => {
     conversations.forEach((conversation) => {
@@ -169,8 +167,11 @@ export const Messages = () => {
                         <ListItem key={i}>
                           <ListItemText
                             sx={{
-                              display: "flex",                              
-                              justifyContent: message.sender.id === user.id ? 'end' : 'start',
+                              display: "flex",
+                              flexDirection:
+                                message.receiver.userType === "doctor"
+                                  ? "row-reverse"
+                                  : "" || "Nuevo mensaje"
                             }}
                           >
                             <Box
@@ -188,7 +189,10 @@ export const Messages = () => {
                                 sx={{ fontSize: "16px", fontWeight: "700" }}
                               >
                                 {`${
-                                  message.sender.name} ${message.sender.lastName}:`}
+                                  message.receiver.userType === "doctor"
+                                    ? message.receiver.name
+                                    : message.receiver.name || "Nuevo mensaje"
+                                }:`}
                               </Typography>
 
                               <Box
