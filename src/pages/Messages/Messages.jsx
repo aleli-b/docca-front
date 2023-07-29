@@ -23,12 +23,15 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import "./Messages.css";
+import { useAuth } from "../../components/context/AuthContext";
 import { debounce } from "lodash";
 
 export const Messages = () => {
-  const { conversations, loading, joinConversation } = useMessageContext();
+  const { conversations, loading, joinConversation, getMessages } = useMessageContext();
 
   const isMobile = useMediaQuery("(max-width:600px)");
+
+  const { user } = useAuth();
 
   const containerRef = useRef(null);
 
@@ -168,10 +171,7 @@ export const Messages = () => {
                           <ListItemText
                             sx={{
                               display: "flex",
-                              flexDirection:
-                                message.receiver.userType === "doctor"
-                                  ? "row-reverse"
-                                  : "" || "Nuevo mensaje"
+                              justifyContent: message.sender.id === user.id ? 'end' : 'start'
                             }}
                           >
                             <Box
@@ -188,11 +188,7 @@ export const Messages = () => {
                               <Typography
                                 sx={{ fontSize: "16px", fontWeight: "700" }}
                               >
-                                {`${
-                                  message.receiver.userType === "doctor"
-                                    ? message.receiver.name
-                                    : message.receiver.name || "Nuevo mensaje"
-                                }:`}
+                                {`${message.sender.name} ${message.sender.lastName}:`}
                               </Typography>
 
                               <Box

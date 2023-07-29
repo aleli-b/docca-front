@@ -89,16 +89,16 @@ export const MessageProvider = ({ children }) => {
         console.log("Connected to WebSocket");
       });
 
-      socketConnection.on("newMessage", (message) => {
+      socketConnection.on("newMessage", async (message) => {
         // Handle new messages received from the server
         console.log("New message received:", message);
 
         const conversationToUpdate = conversations.find(
           (conversation) => conversation.id === message.conversationId
-        );        
+        );
 
         // Update conversations state with the new message
-        if (conversationToUpdate) {
+       if (conversationToUpdate) {
           setConversations((prevConversations) => {
             const updatedConversations = prevConversations.map(
               (conversation) =>
@@ -113,6 +113,7 @@ export const MessageProvider = ({ children }) => {
             return updatedConversations;
           });
         }
+        await getMessages()
       });
 
       setSocket(socketConnection);
