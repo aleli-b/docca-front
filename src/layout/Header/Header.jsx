@@ -17,6 +17,7 @@ import { useAuth } from '../../components/context/AuthContext';
 import './Header.css'
 import { useNavigate } from 'react-router-dom';
 import docca from '../../assets/Ic2.svg'
+import { CleaningServices } from '@mui/icons-material';
 
 export const Header = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -24,14 +25,15 @@ export const Header = () => {
     const [anchorElReg, setAnchorElReg] = React.useState(null);
     const [anchorElRegXs, setAnchorElRegXs] = React.useState(null);
 
-    React.useEffect(() => {
-        handleCloseUserMenu(); // This will close the user menu when the component mounts
-        return () => {
-            handleCloseUserMenu(); // This will also close the user menu when navigating away from the current page
-        };
-    }, []);
+    // React.useEffect(() => {
+    //     handleCloseUserMenu(); // This will close the user menu when the component mounts
+    //     return () => {
+    //         handleCloseUserMenu(); // This will also close the user menu when navigating away from the current page
+    //     };
+    // }, []);
 
     const auth = useAuth();
+
     const { conversations } = useMessageContext();
     const navigate = useNavigate();
 
@@ -39,9 +41,8 @@ export const Header = () => {
         (total, conversation) => total + conversation.messages.length,
         0
     );
-
     const handleProfile = () => {
-        navigate('/perfil');
+        window.location.href = '/perfil';
     };
 
     const handleAdmin = () => {
@@ -180,8 +181,8 @@ export const Header = () => {
                                         <MenuItem onClick={() => { handleCloseUserMenu() }}>
                                             <Typography textAlign="center">MEDIOS DE PAGO</Typography>
                                         </MenuItem> */}
-                                        {
-                                            auth.user.userType === 'doctor' &&
+                                        {                                        
+                                            auth.user.admin &&
                                             <MenuItem onClick={() => { handleCloseUserMenu(); handleAdmin() }}>
                                                 <Typography textAlign="center">ADMIN</Typography>
                                             </MenuItem>

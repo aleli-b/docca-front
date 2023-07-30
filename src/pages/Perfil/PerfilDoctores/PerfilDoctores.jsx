@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Avatar, Box, Button, Card, CardContent, CardMedia, Grid, Rating, Typography } from '@mui/material'
-import titan from '../../../assets/titan.jpg'
 import { RedesSocialesCard } from '../../../components/RedesSocialesCard/RedesSocialesCard';
 import { TurnosCardDoctores } from '../../../components/TurnosCardDoctores/TurnosCardDoctores';
 import { useAuth } from '../../../components/context/AuthContext';
@@ -22,7 +21,12 @@ export const PerfilDoctores = () => {
     user.fullName = user.name + " " + user.lastName;
     user.userType = user.userType[0].toUpperCase() + user.userType.substring(1);
 
-    const svHost = import.meta.env.VITE_HOST;    
+    const svHost = import.meta.env.VITE_HOST;
+
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        setSelectedImage(file);
+    };
 
     const handleSaveField = (field, value) => {
         try {
@@ -30,31 +34,42 @@ export const PerfilDoctores = () => {
         } catch (error) {
             console.error('Ha habido un error')
         }
-    };    
+    };
+
+    const handleImageUpload = () => {
+        const formData = new FormData();
+        formData.append('image', selectedImage);
+
+        axios.post(`${svHost}/upload/${user.id}`, formData)
+            .then((response) => {
+                console.log('Image uploaded successfully:', response.data);
+            })
+            .catch((error) => {
+                console.error('Error uploading image:', error);
+            });
+    };
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, justifyContent: 'center', paddingX: '20px', margin: 3.2, minHeight: '77.5dvh' }}>
-            <Grid container spacing={2} sx={{ margin: '', }}>
+            <Grid container spacing={2} sx={{ margin: '' }}>
                 <Grid item md={4} xs={12} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     <Card sx={{}}>
                         <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
                             <CardMedia
-                                onMouseEnter={() => setIsHovered(true)}
-                                onMouseLeave={() => setIsHovered(false)}
                                 sx={{
                                     display: 'flex',
                                     justifyContent: 'center',
+                                    alignItems: 'center',
+                                    flexDirection: 'column',
                                     width: '100%',
                                     borderRadius: '2px',
                                     padding: 2,
-                                    position: 'relative',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
+                                    position: 'relative', 
                                     gap: 2,
                                 }}
                             >
                                 <Avatar alt={user.fullName} src={user.profile_picture_url} sx={{ width: 180, height: 180 }} />
-                                <UploadImage />
+                                <UploadImage />                            
                             </CardMedia>
 
                             <Box className='text2' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
