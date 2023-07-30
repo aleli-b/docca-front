@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Avatar, Box, Button, Card, CardContent, CardMedia, Checkbox, FormControlLabel, Grid, Rating, Stack, Typography } from '@mui/material'
+import { Avatar, Box, Button, Card, CardContent, CardMedia, Grid, Stack, Typography } from '@mui/material'
 import titan from '../../../assets/titan.jpg'
 import { ReseñasCard } from '../../../components/ReseñasCard/ReseñasCard';
 import { Mensajeria } from '../../../components/Mensajeria/Mensajeria';
@@ -8,6 +8,7 @@ import { Paper } from '@mui/material';
 import { useAuth } from '../../../components/context/AuthContext';
 import EditIcon from '@mui/icons-material/Edit';
 import { EditModal } from '../../../components/EditModal/EditModal';
+import { UploadImage } from '../../UploadImage/UploadImage';
 
 export const PerfilLaboratorios = () => {
     const { user, editUser } = useAuth();
@@ -39,16 +40,26 @@ export const PerfilLaboratorios = () => {
                 <Grid sx={{ display: "flex", flexDirection: "column", gap: 3 }} item md={4} xs={12} >
                     <Card>
                         <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, justifyContent: 'center' }}>
-                            <CardMedia sx={{ display: 'flex', justifyContent: 'center', width: '100%', borderRadius: '2px', padding: 2, }}>
-                                <Avatar
-                                    alt={user.fullName}
-                                    src={titan} sx={{ width: 180, height: 180, }}
-                                />
+                            <CardMedia                                
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    width: '100%',
+                                    borderRadius: '2px',
+                                    padding: 2,
+                                    position: 'relative',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    gap: 2,
+                                }}
+                            >
+                                <Avatar alt={user.fullName} src={user.profile_picture_url} sx={{ width: 180, height: 180 }} />
+                                <UploadImage />
                             </CardMedia>
                             <Box className='text2' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, }}>
                                 <Typography variant="h5" component="div" text-align="center">
                                     {user.fullName}
-                                </Typography>                                
+                                </Typography>
                                 {user.description ? <Typography> {user.description} </Typography> : (
                                     <Button
                                         onClick={() => {
@@ -66,7 +77,7 @@ export const PerfilLaboratorios = () => {
                     <Mensajeria />
                 </Grid>
                 <Grid item md={8} xs={12}>
-                    <Card sx={{ py: 3.7}}>
+                    <Card sx={{ py: 3.7 }}>
                         <CardContent >
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid white 1px', padding: '18.7px' }}>
                                 <Typography>Nombre:</Typography>
@@ -127,7 +138,7 @@ export const PerfilLaboratorios = () => {
                         </CardContent>
                     </Card>
                 </Grid>
-            </Grid>            
+            </Grid>
             <EditModal
                 field={fieldToEdit}
                 open={editing}
