@@ -14,13 +14,15 @@ import {
   CssBaseline,
   Button,
 } from "@mui/material";
+import { ForgotPasswordForm } from "./ForgotPasswordForm";
 
 export default function LoginForm() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [emailError, setEmailError] = React.useState(false);
   const [passwordError, setPasswordError] = React.useState(false);
-
+  const [showForgotPassword, setShowForgotPassword] = React.useState(false);
+  
   const auth = useAuth();
 
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -34,7 +36,7 @@ export default function LoginForm() {
     setPassword(value);
     setPasswordError(value.length === 0);
   };
-
+  
   const handleSubmit = (event) => {
     try {
       event.preventDefault();
@@ -49,6 +51,10 @@ export default function LoginForm() {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleForgotPasswordLinkClick = () => {
+    setShowForgotPassword(true);
   };
 
   return (
@@ -131,16 +137,19 @@ export default function LoginForm() {
               gap: isMobile ? "" : 1,
             }}
           >
-            <Link href="#" variant="body2" color={"#5F5F5F"}>
+            <Link onClick={handleForgotPasswordLinkClick} variant="body2" color={"#5F5F5F"}>
               ¿Olvidaste la contraseña?
             </Link>
 
-            <Link href="/register" variant="body2" color={"#5F5F5F"}>
+            <Link href="/register-paciente" variant="body2" color={"#5F5F5F"}>
               {"¿No tienes cuenta? Registrarme"}
             </Link>
           </Box>
         </Box>
       </Box>
+      {showForgotPassword && (
+        <ForgotPasswordForm onClose={() => setShowForgotPassword(false)} />
+      )}
     </Container>
   );
 }
