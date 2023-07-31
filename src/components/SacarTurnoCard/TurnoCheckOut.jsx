@@ -15,50 +15,22 @@ import { useNavigate } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 
-export function TurnoCheckOut({ doctor }) {
+export function TurnoCheckOut({ doctor, turno }) {
   const queryParams = new URLSearchParams(location.search);
-  const doctorId = queryParams.get("doctor");
-  const turno = queryParams.get("turno");
   const { user, token } = useAuth();
   const navigate = useNavigate();
-  const [preferenceId, setPreferenceId] = useState(null);
   const svHost = import.meta.env.VITE_HOST;
-
-  initMercadoPago("TEST-2433162c-f145-4f69-990f-a4d97d50f2bc");
-
-  const createPreference = async (price) => {
+  const mpKey = import.meta.env.VITE_HOST;
+  initMercadoPago(mpKey);
+  const addTurno = async () => {
     try {
-      const response = await axios.post(`${svHost}/mpcheckout/`, {
-        description: "Consulta medica",
-        price: price,
-        quantity: 1,
-      });
-
-      const { id } = response.data;
-
-      return id;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleBuy = async (price) => {
-    const id = await createPreference(price);
-    if (id) {
-      console.log(id);
-      setPreferenceId(id);
-    }
-  };
-  const addTurno = async (date, userId, doctorId, price) => {
-    try {
-      handleBuy(price);
       const response = await axios.post(
         `${svHost}/turnos`,
         {
-          date: date,
-          userId,
-          doctorId,
-          price,
+          date: turno,
+          userId: user.id,
+          doctorId: doctor.id,
+          price: doctor.price,
         },
         {
           headers: {
@@ -66,9 +38,8 @@ export function TurnoCheckOut({ doctor }) {
           },
         }
       );
-
       if (response.status === 200) {
-        toast.success("Turno sacado con exito!", {
+        toast.success("Redirigiendo al pago", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -78,6 +49,7 @@ export function TurnoCheckOut({ doctor }) {
           progress: undefined,
           theme: "light",
         });
+        createPreference();
       }
     } catch (error) {
       const status = error.response ? error.response.status : null;
@@ -92,6 +64,7 @@ export function TurnoCheckOut({ doctor }) {
           progress: undefined,
           theme: "light",
         });
+        console.log(error);
       } else {
         toast.error("Error al sacar turno", {
           position: "top-right",
@@ -105,6 +78,18 @@ export function TurnoCheckOut({ doctor }) {
         });
       }
     }
+  };
+
+  const createPreference = async () => {
+    axios
+      .post(`${svHost}/mpcheckout`, { doctor, user, turno })
+      .then(
+        (response) =>
+          (window.location.href = response.data.response.body.init_point)
+      )
+      .catch((error) => {
+        console.error(error);
+      });
   };
   const isMobile = useMediaQuery("(max-width:600px)");
 
@@ -265,28 +250,24 @@ export function TurnoCheckOut({ doctor }) {
           >{`Total a Pagar: ${doctor.price}${
             doctor.price ? "USD" : ""
           }`}</Typography>
-          <Box></Box>
-          {preferenceId ? (
-            <Wallet initialization={{ preferenceId }} />
-          ) : (
-            <Button
-              sx={{ borderRadius: 5, width: "15rem" }}
-              type="button"
-              variant="contained"
-              color="primary"
-              onClick={() => {
-                handleBuy(doctor.price);
-              }}
-            >
-              Pagar
-            </Button>
-          )}
           <Button
             sx={{ borderRadius: 5, width: "15rem" }}
             type="button"
             variant="contained"
             color="primary"
-            onClick={() => navigate("/especialistas")}
+            onClick={() => {
+              addTurno();
+            }}
+          >
+            Pagar
+          </Button>
+
+          <Button
+            sx={{ borderRadius: 5, width: "15rem" }}
+            type="button"
+            variant="contained"
+            color="primary"
+            onClick={() => navigate("/")}
           >
             Volver a los horarios
           </Button>
