@@ -267,7 +267,7 @@ export function TurnoCheckOut({ doctor, turno }) {
             type="button"
             variant="contained"
             color="primary"
-            onClick={() => navigate("/especialistas")}
+            onClick={() => navigate("/")}
           >
             Volver a los horarios
           </Button>
