@@ -15,7 +15,6 @@ import {
 import useMediaQuery from "@mui/material/useMediaQuery";
 import AddIcon from "@mui/icons-material/Add";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-import PhoneCallbackIcon from "@mui/icons-material/PhoneCallback";
 import { MessageInput } from "../../components/MessageInput/MessageInput";
 import { useMessageContext } from "../../components/context/MessageContext";
 import Accordion from "@mui/material/Accordion";
