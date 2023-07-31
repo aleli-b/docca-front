@@ -102,20 +102,25 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
   };
 
   const handleClickTurno = (dateTime) => {
-      if (!auth.user) {
-        toast.error('Debes iniciar sesion', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        })
-      } else {
-        navigate(`/turnos?doctor=${doctor.id}&turno=${dateTime}`);
-      }           
+    if (!auth.user) {
+      toast.error('Debes iniciar sesion', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+    } else {
+      // Almacenar los parámetros en sessionStorage
+      sessionStorage.setItem('doctorId', doctor.id);
+      sessionStorage.setItem('turno', dateTime);
+  
+      // Navegar a la página de turnos
+      navigate('/turnos');
+    }           
   }
 
   return (

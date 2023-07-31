@@ -18,10 +18,10 @@ import { TurnoCheckOut } from "../../components/SacarTurnoCard/TurnoCheckOut";
 
 export const Turnos = ({ location }) => {
   const [doctor, setDoctor] = useState([]);
+  const [turno, setTurno] = useState([]);
 
   const queryParams = new URLSearchParams(location.search);
   const doctorId = queryParams.get("doctor");
-  const turno = queryParams.get("turno");
   const { user, token } = useAuth();
   const navigate = useNavigate();
   const [preferenceId, setPreferenceId] = useState(null);
@@ -61,83 +61,30 @@ export const Turnos = ({ location }) => {
 
   const getDoctor = async () => {
     try {
-      if (!doctorId) {
-        console.error("Doctor ID is null");
+      const doctorId = sessionStorage.getItem('doctorId');
+      const turno = sessionStorage.getItem('turno');
+  
+      if (!doctorId || !turno) {
+        console.error("Doctor ID or turno is missing");
         return;
       }
-
+  
       const response = await axios.get(`${svHost}/user/${doctorId}`);
       setDoctor(response.data);
+      setTurno(turno);
     } catch (error) {
       console.error(error);
     }
   };
-
+  
   useEffect(() => {
     getDoctor();
-  }, [doctorId]);
+  }, []);
 
-  const addTurno = async (date, userId, doctorId, price) => {
-    try {
-      handleBuy(price);
-      const response = await axios.post(
-        `${svHost}/turnos`,
-        {
-          date: date,
-          userId,
-          doctorId,
-          price,
-        },
-        {
-          headers: {
-            authorization: token,
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        toast.success("Turno sacado con exito!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-    } catch (error) {
-      const status = error.response ? error.response.status : null;
-      if (status === 400) {
-        toast.error("El usuario ya tiene turno", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
-        toast.error("Error al sacar turno", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-    }
-  };
-  const isMobile = useMediaQuery("(max-width:600px)");
+ 
   return (
     <>
-      <TurnoCheckOut doctor={doctor} />
+      <TurnoCheckOut doctor={doctor} turno={turno} />
     </>
   );
 };
