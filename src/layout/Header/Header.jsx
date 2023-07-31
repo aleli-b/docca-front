@@ -51,7 +51,11 @@ export const Header = () => {
 
     const handleMessages = () => {
         navigate('/messages')
-    }
+    };
+
+    const handleTests = () => {
+        navigate('/tests')
+    };
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -169,6 +173,11 @@ export const Header = () => {
                                         <MenuItem onClick={() => { handleCloseUserMenu(); handleProfile() }}>
                                             <Typography textAlign="center">PERFIL</Typography>
                                         </MenuItem>
+                                        {auth.user.userType === 'Lab' &&
+                                            <MenuItem onClick={() => { handleCloseUserMenu(); handleTests() }}>
+                                                <Typography textAlign="center">MIS ANALISIS</Typography>
+                                            </MenuItem>
+                                        }
                                         {/* <MenuItem onClick={() => { handleCloseUserMenu() }}>
                                             <Typography textAlign="center">MIS CONSULTAS</Typography>
                                         </MenuItem>
@@ -181,7 +190,7 @@ export const Header = () => {
                                         <MenuItem onClick={() => { handleCloseUserMenu() }}>
                                             <Typography textAlign="center">MEDIOS DE PAGO</Typography>
                                         </MenuItem> */}
-                                        {                                        
+                                        {
                                             auth.user.admin &&
                                             <MenuItem onClick={() => { handleCloseUserMenu(); handleAdmin() }}>
                                                 <Typography textAlign="center">ADMIN</Typography>
