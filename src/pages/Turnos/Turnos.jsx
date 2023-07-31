@@ -13,37 +13,28 @@ import { useAuth } from "../../components/context/AuthContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
+import { TurnoCheckOut } from "../../components/SacarTurnoCard/TurnoCheckOut";
 
 export const Turnos = ({ location }) => {
   const [doctor, setDoctor] = useState([]);
+  const [turno, setTurno] = useState([]);
 
   const queryParams = new URLSearchParams(location.search);
   const doctorId = queryParams.get("doctor");
-  const turno = queryParams.get("turno");
   const { user, token } = useAuth();
   const navigate = useNavigate();
-
+  const [preferenceId, setPreferenceId] = useState(null);
   const svHost = import.meta.env.VITE_HOST;
 
-  useEffect(() => {
-    getDoctor();
-  }, []);
+  initMercadoPago("TEST-2433162c-f145-4f69-990f-a4d97d50f2bc");
 
-  const getDoctor = async () => {
-    const backDoctor = await axios.get(`${svHost}/user/${doctorId}`);
-    setDoctor(backDoctor.data);
-  };
-
-  const addTurno = async (date, userId, doctorId, price) => {
+  const createPreference = async (price) => {
     try {
-      console.log(date, userId, doctorId);
       const response = await axios.post(
-        `${svHost}/turnos`,
+        `${svHost}/mpcheckout/`,
         {
-          date: date,
-          userId,
-          doctorId,
-          price
+          price: price,
         },
         {
           headers: {
@@ -52,237 +43,48 @@ export const Turnos = ({ location }) => {
         }
       );
 
-      if (response.status === 200) {
-        toast.success("Turno sacado con exito!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        setTimeout(() => {
-          window.location.href = "/especialistas";
-        }, 2000);
-      }
+      const { id } = response.data;
+
+      return id;
     } catch (error) {
-      const status = error.response ? error.response.status : null;
-      if (status === 400) {
-        toast.error("El usuario ya tiene turno", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
-        toast.error("Error al sacar turno", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
+      console.log(error);
     }
   };
-  const isMobile = useMediaQuery("(max-width:600px)");
+
+  const handleBuy = async (price) => {
+    const id = await createPreference(price);
+    if (id) {
+      console.log(id);
+      setPreferenceId(id);
+    }
+  };
+
+  const getDoctor = async () => {
+    try {
+      const doctorId = sessionStorage.getItem('doctorId');
+      const turno = sessionStorage.getItem('turno');
+  
+      if (!doctorId || !turno) {
+        console.error("Doctor ID or turno is missing");
+        return;
+      }
+  
+      const response = await axios.get(`${svHost}/user/${doctorId}`);
+      setDoctor(response.data);
+      setTurno(turno);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  useEffect(() => {
+    getDoctor();
+  }, []);
+
+ 
   return (
-    <Container
-      sx={{
-        display: "flex",
-        minHeight: "100vh",
-        width: "100%",
-        justifyContent: "flex-start",
-        flexDirection: "column",
-        gap: 3,
-      }}
-    >
-      <Typography
-        variant="h1"
-        sx={{
-          color: "#145C6C",
-          textAlign: isMobile ? "center" : "left",
-          fontFamily: "Work Sans",
-          fontSize: "2.5rem",
-          fontWeight: "700",
-          pt: 4,
-        }}
-      >
-        Abonar consulta
-      </Typography>
-      <Box
-        component="form"
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          bgcolor: "rgba(131, 131, 131, 0.22)",
-          p: 4,
-          width: "100%",
-          borderRadius: 5,
-          gap: 4,
-        }}
-      >
-        <Typography
-          variant="h1"
-          sx={{
-            color: "#5F5F5F",
-            textAlign: isMobile ? "center" : "left",
-            fontFamily: "Work Sans",
-            fontSize: "2rem",
-            fontWeight: "700",
-          }}
-        >
-          Detalle de la consulta
-        </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            gap: 2,
-            justifyContent: "space-evenly",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignContent: "center",
-              textAlign: "center",
-              gap: 2,
-            }}
-          >
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignContent: "center",
-              }}
-            >
-              <Avatar
-                alt="img"
-                sx={{
-                  width: "80%",
-                  height: "100%",
-                  justifyContent: "center",
-                  borderRadius: "5rem",
-                }}
-                srcSet={`${doctor.profile_picture_url}`}
-              />
-            </Box>
-
-            <Typography
-              variant="h1"
-              sx={{
-                color: "#fff",
-                textAlign: "center",
-                fontFamily: "Work Sans",
-                fontSize: "1.25rem",
-                fontWeight: "700",
-                bgcolor: "#838383",
-                p: 2,
-                borderRadius: 5,
-                boxSadhow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
-              }}
-            >
-              {turno}
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              alignContent: "center",
-              gap: 1,
-            }}
-          >
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <Typography
-                variant="h1"
-                sx={{
-                  color: "#5F5F5F",
-                  textAlign: isMobile ? "center" : "left",
-                  fontFamily: "Work Sans",
-                  fontSize: "1.75rem",
-                  fontWeight: "700",
-                }}
-              >
-                {`Dr. ${doctor.name} ${doctor.lastName}`}
-              </Typography>
-              <Typography
-                variant="h1"
-                sx={{
-                  color: "#5F5F5F",
-                  textAlign: isMobile ? "center" : "left",
-                  fontFamily: "Work Sans",
-                  fontSize: "1.25rem",
-                  fontWeight: "700",
-                }}
-              >
-                {doctor.category}
-              </Typography>
-            </Box>
-            {/*
-            ---------- Luego utilizar esto para ingresar correo y método de pago --------
-            <Box sx={{display:"flex", flexDirection:"column"}}>
-
-            </Box>*/}
-          </Box>
-        </Box>
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: isMobile? "center":"flex-end",
-            gap: 4,
-          }}
-        >
-          <Typography
-            sx={{
-              color: "#5F5F5F",
-              textAlign: isMobile ? "center" : "right",
-              fontFamily: "Work Sans",
-              fontSize: "1.75rem",
-              fontWeight: "700",
-            }}
-          >{`Total a Pagar: ${doctor.price}${
-            doctor.price ? "USD" : ""
-          }`}</Typography>
-          <Button
-            sx={{ borderRadius: 5, width: "15rem" }}
-            type="button"
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              addTurno(turno, user.id, doctor.id, doctor.price);
-            }}
-          >
-            Pagar
-          </Button>
-          <Button
-            sx={{ borderRadius: 5, width: "15rem" }}
-            type="button"
-            variant="contained"
-            color="primary"
-            onClick={() => navigate("/especialistas")}
-          >
-            Volver a los horarios
-          </Button>
-        </Box>
-      </Box>
-    </Container>
+    <>
+      <TurnoCheckOut doctor={doctor} turno={turno} />
+    </>
   );
 };
