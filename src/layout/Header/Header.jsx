@@ -328,7 +328,7 @@ export const Header = () => {
                     </Toolbar>
                 </Container>
             </AppBar >
-            {auth.user && auth.user.subscription === false &&
+            {auth.user && auth.user.userType != 'patient' && auth.user.subscription === false &&
                 <Box sx={{ backgroundColor: 'gray', minWidth: '100%', height: '80px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div id="redline"></div>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, marginBottom: 3.5 }}>
