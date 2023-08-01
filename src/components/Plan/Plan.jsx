@@ -98,7 +98,8 @@ export const Plan = () => {
           display: "flex",
           justifyContent: "space-evenly",
           gap: 5,
-          mb: isMobile ? 5 : "",
+          pb: isMobile ? 5 : "",
+          mb: isMobile ? "" : 5,
         }}
       >
         <Box
