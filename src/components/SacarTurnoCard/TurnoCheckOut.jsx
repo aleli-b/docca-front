@@ -22,6 +22,7 @@ export function TurnoCheckOut({ doctor, turno }) {
   const svHost = import.meta.env.VITE_HOST;
   const mpKey = import.meta.env.VITE_HOST;
   initMercadoPago(mpKey);
+
   const addTurno = async () => {
     try {
       const response = await axios.post(
