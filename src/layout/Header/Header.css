@@ -5,3 +5,19 @@
 #kilombero{
   padding: 0
 }
+
+#redline{
+  min-height: .3em;
+  min-width: 100%;
+  background-color: red;
+}
+
+#warning{ 
+  max-height: 2em;
+  max-width: 2em;
+  background-color: red;
+  border-radius: 100%;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
