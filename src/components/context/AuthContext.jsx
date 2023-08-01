@@ -14,18 +14,24 @@ export const AuthProvider = ({ children }) => {
     const register = async (data) => {
         try {
             await axios.post(`${svHost}/users`, data);
-            const loginData = { email: data.email, password: data.password };
-            toast.success('Creacion de usuario exitosa! Iniciando sesion...', {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-            login(loginData);
+            if (data.userType === 'doctor'){
+                window.location.href = '/plan/doctor';
+            } else if (data.userType === 'lab') {
+                window.location.href = '/plan/lab';
+            } else {
+                const loginData = { email: data.email, password: data.password };
+                toast.success('Creacion de usuario exitosa! Iniciando sesion...', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                login(loginData);
+            }
         } catch (error) {
             if (error.tokenInvalid) logout()
             toast.error('Ha habido un error, por favor intente mas tarde...', {

@@ -88,7 +88,6 @@ export const RegisterFormDoc = () => {
         userType: "doctor",
         category: category,
       };
-      console.log(data);
       auth.register(data);
     }
   };
