@@ -23,67 +23,9 @@ export function TurnoCheckOut({ doctor, turno }) {
   const mpKey = import.meta.env.VITE_HOST;
   initMercadoPago(mpKey);
 
-  const addTurno = async () => {
-    try {
-      const response = await axios.post(
-        `${svHost}/turnos`,
-        {
-          date: turno,
-          userId: user.id,
-          doctorId: doctor.id,
-          price: doctor.price,
-        },
-        {
-          headers: {
-            authorization: token,
-          },
-        }
-      );
-      if (response.status === 200) {
-        toast.success("Redirigiendo al pago", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        createPreference();
-      }
-    } catch (error) {
-      const status = error.response ? error.response.status : null;
-      if (status === 400) {
-        toast.error("El usuario ya tiene turno", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        console.log(error);
-      } else {
-        toast.error("Error al sacar turno", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-    }
-  };
-
   const createPreference = async () => {
     axios
-      .post(`${svHost}/mpcheckout`, { doctor, user, turno })
+      .post(`${svHost}/mpcheckout`, { doctor, user, turno}, {headers:{authorization: token}})
       .then(
         (response) =>
           (window.location.href = response.data.response.body.init_point)
@@ -257,7 +199,7 @@ export function TurnoCheckOut({ doctor, turno }) {
             variant="contained"
             color="primary"
             onClick={() => {
-              addTurno();
+              createPreference();
             }}
           >
             Pagar
