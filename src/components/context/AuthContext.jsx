@@ -63,11 +63,15 @@ export const AuthProvider = ({ children }) => {
               progress: undefined,
               theme: "light",
             });
-            setTimeout(() => {
-              window.location.href = `/plan/${data.userType}`;
-              setUser(loginData.data.user);
-              setToken(loginData.data.token);
-            }, 2000);
+            if(data.userType === 'patient'){
+              window.location.href = `/`;
+            } else {
+              setTimeout(() => {
+                window.location.href = `/plan/${data.userType}`;
+                setUser(loginData.data.user);
+                setToken(loginData.data.token);
+              }, 2000);
+            }
           } catch (error) {
             const status = error.response ? error.response.status : null;
             if (error.tokenInvalid) logout();
