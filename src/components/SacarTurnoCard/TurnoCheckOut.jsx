@@ -20,12 +20,16 @@ export function TurnoCheckOut({ doctor, turno }) {
   const { user, token } = useAuth();
   const navigate = useNavigate();
   const svHost = import.meta.env.VITE_HOST;
-  const mpKey = import.meta.env.VITE_HOST;
+  const mpKey = import.meta.env.mpKey;
   initMercadoPago(mpKey);
 
   const createPreference = async () => {
     axios
-      .post(`${svHost}/mpcheckout`, { doctor, user, turno}, {headers:{authorization: token}})
+      .post(
+        `${svHost}/mpcheckout`,
+        { doctor, user, turno },
+        { headers: { authorization: token } }
+      )
       .then(
         (response) =>
           (window.location.href = response.data.response.body.init_point)
