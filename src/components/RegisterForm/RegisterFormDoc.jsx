@@ -101,6 +101,7 @@ export const RegisterFormDoc = () => {
     "Ortopédico",
     "Dermatólogo",
     "Estilo de Vida",
+    "Médico General"
   ];
 
   return (

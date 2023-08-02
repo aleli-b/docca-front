@@ -57,104 +57,373 @@ export const Plan = () => {
         gap: 5,
       }}
     >
-      <Box>
+      <Box sx={{ display: "flex", flexDirection: isMobile ? "column" : "row" }}>
         <Typography
-          sx={{ color: "#145C6C", fontWeight: "bold", textAlign: "center" }}
+          sx={{
+            color: "#145C6C",
+            fontFamily: "work sans",
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
           variant={isMobile ? "h3" : "h2"}
         >
-          Conviertete en un
-        </Typography>
-        <Typography
-          sx={{ color: "#145C6C", fontWeight: "bold", textAlign: "center" }}
-          variant={isMobile ? "h3" : "h2"}
-        >
-          {userType === "doctor" ? "doctor" : "laboratorio"} en línea!
+          {`Conviértete en un`}
+          {isMobile === true ? <br /> : ""}
+          {`${
+            userType === "doctor" ? " especialista" : " laboratorio"
+          } en línea!`}
         </Typography>
       </Box>
       <Box>
         <Typography
-          sx={{ color: "#145C6C", textAlign: "center", fontWeight: "bold" }}
+          sx={{
+            color: "#145C6C",
+            textAlign: "center",
+            fontWeight: "bold",
+            fontFamily: "work sans",
+          }}
           variant={isMobile ? "h5" : "h4"}
         >
-          Nuestra plataforma permite operar facilmente
+          Nuestra plataforma permite operar facilmente con los
         </Typography>
         <Typography
-          sx={{ color: "#145C6C", textAlign: "center", fontWeight: "bold" }}
+          sx={{
+            color: "#145C6C",
+            textAlign: "center",
+            fontWeight: "bold",
+            fontFamily: "work sans",
+          }}
           variant={isMobile ? "h5" : "h4"}
         >
           {" "}
-          con los pacientes y recibir tus honorarios de
-        </Typography>
-        <Typography
-          sx={{ color: "#145C6C", textAlign: "center", fontWeight: "bold" }}
-          variant={isMobile ? "h5" : "h4"}
-        >
-          {" "}
-          manera rápida.
+          pacientes y recibir tus honorarios de manera rápida.
         </Typography>
       </Box>
       <Box
+        className="Box-Container"
         sx={{
+          width: "100%",
           display: "flex",
+          flexDirection: isMobile ? "column" : "row",
           justifyContent: "space-evenly",
+          alignItems: "center",
           gap: 5,
           pb: isMobile ? 5 : "",
+          mb: 4,
         }}
       >
         <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            backgroundColor: "#c2c2c2",
-            borderRadius: "10px",
-            width: isMobile ? "90vw" : "28rem",
-            gap: 1,
-          }}
+          className="Box-1"
+          sx={{ display: "flex", flexDirection: "column", gap: 1 }}
         >
-          <Typography
+          <Box
             sx={{
-              color: "#145C6C",
-              fontWeight: "bold",
-              fontSize: "2rem",
-              mt: 2,
+              p: 2,
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "center",
             }}
-            variant="body1"
           >
-            PLAN 1
-          </Typography>
-          <Typography
-            sx={{ color: "#145C6C", fontWeight: "bold", fontSize: "1.5rem" }}
-            variant="body1"
+            <Typography
+              sx={{
+                bgcolor: "#FF0909",
+                color: "white",
+                fontWeight: "bold",
+                fontSize: "1.25rem",
+                width: "14rem",
+                height: "2rem",
+                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+                fontFamily: "work sans",
+              }}
+            >
+              SÓLO POR AGOSTO
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "space-between",
+              backgroundColor: "#c2c2c2",
+              borderRadius: "0.625rem",
+              width: isMobile ? "90vw" : "19rem",
+              height: "19rem",
+              gap: 1,
+            }}
           >
-            Plan integral con más
-          </Typography>
-          <Typography
-            sx={{ color: "#145C6C", fontWeight: "bold", fontSize: "1.5rem" }}
-            variant="body1"
+            <Typography
+              sx={{
+                color: "#145C6C",
+                fontWeight: "bold",
+                fontSize: "2rem",
+                mt: 2,
+                fontFamily: "work sans",
+              }}
+              variant="body1"
+            >
+              PLAN I
+            </Typography>
+            <Typography
+              sx={{
+                color: "#145C6C",
+                fontWeight: "bold",
+                fontFamily: "work sans",
+                fontSize: "1.5rem",
+                textAlign:"center"
+              }}
+              variant="body1"
+            >
+              {"12 MESES + MES DE "}
+              {<br />}
+              {"AGOSTO GRATIS"}
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                textAlign: "center",
+              }}
+            >
+              <Typography
+                sx={{
+                  color: "#145C6C",
+                  fontWeight: "bold",
+                  fontSize: "1.5rem",
+                  fontFamily: "work sans",
+                }}
+                variant="body1"
+              >
+                {"PRECIO FINAL: "}
+                {<br />}
+                {"10.000 MXN"}
+              </Typography>
+            </Box>
+            <Button
+              variant="contained"
+              onClick={() => createPreference(10000)}
+              sx={{
+                marginTop: 1,
+                minWidth: "100%",
+                maxWidth: "100%",
+                height: "2.5rem",
+                fontFamily: "work sans",
+                fontWeight: "bold",
+                borderRadius: "0.625rem",
+              }}
+            >
+              Asociarme
+            </Button>
+          </Box>
+        </Box>
+        <Box
+          className="Box-2"
+          sx={{ display: "flex", flexDirection: "column", gap: 1 }}
+        >
+          <Box
+            sx={{
+              p: 2,
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
           >
-            {" "}
-            de una especialidad
-          </Typography>
-          <Typography
-            sx={{ color: "#145C6C", fontWeight: "bold", fontSize: "1.5rem" }}
-            variant="body1"
+            <Typography
+              sx={{
+                bgcolor: "#FF0909",
+                color: "white",
+                fontWeight: "bold",
+                fontSize: "1.25rem",
+                width: "14rem",
+                height: "2rem",
+                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+                fontFamily: "work sans",
+              }}
+            >
+              SÓLO POR AGOSTO
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "space-between",
+              backgroundColor: "#c2c2c2",
+              borderRadius: "0.625rem",
+              width: isMobile ? "90vw" : "19rem",
+              height: "19rem",
+              gap: 1,
+            }}
           >
-            PRECIO FINAL:
-          </Typography>
-          <Typography
-            sx={{ color: "#145C6C", fontWeight: "bold", fontSize: "1.5rem" }}
+            <Typography
+              sx={{
+                color: "#145C6C",
+                fontWeight: "bold",
+                fontSize: "2rem",
+                mt: 2,
+                fontFamily: "work sans",
+              }}
+              variant="body1"
+            >
+              PLAN II
+            </Typography>
+            <Typography
+              sx={{
+                color: "#145C6C",
+                fontWeight: "bold",
+                fontFamily: "work sans",
+                fontSize: "1.4rem",
+                textAlign: "center",
+              }}
+              variant="body1"
+            >
+              {"SEPTIEMBRE + OCTUBRE "}
+              {<br />}
+              {"+ MES DE AGOSTO GRATIS"}
+            </Typography>
+
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                textAlign: "center",
+              }}
+            >
+              <Typography
+                sx={{
+                  color: "#145C6C",
+                  fontWeight: "bold",
+                  fontSize: "1.5rem",
+                  fontFamily: "work sans",
+                }}
+                variant="body1"
+              >
+                {"PRECIO FINAL: "}
+                {<br />}
+                {"1.499 MXN"}
+              </Typography>
+            </Box>
+            <Button
+              variant="contained"
+              onClick={() => createPreference(10000)}
+              sx={{
+                marginTop: 1,
+                minWidth: "100%",
+                maxWidth: "100%",
+                height: "2.5rem",
+                fontFamily: "work sans",
+                fontWeight: "bold",
+                borderRadius: "0.625rem",
+              }}
+            >
+              Asociarme
+            </Button>
+          </Box>
+        </Box>
+        <Box
+          className="Box-3"
+          sx={{ display: "flex", flexDirection: "column", gap: 1 }}
+        >
+          <Box
+            sx={{
+              p: 2,
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
           >
-            {" "}
-            999USD{" "}
-          </Typography>
-          <Button
-            variant="contained"
-            onClick={() => createPreference(999)}
-            sx={{ marginTop: 1, minWidth: "100%", maxWidth: "100%" }}
+            <Typography
+              sx={{
+                visibility: "hidden",
+                bgcolor: "#FF0909",
+                color: "white",
+                fontWeight: "bold",
+                fontSize: "1.25rem",
+                width: "14rem",
+                height: "2rem",
+                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+              }}
+            >
+              SÓLO POR AGOSTO
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "space-between",
+              backgroundColor: "#c2c2c2",
+              borderRadius: "0.625rem",
+              width: isMobile ? "90vw" : "19rem",
+              height: "19rem",
+              gap: 1,
+            }}
           >
-            Asociarme
-          </Button>
+            <Typography
+              sx={{
+                color: "#145C6C",
+                fontWeight: "bold",
+                fontFamily: "work sans",
+                fontSize: "2rem",
+                mt: 2,
+              }}
+              variant="body1"
+            >
+              PLAN III
+            </Typography>
+            <Typography
+              sx={{
+                color: "#145C6C",
+                fontWeight: "bold",
+                fontFamily: "work sans",
+                fontSize: "1.5rem",
+              }}
+              variant="body1"
+            >
+              1 MES
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                textAlign: "center",
+              }}
+            >
+              <Typography
+                sx={{
+                  color: "#145C6C",
+                  fontWeight: "bold",
+                  fontSize: "1.5rem",
+                  fontFamily: "work sans",
+                }}
+                variant="body1"
+              >
+                {"PRECIO FINAL: "}
+                {<br />}
+                {"999 MXN"}
+              </Typography>
+            </Box>
+            <Button
+              variant="contained"
+              onClick={() => createPreference(999)}
+              sx={{
+                marginTop: 1,
+                minWidth: "100%",
+                maxWidth: "100%",
+                height: "2.5rem",
+                fontFamily: "work sans",
+                fontWeight: "bold",
+                borderRadius: "0.625rem",
+              }}
+            >
+              Asociarme
+            </Button>
+          </Box>
         </Box>
       </Box>
     </Container>

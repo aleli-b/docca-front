@@ -7,6 +7,8 @@ import {
   Button,
   Container,
   Avatar,
+  SvgIcon,
+  Rating,
 } from "@mui/material";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
@@ -24,6 +26,7 @@ export function TurnoCheckOut({ doctor, turno }) {
   initMercadoPago(mpKey);
 
   const createPreference = async () => {
+    event.preventDefault();
     axios
       .post(
         `${svHost}/mpcheckout`,
@@ -38,10 +41,10 @@ export function TurnoCheckOut({ doctor, turno }) {
         console.error(error);
       });
   };
-  const isMobile = useMediaQuery("(max-width:600px)");
 
+  const isMobile = useMediaQuery("(max-width: 900px)");
   return (
-    <Container sx={{ width: "100%" }}>
+    <Container sx={{ width: "100%", minHeight: "100dvh" }}>
       <Typography
         variant="h1"
         sx={{
@@ -50,7 +53,7 @@ export function TurnoCheckOut({ doctor, turno }) {
           fontFamily: "Work Sans",
           fontSize: "2.5rem",
           fontWeight: "700",
-          pt: 4,
+          mt: 4,
         }}
       >
         Abonar consulta
@@ -65,6 +68,7 @@ export function TurnoCheckOut({ doctor, turno }) {
           width: "100%",
           borderRadius: 5,
           gap: 4,
+          mb: 4,
         }}
       >
         <Typography
@@ -74,7 +78,7 @@ export function TurnoCheckOut({ doctor, turno }) {
             textAlign: isMobile ? "center" : "left",
             fontFamily: "Work Sans",
             fontSize: "2rem",
-            fontWeight: "700",
+            fontWeight: "bold",
           }}
         >
           Detalle de la consulta
@@ -83,8 +87,9 @@ export function TurnoCheckOut({ doctor, turno }) {
           sx={{
             display: "flex",
             flexDirection: "row",
-            gap: 2,
+            gap: isMobile ? 1 : "",
             justifyContent: "space-evenly",
+            width: "100%",
           }}
         >
           <Box
@@ -94,11 +99,13 @@ export function TurnoCheckOut({ doctor, turno }) {
               alignContent: "center",
               textAlign: "center",
               gap: 2,
+              width: "50%",
+              alignItems: "center",
             }}
           >
             <Box
               sx={{
-                width: "100%",
+                width: isMobile ? "100%" : "50%",
                 display: "flex",
                 justifyContent: "center",
                 alignContent: "center",
@@ -107,7 +114,7 @@ export function TurnoCheckOut({ doctor, turno }) {
               <Avatar
                 alt="img"
                 sx={{
-                  width: "80%",
+                  width: "100%",
                   height: "100%",
                   justifyContent: "center",
                   borderRadius: "5rem",
@@ -127,10 +134,11 @@ export function TurnoCheckOut({ doctor, turno }) {
                 bgcolor: "#838383",
                 p: 2,
                 borderRadius: 5,
-                boxSadhow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+                width: isMobile ? "100%" : "50%",
               }}
             >
-              {turno ? turno : ""}
+              {turno ? `${turno}` : ""}
             </Typography>
           </Box>
 
@@ -141,9 +149,16 @@ export function TurnoCheckOut({ doctor, turno }) {
               justifyContent: "space-between",
               alignContent: "center",
               gap: 1,
+              width: "55%",
             }}
           >
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+              }}
+            >
               <Typography
                 variant="h1"
                 sx={{
@@ -159,6 +174,9 @@ export function TurnoCheckOut({ doctor, turno }) {
               <Typography
                 variant="h1"
                 sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: 1,
                   color: "#5F5F5F",
                   textAlign: isMobile ? "center" : "left",
                   fontFamily: "Work Sans",
@@ -167,7 +185,24 @@ export function TurnoCheckOut({ doctor, turno }) {
                 }}
               >
                 {doctor.category}
+                <SvgIcon>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="16"
+                    viewBox="0 0 18 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M6.05882 8.20588L7.88777 10.0589C8.10199 10.2759 8.45896 10.2524 8.64301 10.0092C9.19516 9.27984 10.2923 7.83354 11.1176 6.76471M17 8C17 11.866 13.4183 15 9 15C4.58172 15 1 11.866 1 8C1 4.13401 4.58172 1 9 1C13.4183 1 17 4.13401 17 8Z"
+                      stroke="#34C759"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </SvgIcon>
               </Typography>
+              <Rating sx={{ color: "#FF5C00" }} />
             </Box>
             {/*
             ---------- Luego utilizar esto para ingresar correo y método de pago --------
@@ -177,11 +212,13 @@ export function TurnoCheckOut({ doctor, turno }) {
           </Box>
         </Box>
         <Box
+          component="form"
+          onSubmit={createPreference}
           sx={{
             width: "100%",
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
+            flexDirection: isMobile ? "column" : "row",
+            justifyContent: isMobile ? "center" : "flex-end",
             alignItems: isMobile ? "center" : "flex-end",
             gap: 4,
           }}
@@ -192,31 +229,28 @@ export function TurnoCheckOut({ doctor, turno }) {
               textAlign: isMobile ? "center" : "right",
               fontFamily: "Work Sans",
               fontSize: "1.75rem",
-              fontWeight: "700",
+              fontWeight: "Bold",
             }}
           >{`Total a Pagar: ${doctor.price}${
             doctor.price ? "USD" : ""
           }`}</Typography>
           <Button
-            sx={{ borderRadius: 5, width: "15rem" }}
+            sx={{
+              borderRadius: "0.625rem",
+              width: "15rem",
+              fontFamily: "work sans",
+              fontWeight: "bold",
+              width: "9.2rem",
+              height: "2.4rem",
+              bgcolor: "#007e20",
+              "&:hover": { bgcolor: "#007e20" },
+            }}
             type="button"
             variant="contained"
             color="primary"
-            onClick={() => {
-              createPreference();
-            }}
+            onClick={()=> createPreference()}
           >
             Pagar
-          </Button>
-
-          <Button
-            sx={{ borderRadius: 5, width: "15rem" }}
-            type="button"
-            variant="contained"
-            color="primary"
-            onClick={() => navigate("/")}
-          >
-            Volver a los horarios
           </Button>
         </Box>
       </Box>

@@ -15,8 +15,7 @@ import {
   ListItemIcon,
   Container,
 } from "@mui/material";
-import docca from "../../assets/DA1.jpg";
-import esteto from "../../assets/esteto.png";
+import esteto from "../../assets/Banner.png";
 import "./Home.css";
 
 export const Home = () => {
