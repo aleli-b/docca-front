@@ -43,6 +43,7 @@ export function TurnoCheckOut({ doctor, turno }) {
   };
 
   const isMobile = useMediaQuery("(max-width: 900px)");
+
   return (
     <Container sx={{ width: "100%", minHeight: "100dvh" }}>
       <Typography
@@ -119,7 +120,7 @@ export function TurnoCheckOut({ doctor, turno }) {
                   justifyContent: "center",
                   borderRadius: "5rem",
                 }}
-                srcSet={`${doctor.profile_picture_url}`}
+                srcSet={doctor.profile_picture_url ? doctor.profile_picture_url : "" }
               />
             </Box>
 
@@ -196,8 +197,8 @@ export function TurnoCheckOut({ doctor, turno }) {
                     <path
                       d="M6.05882 8.20588L7.88777 10.0589C8.10199 10.2759 8.45896 10.2524 8.64301 10.0092C9.19516 9.27984 10.2923 7.83354 11.1176 6.76471M17 8C17 11.866 13.4183 15 9 15C4.58172 15 1 11.866 1 8C1 4.13401 4.58172 1 9 1C13.4183 1 17 4.13401 17 8Z"
                       stroke="#34C759"
-                      stroke-width="2"
-                      stroke-linecap="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
                     />
                   </svg>
                 </SvgIcon>
@@ -212,8 +213,6 @@ export function TurnoCheckOut({ doctor, turno }) {
           </Box>
         </Box>
         <Box
-          component="form"
-          onSubmit={createPreference}
           sx={{
             width: "100%",
             display: "flex",
@@ -237,7 +236,6 @@ export function TurnoCheckOut({ doctor, turno }) {
           <Button
             sx={{
               borderRadius: "0.625rem",
-              width: "15rem",
               fontFamily: "work sans",
               fontWeight: "bold",
               width: "9.2rem",

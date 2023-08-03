@@ -154,7 +154,7 @@ export const Header = () => {
                                         </Container>
                                         <Tooltip title="Open settings">
                                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                                <Avatar alt="Remy Sharp" />
+                                                <Avatar alt="user-profile-pic" src={auth.user.profile_picture_url} />
                                             </IconButton>
                                         </Tooltip>
                                         <Menu
