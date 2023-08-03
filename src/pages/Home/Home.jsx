@@ -33,7 +33,7 @@ export const Home = () => {
             alignItems: "center",
             justifyContent: "center",
             minHeight: "100vh",
-            gap: isMobile? 7:10,
+            gap: isMobile ? 7 : 10,
           }}
         >
           <Box
@@ -64,7 +64,7 @@ export const Home = () => {
                 sx={{
                   borderRadius: 0,
                   height: "auto",
-                  width: isMobile? "100vw":"50vw",
+                  width: isMobile ? "100vw" : "50vw",
                 }}
               />
               <Box
@@ -80,8 +80,15 @@ export const Home = () => {
                 }}
               >
                 <Button
+                  href="/especialistas"
                   variant="contained"
-                  sx={{ width: "13rem", borderRadius: "0.625rem", fontFamily:"work sans",fontWeight:"bold", bgcolor:"#FF5C00"  }}
+                  sx={{
+                    width: "13rem",
+                    borderRadius: "0.625rem",
+                    fontFamily: "work sans",
+                    fontWeight: "bold",
+                    bgcolor: "#FF5C00",
+                  }}
                 >
                   Buscar Especialista
                 </Button>
@@ -95,14 +102,28 @@ export const Home = () => {
                   }}
                 >
                   <Button
+                    href="/plan/doctor"
                     variant="contained"
-                    sx={{ width: "12rem", borderRadius: "0.625rem",fontFamily:"work sans",fontWeight:"bold", bgcolor:"#FF5C00" }}
+                    sx={{
+                      width: "12rem",
+                      borderRadius: "0.625rem",
+                      fontFamily: "work sans",
+                      fontWeight: "bold",
+                      bgcolor: "#FF5C00",
+                    }}
                   >
                     Soy médico
                   </Button>
                   <Button
+                    href="/plan/lab"
                     variant="contained"
-                    sx={{ width: "12rem", borderRadius: "0.625rem",fontFamily:"work sans",fontWeight:"bold", bgcolor:"#FF5C00" }}
+                    sx={{
+                      width: "12rem",
+                      borderRadius: "0.625rem",
+                      fontFamily: "work sans",
+                      fontWeight: "bold",
+                      bgcolor: "#FF5C00",
+                    }}
                   >
                     Soy laboratorio
                   </Button>
@@ -123,26 +144,95 @@ export const Home = () => {
             }}
           >
             <Typography
-              sx={{ color: "white", fontSize: "2rem", fontWeight: "700", lineHeight: isMobile? 1:"",fontFamily:"work sans"}}
+              sx={{
+                color: "white",
+                fontSize: "2rem",
+                fontWeight: "700",
+                lineHeight: isMobile ? 1 : "",
+                fontFamily: "work sans",
+              }}
             >
               Nuestros especialistas
             </Typography>
-            <Box className="especialistasCategories" sx={{display:"flex", flexDirection: isMobile? "row":"column", justifyContent:"space-evenly", mt:isMobile? 3:"",textAlign: isMobile? "left":""}}>
+            <Box
+              className="especialistasCategories"
+              sx={{
+                display: "flex",
+                flexDirection: isMobile ? "row" : "column",
+                justifyContent: "space-evenly",
+                mt: isMobile ? 3 : "",
+                textAlign: isMobile ? "left" : "",
+              }}
+            >
               <Box
                 sx={{
                   display: "flex",
                   flexDirection: isMobile ? "column" : "row",
                   flexWrap: "nowrap",
                   justifyContent: "space-evenly",
-                  mt: isMobile? "":4,
+                  mt: isMobile ? "" : 4,
                 }}
               >
-                <Typography sx={{ color: "white", width: isMobile? "":"16.6vw",fontFamily:"work sans",fontWeight:"bold"}}>Pediatra</Typography>
-                <Typography sx={{ color: "white", width: isMobile? "":"16.6vw",fontFamily:"work sans",fontWeight:"bold" }}>Medicina General</Typography>
-                <Typography sx={{ color: "white", width: isMobile? "":"16.6vw",fontFamily:"work sans",fontWeight:"bold" }}>Nutricionista</Typography>
-                <Typography sx={{ color: "white", width: isMobile? "":"16.6vw",fontFamily:"work sans",fontWeight:"bold" }}>Dentista</Typography>
-                <Typography sx={{ color: "white", width: isMobile? "":"16.6vw",fontFamily:"work sans",fontWeight:"bold" }}>Clínico</Typography>
-                <Typography sx={{ color: "white", width: isMobile? "":"16.6vw",fontFamily:"work sans",fontWeight:"bold" }}>Urólogo</Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    width: isMobile ? "" : "16.6vw",
+                    fontFamily: "work sans",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Pediatra
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    width: isMobile ? "" : "16.6vw",
+                    fontFamily: "work sans",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Medicina General
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    width: isMobile ? "" : "16.6vw",
+                    fontFamily: "work sans",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Nutricionista
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    width: isMobile ? "" : "16.6vw",
+                    fontFamily: "work sans",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Dentista
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    width: isMobile ? "" : "16.6vw",
+                    fontFamily: "work sans",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Clínico
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    width: isMobile ? "" : "16.6vw",
+                    fontFamily: "work sans",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Urólogo
+                </Typography>
               </Box>
               <Box
                 sx={{
@@ -152,33 +242,92 @@ export const Home = () => {
                   justifyContent: "space-evenly",
                 }}
               >
-                <Typography sx={{ color: "white", width: isMobile? "":"16.6vw",fontFamily:"work sans",fontWeight:"bold" }}>Cardiólogo</Typography>
-                <Typography sx={{ color: "white", width: isMobile? "":"16.6vw",fontFamily:"work sans",fontWeight:"bold" }}>Ginecólogo</Typography>
-                <Typography sx={{ color: "white", width: isMobile? "":"16.6vw",fontFamily:"work sans",fontWeight:"bold" }}>Neonatal</Typography>
-                <Typography sx={{ color: "white", width: isMobile? "":"16.6vw",fontFamily:"work sans",fontWeight:"bold" }}>Oftalmologo</Typography>
-                <Typography sx={{ color: "white", width: isMobile? "":"16.6vw",fontFamily:"work sans",fontWeight:"bold" }}>Cirujano</Typography>
-                <Typography sx={{ color: "white", width: isMobile? "":"16.6vw",fontFamily:"work sans",fontWeight:"bold" }}>Psicólogo</Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    width: isMobile ? "" : "16.6vw",
+                    fontFamily: "work sans",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Cardiólogo
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    width: isMobile ? "" : "16.6vw",
+                    fontFamily: "work sans",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Ginecólogo
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    width: isMobile ? "" : "16.6vw",
+                    fontFamily: "work sans",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Neonatal
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    width: isMobile ? "" : "16.6vw",
+                    fontFamily: "work sans",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Oftalmologo
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    width: isMobile ? "" : "16.6vw",
+                    fontFamily: "work sans",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Cirujano
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    width: isMobile ? "" : "16.6vw",
+                    fontFamily: "work sans",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Psicólogo
+                </Typography>
               </Box>
             </Box>
           </Box>
           <Typography
-            sx={{ color: "#145C6C", fontSize: "2rem",fontFamily:"work sans",fontWeight:"bold" }}
+            sx={{
+              color: "#145C6C",
+              fontSize: "2rem",
+              fontFamily: "work sans",
+              fontWeight: "bold",
+            }}
           >
             Beneficios
           </Typography>
           <Container
             sx={{
               width: "98%",
-              height: isMobile? "auto":"23rem",
+              height: isMobile ? "auto" : "23rem",
               bgcolor: "rgba(131, 131, 131, 0.33)",
               display: "flex",
-              flexDirection: isMobile? "column":"row",
+              flexDirection: isMobile ? "column" : "row",
               justifyContent: "space-around",
-              alignItems:isMobile? "center":"",
+              alignItems: isMobile ? "center" : "",
               p: 2,
               borderRadius: 5,
-              gap:isMobile? 2:"",
-              mb: 4
+              gap: isMobile ? 2 : "",
+              mb: 4,
             }}
           >
             <Box
@@ -197,7 +346,6 @@ export const Home = () => {
                   display: "flex",
                   justifyContent: "center",
                   fontSize: "2.5rem",
-                  
                 }}
               >
                 <svg
@@ -224,9 +372,17 @@ export const Home = () => {
                     gap: 1,
                   }}
                 >
-                  <FiberManualRecordIcon sx={{ fontSize: "0.8rem", color: "#145C6C" }} />
+                  <FiberManualRecordIcon
+                    sx={{ fontSize: "0.8rem", color: "#145C6C" }}
+                  />
 
-                  <Typography sx={{ fontFamily:"work sans",fontWeight:"bold",color: "#145C6C" }}>
+                  <Typography
+                    sx={{
+                      fontFamily: "work sans",
+                      fontWeight: "bold",
+                      color: "#145C6C",
+                    }}
+                  >
                     Encontra gran variedad de especialistas
                   </Typography>
                 </Box>
@@ -239,9 +395,17 @@ export const Home = () => {
                     gap: 1,
                   }}
                 >
-                  <FiberManualRecordIcon sx={{ fontSize: "0.8rem", color: "#145C6C" }} />
+                  <FiberManualRecordIcon
+                    sx={{ fontSize: "0.8rem", color: "#145C6C" }}
+                  />
 
-                  <Typography sx={{ fontFamily:"work sans",fontWeight:"bold",color: "#145C6C" }}>
+                  <Typography
+                    sx={{
+                      fontFamily: "work sans",
+                      fontWeight: "bold",
+                      color: "#145C6C",
+                    }}
+                  >
                     Atendé tu consulta sin moverte de tu casa
                   </Typography>
                 </Box>
@@ -264,7 +428,6 @@ export const Home = () => {
                   display: "flex",
                   justifyContent: "center",
                   fontSize: "2.5rem",
-                  
                 }}
               >
                 <svg
@@ -292,9 +455,17 @@ export const Home = () => {
                     gap: 1,
                   }}
                 >
-                  <FiberManualRecordIcon sx={{ fontSize: "0.8rem", color: "#145C6C" }} />
+                  <FiberManualRecordIcon
+                    sx={{ fontSize: "0.8rem", color: "#145C6C" }}
+                  />
 
-                  <Typography sx={{ fontFamily:"work sans",fontWeight:"bold",color: "#145C6C" }}>
+                  <Typography
+                    sx={{
+                      fontFamily: "work sans",
+                      fontWeight: "bold",
+                      color: "#145C6C",
+                    }}
+                  >
                     Facilitar el control de su agenda
                   </Typography>
                 </Box>
@@ -307,9 +478,17 @@ export const Home = () => {
                     gap: 1,
                   }}
                 >
-                  <FiberManualRecordIcon sx={{ fontSize: "0.8rem", color: "#145C6C" }} />
+                  <FiberManualRecordIcon
+                    sx={{ fontSize: "0.8rem", color: "#145C6C" }}
+                  />
 
-                  <Typography sx={{fontFamily:"work sans",fontWeight:"bold",color: "#145C6C"}}>
+                  <Typography
+                    sx={{
+                      fontFamily: "work sans",
+                      fontWeight: "bold",
+                      color: "#145C6C",
+                    }}
+                  >
                     Administrar las citas con pacientes
                   </Typography>
                 </Box>
@@ -322,9 +501,17 @@ export const Home = () => {
                     gap: 1,
                   }}
                 >
-                  <FiberManualRecordIcon sx={{ fontSize: "0.8rem", color: "#145C6C" }} />
+                  <FiberManualRecordIcon
+                    sx={{ fontSize: "0.8rem", color: "#145C6C" }}
+                  />
 
-                  <Typography sx={{fontFamily:"work sans",fontWeight:"bold",color: "#145C6C" }}>
+                  <Typography
+                    sx={{
+                      fontFamily: "work sans",
+                      fontWeight: "bold",
+                      color: "#145C6C",
+                    }}
+                  >
                     Tramitar de manera sencilla con nuestros laboratorios
                   </Typography>
                 </Box>
@@ -337,9 +524,17 @@ export const Home = () => {
                     gap: 1,
                   }}
                 >
-                  <FiberManualRecordIcon sx={{ fontSize: "0.8rem", color: "#145C6C" }} />
+                  <FiberManualRecordIcon
+                    sx={{ fontSize: "0.8rem", color: "#145C6C" }}
+                  />
 
-                  <Typography sx={{ fontFamily:"work sans",fontWeight:"bold",color: "#145C6C"}}>
+                  <Typography
+                    sx={{
+                      fontFamily: "work sans",
+                      fontWeight: "bold",
+                      color: "#145C6C",
+                    }}
+                  >
                     Recibir los pagos facilmente
                   </Typography>
                 </Box>
@@ -362,7 +557,6 @@ export const Home = () => {
                   display: "flex",
                   justifyContent: "center",
                   fontSize: "2.5rem",
-                  
                 }}
               >
                 <svg
@@ -393,9 +587,17 @@ export const Home = () => {
                     gap: 1,
                   }}
                 >
-                  <FiberManualRecordIcon sx={{ fontSize: "0.8rem", color: "#145C6C" }} />
+                  <FiberManualRecordIcon
+                    sx={{ fontSize: "0.8rem", color: "#145C6C" }}
+                  />
 
-                  <Typography sx={{ fontFamily:"work sans",fontWeight:"bold",color: "#145C6C" }}>
+                  <Typography
+                    sx={{
+                      fontFamily: "work sans",
+                      fontWeight: "bold",
+                      color: "#145C6C",
+                    }}
+                  >
                     Gestionar los pedidos medicos
                   </Typography>
                 </Box>
@@ -408,9 +610,17 @@ export const Home = () => {
                     gap: 1,
                   }}
                 >
-                  <FiberManualRecordIcon sx={{ fontSize: "0.8rem", color: "#145C6C" }} />
+                  <FiberManualRecordIcon
+                    sx={{ fontSize: "0.8rem", color: "#145C6C" }}
+                  />
 
-                  <Typography sx={{ fontFamily:"work sans",fontWeight:"bold",color: "#145C6C" }}>
+                  <Typography
+                    sx={{
+                      fontFamily: "work sans",
+                      fontWeight: "bold",
+                      color: "#145C6C",
+                    }}
+                  >
                     Cargar los estudios de manera sencilla
                   </Typography>
                 </Box>
@@ -423,9 +633,17 @@ export const Home = () => {
                     gap: 1,
                   }}
                 >
-                  <FiberManualRecordIcon sx={{ fontSize: "0.8rem", color: "#145C6C" }} />
+                  <FiberManualRecordIcon
+                    sx={{ fontSize: "0.8rem", color: "#145C6C" }}
+                  />
 
-                  <Typography sx={{ fontFamily:"work sans",fontWeight:"bold",color: "#145C6C" }}>
+                  <Typography
+                    sx={{
+                      fontFamily: "work sans",
+                      fontWeight: "bold",
+                      color: "#145C6C",
+                    }}
+                  >
                     Recibir los pagos facilmente
                   </Typography>
                 </Box>
@@ -433,14 +651,14 @@ export const Home = () => {
             </Box>
           </Container>
           <Box
-          className="laboratorios"
+            className="laboratorios"
             sx={{
               //display: "flex",
               justifyContent: "center",
               flexDirection: "column",
               width: "100%",
               gap: 4,
-              display:"none"
+              display: "none",
             }}
           >
             <Typography
