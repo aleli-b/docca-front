@@ -176,7 +176,7 @@ export const Header = () => {
                                             <MenuItem onClick={() => { handleCloseUserMenu(); handleProfile() }}>
                                                 <Typography textAlign="center">PERFIL</Typography>
                                             </MenuItem>
-                                            {auth.user.userType === 'Lab' &&
+                                            {auth.user.userType === 'lab' &&
                                                 <MenuItem onClick={() => { handleCloseUserMenu(); handleTests() }}>
                                                     <Typography textAlign="center">MIS ANALISIS</Typography>
                                                 </MenuItem>
@@ -198,8 +198,7 @@ export const Header = () => {
                                                 <MenuItem onClick={() => { handleCloseUserMenu(); handleAdmin() }}>
                                                     <Typography textAlign="center">ADMIN</Typography>
                                                 </MenuItem>
-                                            }
-
+                                            }                                            
                                             <MenuItem onClick={auth.logout}>
                                                 <Typography textAlign="center">CERRAR SESION</Typography>
                                             </MenuItem>
