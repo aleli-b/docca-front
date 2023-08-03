@@ -14,21 +14,9 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 
-export const UploadTestModal = ({ open, onClose }) => {
-    const [users, setUsers] = useState([]);
+export const UploadTestModal = ({ open, onClose, users }) => {
     const [selectedDoctor, setSelectedDoctor] = useState('');
     const [selectedUser, setSelectedUser] = useState('');
-
-    const svHost = import.meta.env.VITE_HOST
-
-    useEffect(() => {
-        getUsers();
-    });
-
-    const getUsers = async () => {
-        const dbUsers = await axios.get(`${svHost}/users`);
-        setUsers(dbUsers.data);
-    };
 
     const handleClose = () => {
         onClose();

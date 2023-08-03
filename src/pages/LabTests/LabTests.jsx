@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Container, Grid, Input, InputLabel, List, SvgIcon, Typography } from '@mui/material';
 import AddIcon from "@mui/icons-material/Add";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { UploadTestModal } from '../../components/UploadTestModel/UploadTestModel';
 import { useState } from 'react';
+import axios from 'axios';
 
 
 export const LabTests = () => {
+    const [users, setUsers] = useState([]);
     const [openModal, setOpenModal] = useState(false);
+
+    const svHost = import.meta.env.VITE_HOST
+
+    useEffect(() => {
+        getUsers();
+    }, []);
+
+    const getUsers = async () => {
+        const dbUsers = await axios.get(`${svHost}/users`);
+        setUsers(dbUsers.data);
+    };
 
     const handleClick = (event) => {
         setOpenModal(true);
@@ -92,7 +105,7 @@ export const LabTests = () => {
                     </Box>
                 </Grid>
             </Grid>
-            <UploadTestModal open={openModal} onClose={handleCloseModal} />
+            <UploadTestModal open={openModal} onClose={handleCloseModal} users={users} />
         </Container >
     )
 }
