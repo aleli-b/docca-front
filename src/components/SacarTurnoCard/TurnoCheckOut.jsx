@@ -237,7 +237,6 @@ export function TurnoCheckOut({ doctor, turno }) {
           <Button
             sx={{
               borderRadius: "0.625rem",
-              width: "15rem",
               fontFamily: "work sans",
               fontWeight: "bold",
               width: "9.2rem",
