@@ -18,6 +18,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 
 export function TurnoCheckOut({ doctor, turno }) {
+  const [promedioValoracion, setPromedioValoracion] = useState(0);
   const doctorVerified = false;
   const queryParams = new URLSearchParams(location.search);
   const { user, token } = useAuth();
@@ -42,6 +43,22 @@ export function TurnoCheckOut({ doctor, turno }) {
         console.error(error);
       });
   };
+
+  const doctorValoration = async () => {
+    try {
+      const response = await axios.post(`${svHost}/getValoration`, doctor);
+      const { promedioValoracion } = response.data;
+      setPromedioValoracion(promedioValoracion > 0 ? promedioValoracion : 0)
+    } catch (error) {
+      console.error("no funciono");
+    }
+  };
+
+  useEffect(() => {
+    if (doctor) {
+      doctorValoration();
+    }
+  }, [doctor]);
 
   const isMobile = useMediaQuery("(max-width: 900px)");
 
@@ -121,7 +138,9 @@ export function TurnoCheckOut({ doctor, turno }) {
                   justifyContent: "center",
                   borderRadius: "5rem",
                 }}
-                srcSet={doctor.profile_picture_url ? doctor.profile_picture_url : "" }
+                srcSet={
+                  doctor.profile_picture_url ? doctor.profile_picture_url : ""
+                }
               />
             </Box>
 
@@ -206,7 +225,11 @@ export function TurnoCheckOut({ doctor, turno }) {
                   </SvgIcon>
                 )}
               </Typography>
-              <Rating defaultValue={2.4} readOnly sx={{ color: "#FF5C00" }} />
+              <Rating
+                value={promedioValoracion}
+                readOnly
+                sx={{ color: "#FF5C00" }}
+              />
             </Box>
             {/*
             ---------- Luego utilizar esto para ingresar correo y método de pago --------
