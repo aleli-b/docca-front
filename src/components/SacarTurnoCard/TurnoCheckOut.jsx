@@ -25,6 +25,8 @@ export function TurnoCheckOut({ doctor, turno }) {
   const mpKey = import.meta.env.mpKey;
   initMercadoPago(mpKey);
 
+  console.log(mpKey)
+
   const createPreference = async () => {
     event.preventDefault();
     axios
@@ -35,7 +37,7 @@ export function TurnoCheckOut({ doctor, turno }) {
       )
       .then(
         (response) =>
-          (window.location.href = response.data.response.body.init_point)
+          (window.location.href = response.data.response.body.init_point ? response.data.response.body.init_point : 'error de id' )
       )
       .catch((error) => {
         console.error(error);
