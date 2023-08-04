@@ -22,10 +22,8 @@ export function TurnoCheckOut({ doctor, turno }) {
   const { user, token } = useAuth();
   const navigate = useNavigate();
   const svHost = import.meta.env.VITE_HOST;
-  const mpKey = import.meta.env.mpKey;
+  const mpKey = import.meta.env.VITE_MP_KEY;
   initMercadoPago(mpKey);
-
-  console.log(mpKey)
 
   const createPreference = async () => {
     event.preventDefault();

@@ -17,7 +17,7 @@ export const Plan = () => {
   const isMobile = useMediaQuery("(max-width: 900px)");
   const { userType } = useParams();
   const svHost = import.meta.env.VITE_HOST;
-  const mpKey = import.meta.env.mpKey;
+  const mpKey = import.meta.env.VITE_MP_KEY;
   initMercadoPago(mpKey);
 
   const createPreference = async (price) => {
