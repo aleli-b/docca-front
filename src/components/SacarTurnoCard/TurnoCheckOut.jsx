@@ -44,6 +44,7 @@ export function TurnoCheckOut({ doctor, turno }) {
   };
 
   const isMobile = useMediaQuery("(max-width: 900px)");
+
   return (
     <Container sx={{ width: "100%", minHeight: "100dvh" }}>
       <Typography
@@ -120,7 +121,7 @@ export function TurnoCheckOut({ doctor, turno }) {
                   justifyContent: "center",
                   borderRadius: "5rem",
                 }}
-                srcSet={`${doctor.profile_picture_url}`}
+                srcSet={doctor.profile_picture_url ? doctor.profile_picture_url : "" }
               />
             </Box>
 
@@ -215,8 +216,6 @@ export function TurnoCheckOut({ doctor, turno }) {
           </Box>
         </Box>
         <Box
-          component="form"
-          onSubmit={createPreference}
           sx={{
             width: "100%",
             display: "flex",

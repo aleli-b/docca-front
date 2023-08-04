@@ -30,11 +30,9 @@ export const UploadImage = () => {
     async function handleFileUpload(event) {
         try {
             const file = event.target.files[0];
-            // const formData = new FormData();
             setLoading(true);
-            // formData.append('file', file);
             const base64 = await convertBase64(file)
-            const response = await axios.post(`${svHost}/upload-image`, { image: base64, id: user.id })
+            const response = await axios.post(`${svHost}/upload-image`, { file: base64, filename: 'test.jpg', id: user.id })
                 .then(() => {
                     toast.success('Imagen subida, los cambios se efectuarán la próxima vez que inicie sesión.');
                 })

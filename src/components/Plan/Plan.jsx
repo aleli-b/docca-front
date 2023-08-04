@@ -109,7 +109,7 @@ export const Plan = () => {
           alignItems: "center",
           gap: 5,
           pb: isMobile ? 5 : "",
-          mb: 4,
+          mb: isMobile ? "" : 5,
         }}
       >
         <Box

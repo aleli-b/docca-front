@@ -24,7 +24,7 @@ import { RegisterLab } from "./pages/Register/RegisterLab";
 import { RegRoute } from "./components/guard/RegRoute";
 import { LoginRoute } from "./components/guard/LoginRoute";
 import { ResetPasswordForm } from "./pages/ResetPassword/ResetPassword";
-import { LabTests } from "./components/LabTests/LabTests";
+import { LabTests } from "./pages/LabTests/LabTests";
 import { Plan } from "./components/Plan/Plan";
 
 const router = createBrowserRouter([
