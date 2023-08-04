@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Typography } from '@mui/material';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import axios from 'axios';
 import { useAuth } from '../../components/context/AuthContext';
 import './styles.css'
 import { toast } from 'react-toastify';
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
 export const UploadImage = () => {
     const [loading, setLoading] = useState(false);
@@ -54,15 +54,12 @@ export const UploadImage = () => {
                 onChange={handleFileUpload}
                 accept="image/*"
             />
-            <label htmlFor="fileInput">
+            <label htmlFor="fileInput" >
                 <Button
-                    component="span"
-                    variant="contained"
-                    color="primary"
-                    startIcon={<CloudUploadIcon />}
+                    startIcon={<ModeEditIcon />}
                     disabled={loading}
+                    sx={{color:"black", "&:hover":{bgcolor:"white"}}}
                 >
-                    Subir Foto
                 </Button>
             </label>
             {loading && <Typography variant="body1">Subiendo...</Typography>}            

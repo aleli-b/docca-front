@@ -16,9 +16,10 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
+import { Valoraciones } from "../valoraciones/valoraciones";
 
 export function TurnoCheckOut({ doctor, turno }) {
-  const [promedioValoracion, setPromedioValoracion] = useState(0);
+
   const doctorVerified = false;
   const queryParams = new URLSearchParams(location.search);
   const { user, token } = useAuth();
@@ -44,21 +45,6 @@ export function TurnoCheckOut({ doctor, turno }) {
       });
   };
 
-  const doctorValoration = async () => {
-    try {
-      const response = await axios.post(`${svHost}/getValoration`, doctor);
-      const { promedioValoracion } = response.data;
-      setPromedioValoracion(promedioValoracion > 0 ? promedioValoracion : 0)
-    } catch (error) {
-      console.error("no funciono");
-    }
-  };
-
-  useEffect(() => {
-    if (doctor) {
-      doctorValoration();
-    }
-  }, [doctor]);
 
   const isMobile = useMediaQuery("(max-width: 900px)");
 
@@ -225,11 +211,7 @@ export function TurnoCheckOut({ doctor, turno }) {
                   </SvgIcon>
                 )}
               </Typography>
-              <Rating
-                value={promedioValoracion}
-                readOnly
-                sx={{ color: "#FF5C00" }}
-              />
+              <Valoraciones doctorId={doctor.id}/>
             </Box>
             {/*
             ---------- Luego utilizar esto para ingresar correo y método de pago --------

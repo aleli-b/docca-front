@@ -26,6 +26,7 @@ import { LoginRoute } from "./components/guard/LoginRoute";
 import { ResetPasswordForm } from "./pages/ResetPassword/ResetPassword";
 import { LabTests } from "./pages/LabTests/LabTests";
 import { Plan } from "./components/Plan/Plan";
+import { Perfil } from "./pages/Perfil/Perfil";
 
 const router = createBrowserRouter([
   { path: "*", Component: Root },
@@ -66,12 +67,12 @@ function Root() {
             <Header />
             <Routes>
               <Route path="*" element={<Error />} />
-              <Route path="/" element={<Home />} />
+              {/*<Route path="/" element={<Home />} />*/}
               <Route path="/login/*" element={<Login />} />
               <Route path="/register-paciente" element={<RegRoute> <Register /> </RegRoute>} />
               <Route path="/register-doctor" element={<RegRoute> <RegisterDoctor /> </RegRoute>} />
               <Route path="/register-laboratorio" element={<RegRoute> <RegisterLab /> </RegRoute>} />
-              <Route path="/especialistas" element={<Especialistas />} />
+              <Route path="/" element={<Especialistas />} />
               <Route path="/admin/*" element={<AdminRoute> <UserAdmin /> </AdminRoute>} />
               <Route path="/perfil/*" element={<ProfileRoute> <PerfilDoctores /> <PerfilLaboratorios /> <PerfilPacientes /> </ProfileRoute>} />
               <Route path="/consulta/*" element={<Error />} />
@@ -80,6 +81,7 @@ function Root() {
               <Route path="/tests" element={<LabTests />} />
               <Route path="/plan/:userType" element={<Plan />} />
               <Route path="/reset-password/:token" element={<ResetPasswordForm />} />
+              {/*<Route path="/perfiless" element={<Perfil />} />*/}
             </Routes>
             <Footer sx={{mp:"auto" }} />
           </ThemeProvider>
