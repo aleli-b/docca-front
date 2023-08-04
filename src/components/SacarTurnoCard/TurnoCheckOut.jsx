@@ -18,6 +18,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 
 export function TurnoCheckOut({ doctor, turno }) {
+  const doctorVerified = false;
   const queryParams = new URLSearchParams(location.search);
   const { user, token } = useAuth();
   const navigate = useNavigate();
@@ -185,24 +186,26 @@ export function TurnoCheckOut({ doctor, turno }) {
                 }}
               >
                 {doctor.category}
-                <SvgIcon>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="16"
-                    viewBox="0 0 18 16"
-                    fill="none"
-                  >
-                    <path
-                      d="M6.05882 8.20588L7.88777 10.0589C8.10199 10.2759 8.45896 10.2524 8.64301 10.0092C9.19516 9.27984 10.2923 7.83354 11.1176 6.76471M17 8C17 11.866 13.4183 15 9 15C4.58172 15 1 11.866 1 8C1 4.13401 4.58172 1 9 1C13.4183 1 17 4.13401 17 8Z"
-                      stroke="#34C759"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </SvgIcon>
+                {doctorVerified && (
+                  <SvgIcon>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="16"
+                      viewBox="0 0 18 16"
+                      fill="none"
+                    >
+                      <path
+                        d="M6.05882 8.20588L7.88777 10.0589C8.10199 10.2759 8.45896 10.2524 8.64301 10.0092C9.19516 9.27984 10.2923 7.83354 11.1176 6.76471M17 8C17 11.866 13.4183 15 9 15C4.58172 15 1 11.866 1 8C1 4.13401 4.58172 1 9 1C13.4183 1 17 4.13401 17 8Z"
+                        stroke="#34C759"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </SvgIcon>
+                )}
               </Typography>
-              <Rating sx={{ color: "#FF5C00" }} />
+              <Rating defaultValue={2.4} readOnly sx={{ color: "#FF5C00" }} />
             </Box>
             {/*
             ---------- Luego utilizar esto para ingresar correo y método de pago --------
@@ -247,7 +250,7 @@ export function TurnoCheckOut({ doctor, turno }) {
             type="button"
             variant="contained"
             color="primary"
-            onClick={()=> createPreference()}
+            onClick={() => createPreference()}
           >
             Pagar
           </Button>
