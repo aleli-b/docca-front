@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 const svHost = import.meta.env.VITE_HOST;
 
-export function Valoraciones({ doctorId }) {
+export const  Valoraciones = ({ doctorId }) => {
   const [promedioValoracion, setPromedioValoracion] = useState(0);
   const doctorValoration = async () => {
     try {
