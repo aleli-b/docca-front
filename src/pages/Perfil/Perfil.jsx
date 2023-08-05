@@ -11,7 +11,7 @@ import {
 import { useAuth } from "./../../components/context/AuthContext";
 import { UploadImage } from "../UploadImage/UploadImage";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import { Valoraciones } from "../../components/Valoraciones/valoraciones";
+import { Valoraciones } from "../../components/Valoraciones/Valoraciones";
 
 const reseñas = [
   {
