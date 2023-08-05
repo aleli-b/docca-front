@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
-import { Valoraciones } from "../Valoraciones/valoraciones";
+import { Valoraciones } from "../Reviews/Reviews";
 
 export function TurnoCheckOut({ doctor, turno }) {
 
