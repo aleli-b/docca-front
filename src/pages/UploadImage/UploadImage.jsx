@@ -56,13 +56,14 @@ export const UploadImage = () => {
             />
             <label htmlFor="fileInput" >
                 <Button
+                    component='span'
                     startIcon={<ModeEditIcon />}
                     disabled={loading}
-                    sx={{color:"black", "&:hover":{bgcolor:"white"}}}
+                    sx={{ color: "black", "&:hover": { bgcolor: "white" } }}
                 >
                 </Button>
             </label>
-            {loading && <Typography variant="body1">Subiendo...</Typography>}            
+            {loading && <Typography variant="body1">Subiendo...</Typography>}
         </>
     );
 };

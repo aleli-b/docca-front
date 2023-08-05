@@ -8,27 +8,60 @@ import {
     Input,
     InputLabel,
     MenuItem,
+    Typography,
 } from '@mui/material';
 import Select from '@mui/material/Select';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export const UploadTestModal = ({ open, onClose, users }) => {
     const [selectedDoctor, setSelectedDoctor] = useState('');
     const [selectedUser, setSelectedUser] = useState('');
+    const [file, setFile] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    const svHost = import.meta.env.VITE_HOST;
+    const { user } = useAuth();
 
     const handleClose = () => {
         onClose();
     };
 
-    const handleUpload = () => {
-        // Implement your logic for handling the file upload here
-        // For example, you can access the file from the input using event.target.files[0]
-        // You can then perform the necessary actions with the file data.
-        console.log('Selected user:', selectedDoctor);
-        handleClose();
-    };
+    async function convertBase64(file) {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        })
+    }
+
+    async function handleUpload(event) {
+        try {
+            const file = event.target.files[0];
+            setLoading(true);
+            const base64 = await convertBase64(file)
+            const response = await axios.post(`${svHost}/labtests`, { file: base64, filename: 'test.pdf', labId: user.id, doctorId: selectedDoctor, userId: selectedUser })
+                .then(() => {
+                    toast.success('Imagen subida, los cambios se efectuarán la próxima vez que inicie sesión.');
+                })
+                .then(() => setLoading(false))
+                .catch(console.log)
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+            console.error('Error uploading file:', error);
+        }
+    }
+
 
     const handleSelectDoctorChange = (event) => {
         setSelectedDoctor(event.target.value);
@@ -63,7 +96,7 @@ export const UploadTestModal = ({ open, onClose, users }) => {
                     id="user-select"
                     value={selectedUser}
                     onChange={handleSelectChange}
-                    label="Selecciona un usuario"
+                    label="Selecciona un paciente"
                     style={{ minWidth: '200px' }}
                 >
                     {users.map((user) => (
@@ -74,14 +107,22 @@ export const UploadTestModal = ({ open, onClose, users }) => {
                     ))}
                 </Select>
                 <input
-                    type="file"
-                    style={{ display: 'none' }}
-                    id="fileInput"
-                    accept="image/*"
-                />
-                <label htmlFor="fileInput">
-                    <Button component="span" variant='contained'>Subir Estudios</Button>
-                </label>
+                type="file"
+                style={{ display: 'none' }}
+                id="fileInput"
+                onChange={handleUpload}
+                accept="application/pdf"
+            />
+            <label htmlFor="fileInput" >
+                <Button
+                    component='span'
+                    disabled={loading}
+                    sx={{ color: "black", "&:hover": { bgcolor: "white" } }}
+                >
+                SUBIR PDF
+                </Button>
+            </label>
+            {loading && <Typography variant="body1">Subiendo...</Typography>}
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} color="primary">

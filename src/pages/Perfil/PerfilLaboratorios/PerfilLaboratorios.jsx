@@ -17,7 +17,6 @@ export const PerfilLaboratorios = () => {
     const [newValue, setNewValue] = useState('');
 
     user.fullName = user.name + " " + user.lastName;
-    user.userType = user.userType[0].toUpperCase() + user.userType.substring(1);
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#D5DBDB  ',
         ...theme.typography.body2,
@@ -107,7 +106,7 @@ export const PerfilLaboratorios = () => {
                                 <Typography>Tipo de Usuario:</Typography>
                                 <Box sx={{ width: '25%' }}>
                                     <Stack spacing={2}>
-                                        <Item>{user.userType === 'Lab' && 'Laboratorio'}</Item>
+                                        <Item>{user.userType === 'lab' && 'Laboratorio'}</Item>
                                     </Stack>
                                 </Box>
                             </Box>
