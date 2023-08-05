@@ -1,155 +1,214 @@
-import React, { useState } from 'react'
-import { Avatar, Box, Button, Card, CardContent, CardMedia, Checkbox, FormControlLabel, Grid, Paper, Stack, Typography, styled } from '@mui/material'
-import titan from '../../../assets/titan.jpg'
-import { TurnosCardPacientes } from '../../../components/TurnosCardPacientes/TurnosCardPacientes';
-import { Mensajeria } from '../../../components/Mensajeria/Mensajeria';
-import { useAuth } from '../../../components/context/AuthContext';
-import EditIcon from '@mui/icons-material/Edit';
-import { EditModal } from '../../../components/EditModal/EditModal';
-import { UploadImage } from '../../UploadImage/UploadImage';
+import React, { useState } from "react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Checkbox,
+  Container,
+  FormControlLabel,
+  Grid,
+  Paper,
+  Stack,
+  Typography,
+  styled,
+  useMediaQuery,
+} from "@mui/material";
+import titan from "../../../assets/titan.jpg";
+import { TurnosCardPacientes } from "../../../components/TurnosCardPacientes/TurnosCardPacientes";
+import { Mensajeria } from "../../../components/Mensajeria/Mensajeria";
+import { useAuth } from "../../../components/context/AuthContext";
+import EditIcon from "@mui/icons-material/Edit";
+import { EditModal } from "../../../components/EditModal/EditModal";
+import { UploadImage } from "../../UploadImage/UploadImage";
 
 export const PerfilPacientes = () => {
-    const { user, editUser } = useAuth();
-    const [editing, setEditing] = useState(false);
-    const [fieldToEdit, setFieldToEdit] = useState('');
-    const [newValue, setNewValue] = useState('');
+  const { user, editUser } = useAuth();
+  const [editing, setEditing] = useState(false);
+  const [fieldToEdit, setFieldToEdit] = useState("");
+  const [newValue, setNewValue] = useState("");
+  const isMobile = useMediaQuery("(max-width: 900px)");
 
-    user.fullName = user.name + " " + user.lastName;
+  user.fullName = user.name + " " + user.lastName;
 
-    const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#D5DBDB  ',
-        ...theme.typography.body2,
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    }));
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#D5DBDB  ",
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  }));
 
-    const handleSaveField = (field, value) => {
-        try {
-            editUser({ [field]: value });
-        } catch (error) {
-            console.error('Ha habido un error')
-        }
-    };
+  const handleSaveField = (field, value) => {
+    try {
+      editUser({ [field]: value });
+    } catch (error) {
+      console.error("Ha habido un error");
+    }
+  };
 
-    return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingX: '20px', gap: 2, minHeight: '100dvh', marginY: 2 }}>
-            <Grid container spacing={2} sx={{ margin: '' }}>
-                <Grid item sx={{ display: "flex", flexDirection: "column", gap: 2 }} md={4} >
-                    <Card>
-                        <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-                            <CardMedia
-                                sx={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    width: '100%',
-                                    borderRadius: '2px',
-                                    padding: 2,
-                                    position: 'relative',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    gap: 2,
-                                }}
-                            >
-                                <Avatar alt={user.fullName} src={user.profile_picture_url} sx={{ width: 180, height: 180 }} />
-                                <UploadImage />
-                            </CardMedia>
-                            <Box className='text2' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
-                                <Typography variant="h5" component="div" text-align="center">
-                                    {user.fullName}
-                                </Typography>
-                                {user.description ? <Typography> {user.description} </Typography> : (
-                                    <Button
-                                        onClick={() => {
-                                            setFieldToEdit('description');
-                                            setNewValue(user.description || '');
-                                            setEditing(true);
-                                        }}
-                                    >
-                                        Añade una breve descripción
-                                    </Button>
-                                )}
-                            </Box>
-                        </CardContent>
-                    </Card>
-                    <Mensajeria />
-                </Grid>
-                <Grid item md={8} xs={12}>
-                    <Card sx={{ minHeight: '100%', }}>
-                        <CardContent >
-                            <Box sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid white 1px', padding: '18.7px' }}>
-                                <Typography>Nombre:</Typography>
-                                <Box sx={{ width: '25%' }}>
-                                    <Stack spacing={2}>
-                                        <Item>{user.name}</Item>
-                                    </Stack>
-                                </Box>
-                            </Box>
-                            <Box sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid white 1px', padding: '18.7px' }}>
-                                <Typography>Apellido:</Typography>
-                                <Box sx={{ width: '25%' }}>
-                                    <Stack spacing={2}>
-                                        <Item>{user.lastName}</Item>
-                                    </Stack>
-                                </Box>
-                            </Box>
-                            <Box sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid white 1px', padding: '18.7px' }}>
-                                <Typography>Correo:</Typography>
-                                <Box sx={{ width: '25%' }}>
-                                    <Stack spacing={2}>
-                                        <Item>{user.email}</Item>
-                                    </Stack>
-                                </Box>
-                            </Box>
-                            <Box sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid white 1px', padding: '18.7px' }}>
-                                <Typography>Tipo de Usuario:</Typography>
-                                <Box sx={{ width: '25%' }}>
-                                    <Stack spacing={2}>
-                                        <Item>{user.userType === 'patient' && 'Paciente'}</Item>
-                                    </Stack>
-                                </Box>
-                            </Box>
-                            <Box sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid white 1px', padding: '18.7px' }}>
-                                <Typography>Telefono:</Typography>
-                                <Box sx={{ width: '25%' }}>
-                                    <Stack spacing={2}>
-                                        <Item>
-                                            {user.phone || 'No has añadido un teléfono'}
-                                            <Button onClick={() => {
-                                                setFieldToEdit('phone');
-                                                setNewValue(user.phone || '');
-                                                setEditing(true);
-                                            }}>
-                                                <EditIcon />
-                                            </Button>
-                                        </Item>
-                                    </Stack>
-                                </Box>
-                            </Box>
-                            <Box sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid white 1px', padding: '18.7px' }}>
-                                {/* <Typography>Notificaciones:
-                                    <FormControlLabel
-                                        sx={{ borderBottom: 'solid white 1px', padding: '18.7px' }}
-                                        control={<Checkbox defaultChecked />} label="Recibir" />
-                                </Typography> */}
-                            </Box>
-                        </CardContent>
-                    </Card>
-                </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-                <Grid item md={12} xs={12}>
-                    <TurnosCardPacientes />
-                </Grid>
-            </Grid>
-            <EditModal
-                field={fieldToEdit}
-                open={editing}
-                newValue={newValue}
-                setNewValue={setNewValue}
-                onClose={() => setEditing(false)}
-                onSave={handleSaveField}
+  return (
+    <Container
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        paddingX: "20px",
+        gap: 2,
+        minHeight: "100dvh",
+        marginY: 2,
+      }}
+    >
+      <Box item sx={{width:"100%", display: "flex", flexDirection: isMobile? "column":"row", justifyContent:"space-between",gap: 2 }}>
+        <Box sx={{ display: "flex", flexDirection: "column", width:isMobile? "100%":"30%", gap:3}}>
+          <Card
+            className="patientCard"
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 2,
+              width: "100%",
+              p: 2,
+            }}
+          >
+            <Avatar
+              alt={user.fullName}
+              src={user.profile_picture_url}
+              sx={{ width: 180, height: 180 }}
             />
+            <UploadImage />
+            <Typography variant="h5" component="div" text-align="center">
+              {user.fullName}
+            </Typography>
+            {user.description ? (
+              <Typography> {user.description} </Typography>
+            ) : (
+              <Button
+                onClick={() => {
+                  setFieldToEdit("description");
+                  setNewValue(user.description || "");
+                  setEditing(true);
+                }}
+              >
+                Añade una breve descripción
+              </Button>
+            )}
+          </Card>
+          <Mensajeria />
         </Box>
-    )
-}
+
+        <Card
+          className="patientData"
+          sx={{
+            width:isMobile? "100%":"70%",
+            minHeight: "100%",
+            p: 2,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent:"space-evenly",
+            gap: 2,
+          }}
+        >
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              borderBottom: 'solid gray 1px',
+              p:1,
+              alignItems:"center"
+            }}
+          >
+            <Typography>Nombre:</Typography>
+            <Item>{user.name}</Item>
+          </Box>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              borderBottom: 'solid gray 1px',
+              p:1,
+              alignItems:"center"
+            }}
+          >
+            <Typography>Apellido:</Typography>
+            <Item>{user.lastName}</Item>
+          </Box>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              borderBottom: 'solid gray 1px',
+              p:1,
+              alignItems:"center"
+            }}
+          >
+            <Typography>Correo:</Typography>
+            <Item>{user.email}</Item>
+          </Box>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              borderBottom: 'solid gray 1px',
+              p:1,
+              alignItems:"center"
+            }}
+          >
+            <Typography>Tipo de Usuario:</Typography>
+            <Item>{user.userType === "patient" && "Paciente"}</Item>
+          </Box>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              borderBottom: 'solid gray 1px',
+              p:1,
+              alignItems:"center"
+            }}
+          >
+            <Typography>Telefono:</Typography>
+            <Item>
+              {user.phone || "No has añadido un teléfono"}
+              <Button
+                onClick={() => {
+                  setFieldToEdit("phone");
+                  setNewValue(user.phone || "");
+                  setEditing(true);
+                }}
+              >
+                <EditIcon />
+              </Button>
+            </Item>
+          </Box>
+        </Card>
+      </Box>
+
+      <Grid container spacing={2}>
+        <Grid item md={12} xs={12}>
+          <TurnosCardPacientes />
+        </Grid>
+      </Grid>
+      <EditModal
+        field={fieldToEdit}
+        open={editing}
+        newValue={newValue}
+        setNewValue={setNewValue}
+        onClose={() => setEditing(false)}
+        onSave={handleSaveField}
+      />
+    </Container>
+  );
+};
