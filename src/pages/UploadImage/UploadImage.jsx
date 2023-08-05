@@ -34,7 +34,7 @@ export const UploadImage = () => {
             const base64 = await convertBase64(file)
             const response = await axios.post(`${svHost}/upload-image`, { file: base64, filename: 'test.jpg', id: user.id })
                 .then(() => {
-                    toast.success('Imagen subida, los cambios se efectuarán la próxima vez que inicie sesión.');
+                    toast.success('PDF Subido con Exito');
                 })
                 .then(() => setLoading(false))
                 .catch(console.log)
