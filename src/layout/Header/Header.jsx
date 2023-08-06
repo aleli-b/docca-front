@@ -39,10 +39,15 @@ export const Header = () => {
     const { conversations } = useMessageContext();
     const navigate = useNavigate();
 
-    const totalMessages = conversations.reduce(
-        (total, conversation) => total + conversation.messages.length,
-        0
-    );
+    const totalMessages = conversations.reduce((total, conversation) => {
+        return (
+            total +
+            conversation.messages.filter(
+                (message) => message.receiverId === auth.user.id && !message.isRead
+            ).length
+        );
+    }, 0);
+
     const handleProfile = () => {
         window.location.href = '/perfil';
     };
@@ -198,7 +203,7 @@ export const Header = () => {
                                                 <MenuItem onClick={() => { handleCloseUserMenu(); handleAdmin() }}>
                                                     <Typography textAlign="center">ADMIN</Typography>
                                                 </MenuItem>
-                                            }                                            
+                                            }
                                             <MenuItem onClick={auth.logout}>
                                                 <Typography textAlign="center">CERRAR SESION</Typography>
                                             </MenuItem>
