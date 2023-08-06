@@ -46,6 +46,11 @@ export const Messages = () => {
     });
   }, [conversations, loading, joinConversation]);
 
+  useEffect(() => {
+    // Call the scrollContainerToBottom function whenever the conversations or their messages are updated.
+    scrollContainerToBottom();
+  }, [conversations]);
+
   if (loading) {
     return (
       <Container
@@ -185,7 +190,7 @@ export const Messages = () => {
                               }}
                             >
                               <Typography
-                                sx={{ fontSize: "16px", fontWeight: "700" }}
+                                sx={{ fontSize: "16px", fontWeight: "700", }}
                               >
                                 {`${message.sender.name} ${message.sender.lastName}:`}
                               </Typography>
@@ -201,7 +206,7 @@ export const Messages = () => {
                               >
                                 <Typography
                                   variant="body1"
-                                  sx={{ fontSize: "17px", color: "black" }}
+                                  sx={{ fontSize: "17px", color: "black", }}
                                 >
                                   {`${message.content} `}
                                 </Typography>

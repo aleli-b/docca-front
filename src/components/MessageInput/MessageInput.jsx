@@ -6,12 +6,18 @@ import SendIcon from "@mui/icons-material/Send";
 export const MessageInput = ({ doctorId }) => {
   const [messageContent, setMessageContent] = useState("");
 
-  const { getMessages, sendMessage, } = useMessageContext();
+  const { getMessages, sendMessage } = useMessageContext();
 
   const handleSubmit = () => {
     setMessageContent("");
     sendMessage(messageContent, doctorId);
     getMessages();
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
   };
 
   return (
@@ -31,6 +37,7 @@ export const MessageInput = ({ doctorId }) => {
             variant="outlined"
             value={messageContent}
             onChange={(e) => setMessageContent(e.target.value)}
+            onKeyPress={handleKeyPress} // Handle "Enter" key press
           />
           <Button variant="contained" onClick={handleSubmit}>
             <SvgIcon component={SendIcon} inheritViewBox />
