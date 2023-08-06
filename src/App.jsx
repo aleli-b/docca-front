@@ -69,7 +69,7 @@ function Root() {
               <Route path="*" element={<Error />} />
               <Route path="/test" element={<Perfil />} />
               {/*<Route path="/" element={<Home />} />*/}
-              <Route path="/login/*" element={<Login />} />
+              <Route path="/login" element={<Login />} />
               <Route path="/register-paciente" element={<RegRoute> <Register /> </RegRoute>} />
               <Route path="/register-doctor" element={<RegRoute> <RegisterDoctor /> </RegRoute>} />
               <Route path="/register-laboratorio" element={<RegRoute> <RegisterLab /> </RegRoute>} />
