@@ -4,23 +4,32 @@ import AddIcon from "@mui/icons-material/Add";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { UploadTestModal } from '../../components/UploadTestModel/UploadTestModel';
 import { useState } from 'react';
+import { useAuth } from '../../components/context/AuthContext';
 import axios from 'axios';
 
 
 export const LabTests = () => {
     const [users, setUsers] = useState([]);
     const [openModal, setOpenModal] = useState(false);
+    const [labtests, setLabtests] = useState([]);
 
-    const svHost = import.meta.env.VITE_HOST
+    const svHost = import.meta.env.VITE_HOST;
+    const { user } = useAuth();
 
     useEffect(() => {
         getUsers();
+        getLabtests();
     }, []);
 
     const getUsers = async () => {
         const dbUsers = await axios.get(`${svHost}/users`);
         setUsers(dbUsers.data);
     };
+
+    const getLabtests = async () => {
+        const dbLabtests = await axios.get(`${svHost}/labtests?labId=${user.id}`);
+        setLabtests(dbLabtests.data);        
+    }
 
     const handleClick = (event) => {
         setOpenModal(true);
@@ -43,69 +52,76 @@ export const LabTests = () => {
                 <Grid item>
                     <Box>
                         <List>
-                            <React.Fragment>
-                                <Accordion
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        margin: 2,
-                                        borderRadius: "10px!important",
-                                    }}
-                                >
-
-                                    <AccordionSummary
-                                        aria-controls="panel1a-content"
-                                        id="panel1a-header"
-                                        sx={{
-                                            backgroundColor: "#838383",
-                                            padding: 4,
-                                            borderRadius: "10px",
-                                        }}
-                                    >
-                                        <Container
-                                            id="bardero"
-                                            maxWidth={"100%"}
+                            {
+                                labtests.map((labtest, i) =>
+                                    <React.Fragment key={i}>
+                                        <Accordion
                                             sx={{
                                                 display: "flex",
-                                                flexDirection: "row",
-                                                justifyContent: 'space-around'
+                                                flexDirection: "column",
+                                                margin: 2,
+                                                borderRadius: "10px!important",
                                             }}
                                         >
-                                            <SvgIcon component={AddIcon} />
-                                            <Typography sx={{}}>
-                                                Consulta 1
-                                            </Typography>
-                                            <Typography>
-                                                Paciente 1
-                                            </Typography>
-                                            <Typography>
-                                                Doctor 1
-                                            </Typography>
-                                            <SvgIcon component={ExpandMoreIcon} inheritViewBox />
-                                        </Container>
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                        <Box sx={{ display: 'flex', flexDirection: 'column', }}>
-                                            <Box sx={{ display: 'flex', gap: 2 }}>
-                                                <Typography>Fecha: 3/08/2023</Typography>
-                                                <Typography>Hora: 10:00</Typography>
-                                            </Box>
-                                            <Box sx={{ display: 'flex', gap: 2 }}>
-                                                <Typography>Paciente Lucas Gonzalez</Typography>
-                                            </Box>
-                                            <Box sx={{ display: 'flex', gap: 2 }}>
-                                                <Typography>Especialista Pepe Sand</Typography>
-                                                <Typography>Pediatra</Typography>
-                                            </Box>
-                                        </Box>
-                                    </AccordionDetails>
-                                </Accordion>
-                            </React.Fragment>
+
+                                            <AccordionSummary
+                                                aria-controls="panel1a-content"
+                                                id="panel1a-header"
+                                                sx={{
+                                                    backgroundColor: "#838383",
+                                                    padding: 4,
+                                                    borderRadius: "10px",
+                                                }}
+                                            >
+                                                <Container
+                                                    id="bardero"
+                                                    maxWidth={"100%"}
+                                                    sx={{
+                                                        display: "flex",
+                                                        flexDirection: "row",
+                                                        justifyContent: 'space-around'
+                                                    }}
+                                                >
+                                                    <SvgIcon component={AddIcon} />
+                                                    <Typography sx={{}}>
+                                                        Analisis {i + 1}
+                                                    </Typography>
+                                                    <Typography>
+                                                        {labtest.labtestPatient.name} {labtest.labtestPatient.lastName}
+                                                    </Typography>
+                                                    <Typography>
+                                                        Dr. {labtest.labtestDoctor.name} {labtest.labtestDoctor.lastName}
+                                                    </Typography>
+                                                    <SvgIcon component={ExpandMoreIcon} inheritViewBox />
+                                                </Container>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                <Box sx={{ display: 'flex', flexDirection: 'column', }}>
+                                                    <Box sx={{ display: 'flex', gap: 2 }}>
+                                                        <Typography>Fecha de subida: {labtest.createdAt.split('T')[0]}</Typography>
+                                                        <Typography>Hora: {labtest.createdAt.split('T')[1].split('.')[0].slice(0, -3)}</Typography>
+                                                    </Box>
+                                                    <Box sx={{ display: 'flex', gap: 2 }}>
+                                                        <Typography>Paciente {labtest.labtestPatient.name} {labtest.labtestPatient.lastName}</Typography>
+                                                    </Box>
+                                                    <Box sx={{ display: 'flex', gap: 2 }}>
+                                                        <Typography>Especialista Dr. {labtest.labtestDoctor.name} {labtest.labtestDoctor.lastName}</Typography>
+                                                        <Typography>{labtest.labtestDoctor.category}</Typography>                                                        
+                                                    </Box>
+                                                    <Box>
+                                                        <a href={labtest.lab_test_url}>Vea su analisis</a>
+                                                    </Box>
+                                                </Box>
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    </React.Fragment>
+                                )
+                            }
                         </List>
                     </Box>
                 </Grid>
             </Grid>
-            <UploadTestModal open={openModal} onClose={handleCloseModal} users={users} />
+            <UploadTestModal open={openModal} onClose={handleCloseModal} users={users} getLabtests={getLabtests}/>
         </Container >
     )
 }

@@ -17,7 +17,7 @@ import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-export const UploadTestModal = ({ open, onClose, users }) => {
+export const UploadTestModal = ({ open, onClose, users, getLabtests }) => {
     const [selectedDoctor, setSelectedDoctor] = useState('');
     const [selectedUser, setSelectedUser] = useState('');
     const [file, setFile] = useState(null);
@@ -51,10 +51,12 @@ export const UploadTestModal = ({ open, onClose, users }) => {
             const base64 = await convertBase64(file)
             const response = await axios.post(`${svHost}/labtests`, { file: base64, filename: 'test.pdf', labId: user.id, doctorId: selectedDoctor, userId: selectedUser })
                 .then(() => {
-                    toast.success('Imagen subida, los cambios se efectuarán la próxima vez que inicie sesión.');
+                    toast.success('PDF subido con exito, los cambios se efectuarán la próxima vez que inicie sesión.');
                 })
                 .then(() => setLoading(false))
                 .catch(console.log)
+
+            getLabtests();
             setLoading(false);
         } catch (error) {
             setLoading(false);
