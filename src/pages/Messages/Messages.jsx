@@ -48,7 +48,9 @@ export const Messages = () => {
 
   useEffect(() => {
     // Call the scrollContainerToBottom function whenever the conversations or their messages are updated.
-    scrollContainerToBottom();
+    if (conversations.length > 0) {
+      scrollContainerToBottom();
+    }
   }, [conversations]);
 
   if (loading) {
