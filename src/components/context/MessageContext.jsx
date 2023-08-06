@@ -58,7 +58,6 @@ export const MessageProvider = ({ children }) => {
           receiverId: doctorId,
         })
         .then((response) => {
-          console.log("Message sent:", response.data);
 
           // Emit the message to the server via the WebSocket connection
           if (socket) {
@@ -85,19 +84,16 @@ export const MessageProvider = ({ children }) => {
         query: { userId: auth.user.id },
       });
 
-      socketConnection.on("connect", () => {
-        console.log("Connected to WebSocket");
-      });
+      // socketConnection.on("connect", () => {
+      //   console.log("Connected to WebSocket");
+      // });
 
-      socketConnection.on("newMessage", async (message) => {
-        // Handle new messages received from the server
-        console.log("New message received:", message);
+      socketConnection.on("newMessage", async (message) => {        
 
         const conversationToUpdate = conversations.find(
           (conversation) => conversation.id === message.conversationId
         );
 
-        // Update conversations state with the new message
        if (conversationToUpdate) {
           setConversations((prevConversations) => {
             const updatedConversations = prevConversations.map(
