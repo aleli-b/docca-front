@@ -48,27 +48,35 @@ export const Mensajeria = () => {
     });
   }, [conversations]);
 
-  const getDoctors = async () => {
-    const userData = await axios.get(`${svHost}/doctors`);
-    setDoctors(userData.data);
-  };
+  // const getDoctors = async () => {
+  //   const userData = await axios.get(`${svHost}/doctors`);
+  //   setDoctors(userData.data);
+  // };
 
   const getLabs = async () => {
     const labData = await axios.get(`${svHost}/labs`);
     setLabs(labData.data);
   };
 
-  const getUsers = async () => {
-    const userData = await axios.get(`${svHost}/users`);
-    setUsers(userData.data);
+  const getTurnos = async () => {
+    let turnoData;
+    if (user.userType === 'doctor'){
+      turnoData = await axios.post(`${svHost}/doctor-turnos`, { doctorId: user.id });
+    } else if (user.userType === 'patient'){
+      turnoData = await axios.post(`${svHost}/user-turnos`, { userId: user.id });
+    } else {
+      turnoData = await axios.get(`${svHost}/doctors`);
+    }
+    if (user.userType === 'doctor'){
+      setUsers(turnoData.data);
+    } else {
+      setDoctors(turnoData.data)
+    }
   };
 
   useEffect(() => {
-    if (user.userType === "Doctor") {
-      getUsers();
-    } else {
-      getDoctors();
-    }
+    getTurnos();
+    // getDoctors();
   }, []);
 
   const handleSubmit = async () => {
@@ -85,7 +93,7 @@ export const Mensajeria = () => {
   const handleClickOpen = () => {
     setShowDoctors(true);
     setShowLabs(false);
-    getDoctors();
+    // getDoctors();
     setOpen(true);
   };
 
@@ -112,84 +120,89 @@ export const Mensajeria = () => {
           p: 2,
         }}
       >
-          <Typography
-            variant="h6"
-            component="div"
-            textAlign={"center"}
-            sx={{ mb: 2 }}
-          >
-            Mensajeria
-          </Typography>
-            <Link
-              target="_blank"
-              rel="noopener noreferrer"
-              underline="none"
-              color="inherit"
+        <Typography
+          variant="h6"
+          component="div"
+          textAlign={"center"}
+          sx={{ mb: 2 }}
+        >
+          Mensajeria
+        </Typography>
+        <Link
+          target="_blank"
+          rel="noopener noreferrer"
+          underline="none"
+          color="inherit"
+        >
+          <Box sx={{ display: "flex", gap: 4 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleClickOpen}
             >
-              <Box sx={{ display: "flex", gap: 4 }}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleClickOpen}
+              Chat con Pacientes
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleClickOpenLab}
+            >
+              Chat con Laboratorios
+            </Button>
+          </Box>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>Mensaje</DialogTitle>
+            <DialogContent>
+              <FormControl
+                variant="outlined"
+                sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+              >
+                <DialogContentText id="select-label">
+                  Selecciona un nombre
+                </DialogContentText>
+                <Select
+                  labelId="select-label"
+                  id="select"
+                  value={selectedValue}
+                  onChange={handleChange}
+                  label="asdasd"
                 >
-                  Chat con Pacientes
+                  {showLabs
+                    ? labs.map((lab) => (
+                      <MenuItem key={lab.id} value={lab.id}>
+                        {`${lab.name} ${lab.lastName}`}
+                      </MenuItem>
+                    ))
+                    : users ?
+                      users
+                        .filter((user) => user.userType !== "lab")
+                        .map((user, i) => (
+                          <MenuItem key={user.paciente.id} value={user.paciente.id}>
+                            {user.paciente.userType === "doctor" && "Dr. "}
+                            {`${user.paciente.name} ${user.paciente.lastName}`}
+                          </MenuItem>))
+                      :
+                      (<MenuItem disabled>
+                        <Typography>No tienes pacientes con turno</Typography>
+                      </MenuItem>)
+                  }
+                </Select>
+                <TextField
+                  label="Type your message"
+                  variant="outlined"
+                  value={messageContent}
+                  onChange={(e) => setMessageContent(e.target.value)}
+                />
+                <Button variant="contained" onClick={handleSubmit}>
+                  Enviar
                 </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleClickOpenLab}
-                >
-                  Chat con Laboratorios
-                </Button>
-              </Box>
-              <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Mensaje</DialogTitle>
-                <DialogContent>
-                  <FormControl
-                    variant="outlined"
-                    sx={{ display: "flex", flexDirection: "column", gap: 2 }}
-                  >
-                    <DialogContentText id="select-label">
-                      Selecciona un nombre
-                    </DialogContentText>
-                    <Select
-                      labelId="select-label"
-                      id="select"
-                      value={selectedValue}
-                      onChange={handleChange}
-                      label="asdasd"
-                    >
-                      {showLabs
-                        ? labs.map((lab) => (
-                            <MenuItem key={lab.id} value={lab.id}>
-                              {`${lab.name} ${lab.lastName}`}
-                            </MenuItem>
-                          ))
-                        : users
-                            .filter((user) => user.userType !== "lab")
-                            .map((user) => (
-                              <MenuItem key={user.id} value={user.id}>
-                                {user.userType === "doctor" && "Dr. "}
-                                {`${user.name} ${user.lastName}`}
-                              </MenuItem>
-                            ))}
-                    </Select>
-                    <TextField
-                      label="Type your message"
-                      variant="outlined"
-                      value={messageContent}
-                      onChange={(e) => setMessageContent(e.target.value)}
-                    />
-                    <Button variant="contained" onClick={handleSubmit}>
-                      Enviar
-                    </Button>
-                  </FormControl>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleClose}>Cancelar</Button>
-                </DialogActions>
-              </Dialog>
-            </Link>
+              </FormControl>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Cancelar</Button>
+            </DialogActions>
+          </Dialog>
+        </Link>
       </Card>
     );
   }
@@ -203,68 +216,74 @@ export const Mensajeria = () => {
       width: "100%",
       p: 2,
     }}>
-      
-        <Typography variant="h6" component="div">
-          Mensajeria
-        </Typography>
-        
-          <Link
-            target="_blank"
-            rel="noopener noreferrer"
-            underline="none"
-            color="inherit"
+
+      <Typography variant="h6" component="div">
+        Mensajeria
+      </Typography>
+
+      <Link
+        target="_blank"
+        rel="noopener noreferrer"
+        underline="none"
+        color="inherit"
+      >
+        <div>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleClickOpen}
           >
-            <div>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleClickOpen}
+            Chat con Doctores
+          </Button>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>Mensaje</DialogTitle>
+            <DialogContent>
+              <FormControl
+                variant="outlined"
+                sx={{ display: "flex", flexDirection: "column", gap: 2 }}
               >
-                Chat con Doctores
-              </Button>
-              <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Mensaje</DialogTitle>
-                <DialogContent>
-                  <FormControl
-                    variant="outlined"
-                    sx={{ display: "flex", flexDirection: "column", gap: 2 }}
-                  >
-                    <DialogContentText id="select-label">
-                      Selecciona un nombre
-                    </DialogContentText>
-                    <Select
-                      labelId="select-label"
-                      id="select"
-                      value={selectedValue}
-                      onChange={handleChange}
-                      label="asdasd"
-                    >
-                      {doctors.map((doctor) => (
-                        <MenuItem
-                          key={doctor.id}
-                          value={doctor.id}
-                        >{`Dr. ${doctor.name} ${doctor.lastName}`}</MenuItem>
-                      ))}
-                    </Select>
-                    <TextField
-                      label="Type your message"
-                      variant="outlined"
-                      value={messageContent}
-                      onChange={(e) => setMessageContent(e.target.value)}
-                    />
-                    <Button variant="contained" onClick={handleSubmit}>
-                      Enviar
-                    </Button>
-                  </FormControl>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleClose}>Cancelar</Button>
-                </DialogActions>
-              </Dialog>
-            </div>
-          </Link>
-        
-      
+                <DialogContentText id="select-label">
+                  Selecciona un nombre
+                </DialogContentText>
+                <Select
+                  labelId="select-label"
+                  id="select"
+                  value={selectedValue}
+                  onChange={handleChange}
+                  label="asdasd"
+                >
+                  {
+                    doctors.length > 0 ?
+                    doctors.map((doctor) => (
+                    <MenuItem
+                      key={user.userType === 'lab' ? doctor.id : doctor.doctor.id}
+                      value={user.userType === 'lab' ? doctor.id : doctor.doctor.id}
+                    >{`Dr. ${user.userType === 'lab' ? doctor.name : doctor.doctor.name} ${user.userType === 'lab' ? doctor.lastName : doctor.doctor.lastName}`}</MenuItem>
+                  ))
+                  :
+                  <MenuItem disabled>
+                    <Typography>No tienes turno con doctores</Typography>
+                  </MenuItem>}
+                </Select>
+                <TextField
+                  label="Type your message"
+                  variant="outlined"
+                  value={messageContent}
+                  onChange={(e) => setMessageContent(e.target.value)}
+                />
+                <Button variant="contained" onClick={handleSubmit}>
+                  Enviar
+                </Button>
+              </FormControl>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Cancelar</Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      </Link>
+
+
     </Card>
   );
 };

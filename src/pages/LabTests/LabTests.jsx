@@ -5,6 +5,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { UploadTestModal } from '../../components/UploadTestModel/UploadTestModel';
 import { useState } from 'react';
 import { useAuth } from '../../components/context/AuthContext';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import axios from 'axios';
 
 
@@ -28,7 +29,7 @@ export const LabTests = () => {
 
     const getLabtests = async () => {
         const dbLabtests = await axios.get(`${svHost}/labtests?labId=${user.id}`);
-        setLabtests(dbLabtests.data);        
+        setLabtests(dbLabtests.data);
     }
 
     const handleClick = (event) => {
@@ -106,10 +107,15 @@ export const LabTests = () => {
                                                     </Box>
                                                     <Box sx={{ display: 'flex', gap: 2 }}>
                                                         <Typography>Especialista Dr. {labtest.labtestDoctor.name} {labtest.labtestDoctor.lastName}</Typography>
-                                                        <Typography>{labtest.labtestDoctor.category}</Typography>                                                        
+                                                        <Typography>{labtest.labtestDoctor.category}</Typography>
                                                     </Box>
                                                     <Box>
-                                                        <a href={labtest.lab_test_url}>Vea su analisis</a>
+                                                        <a href={labtest.lab_test_url} style={{ textDecoration: 'none'}}>
+                                                            <Box sx={{ display: 'flex', gap: 1, }}>
+                                                                <PictureAsPdfIcon sx={{ color: 'red', }} />
+                                                                <Typography sx={{ textDecoration: 'none', "&:hover": {color: 'red', fontWeight: 'bold', transition: '20px 2s', }, }}>Vea su analisis</Typography>
+                                                            </Box>
+                                                        </a>
                                                     </Box>
                                                 </Box>
                                             </AccordionDetails>
@@ -121,7 +127,7 @@ export const LabTests = () => {
                     </Box>
                 </Grid>
             </Grid>
-            <UploadTestModal open={openModal} onClose={handleCloseModal} users={users} getLabtests={getLabtests}/>
+            <UploadTestModal open={openModal} onClose={handleCloseModal} users={users} getLabtests={getLabtests} />
         </Container >
     )
 }
