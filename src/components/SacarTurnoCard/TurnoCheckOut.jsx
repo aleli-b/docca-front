@@ -30,6 +30,7 @@ export function TurnoCheckOut({ doctor, turno }) {
 
   const createPreference = async () => {
     event.preventDefault();
+    console.log(turno, doctor)
     axios
       .post(
         `${svHost}/mpcheckout`,

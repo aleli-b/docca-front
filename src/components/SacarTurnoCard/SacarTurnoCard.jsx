@@ -117,7 +117,6 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
       // Almacenar los parámetros en sessionStorage
       sessionStorage.setItem('doctorId', doctor.id);
       sessionStorage.setItem('turno', dateTime);
-  
       // Navegar a la página de turnos
       navigate('/turnos');
     }           
