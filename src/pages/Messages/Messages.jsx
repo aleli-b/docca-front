@@ -26,9 +26,10 @@ import { useAuth } from "../../components/context/AuthContext";
 import { debounce } from "lodash";
 
 export const Messages = () => {
-  const { conversations, loading, joinConversation, getMessages } = useMessageContext();
+  const { conversations, loading, joinConversation, getMessages } =
+    useMessageContext();
 
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery("(max-width:900px)");
 
   const { user } = useAuth();
 
@@ -39,12 +40,20 @@ export const Messages = () => {
     containerRef.current.scrollTop = containerRef.current.scrollHeight;
   }
 
-
   useEffect(() => {
     conversations.forEach((conversation) => {
       joinConversation(conversation.id);
     });
   }, [conversations, loading, joinConversation]);
+
+  const onDelete = async (rifaId) => {
+    try {
+      const res = await axios.delete(`${host}/rifas/deleteRifa/`);
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     // Call the scrollContainerToBottom function whenever the conversations or their messages are updated.
@@ -90,7 +99,7 @@ export const Messages = () => {
           justifyContent: "start",
           minHeight: "100dvh",
           minWidth: "99%",
-          margin: isMobile? "2": "0",
+          margin: isMobile ? "2" : "0",
         }}
       >
         <Typography
@@ -107,7 +116,7 @@ export const Messages = () => {
           Chats
         </Typography>
         <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
-          <List sx={{ pt: "2rem", width: isMobile ? "50rem" : "60%" }}>
+          <List sx={{ pt: "2rem", width: isMobile ? "80dvw" : "65dvw" }}>
             {conversations.map((conversation, i) => (
               <React.Fragment key={conversation.id}>
                 <Accordion
@@ -132,7 +141,7 @@ export const Messages = () => {
                       maxWidth={"100%"}
                       sx={{
                         display: "flex",
-                        flexDirection: isMobile ? "column":"row"
+                        flexDirection: "row",
                       }}
                     >
                       <Box
@@ -158,83 +167,91 @@ export const Messages = () => {
                         conversation.participant2.category ||
                         (conversation.participant2.userType === "lab"
                           ? "Laboratorio"
-                          : "Paciente") || "Nuevo mensaje"
+                          : "Paciente") ||
+                        "Nuevo mensaje"
                       }`}</Typography>
 
                       <SvgIcon component={ExpandMoreIcon} inheritViewBox />
                     </Container>
                   </AccordionSummary>
-                  <AccordionDetails >
+                  <AccordionDetails>
                     <Divider />
-                    <Box sx={{ overflowY: "auto" ,maxHeight:"50vh" }}  ref={containerRef}>
+                    <Box
+                      sx={{ overflowY: "auto", maxHeight: "50vh" }}
+                      ref={containerRef}
+                    >
                       {conversation.messages
-                      .slice()
-                      .sort(
-                        (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-                      )
-                      .map((message, i) => (
-                        <ListItem key={i}>
-                          <ListItemText
-                            sx={{
-                              display: "flex",
-                              justifyContent: message.sender.id === user.id ? 'end' : 'start'
-                            }}
-                          >
-                            <Box
+                        .slice()
+                        .sort(
+                          (a, b) =>
+                            new Date(a.createdAt) - new Date(b.createdAt)
+                        )
+                        .map((message, i) => (
+                          <ListItem key={i}>
+                            <ListItemText
                               sx={{
                                 display: "flex",
-                                flexDirection: "column",
-                                gap: "5px",
-                                backgroundColor: "rgba(131, 131, 131, 0.22)",
-                                width: "fit-content",
-                                borderRadius: "10px",
-                                padding: "5px",
+                                justifyContent:
+                                  message.sender.id === user.id
+                                    ? "end"
+                                    : "start",
                               }}
                             >
-                              <Typography
-                                sx={{ fontSize: "16px", fontWeight: "700", }}
-                              >
-                                {`${message.sender.name} ${message.sender.lastName}:`}
-                              </Typography>
-
                               <Box
                                 sx={{
                                   display: "flex",
-                                  flexDirection: "row",
-                                  gap: 1,
-                                  p: "1px",
-                                  pl: "20px",
+                                  flexDirection: "column",
+                                  gap: "5px",
+                                  backgroundColor: "rgba(131, 131, 131, 0.22)",
+                                  width: "fit-content",
+                                  borderRadius: "10px",
+                                  padding: "5px",
                                 }}
                               >
                                 <Typography
-                                  variant="body1"
-                                  sx={{ fontSize: "17px", color: "black", }}
+                                  sx={{ fontSize: "16px", fontWeight: "700" }}
                                 >
-                                  {`${message.content} `}
+                                  {`${message.sender.name} ${message.sender.lastName}:`}
                                 </Typography>
-                                <Typography
-                                  variant="caption"
+
+                                <Box
                                   sx={{
-                                    fontSize: "12px",
-                                    color: "gray",
-                                    pt: "6px",
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    gap: 1,
+                                    p: "1px",
+                                    pl: "20px",
                                   }}
                                 >
-                                  {`${new Date(
-                                    message.createdAt
-                                  ).toLocaleTimeString([], {
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                    hour12: false,
-                                  })}`}
-                                </Typography>
+                                  <Typography
+                                    variant="body1"
+                                    sx={{ fontSize: "17px", color: "black" }}
+                                  >
+                                    {`${message.content} `}
+                                  </Typography>
+                                  <Typography
+                                    variant="caption"
+                                    sx={{
+                                      fontSize: "12px",
+                                      color: "gray",
+                                      pt: "6px",
+                                    }}
+                                  >
+                                    {`${new Date(
+                                      message.createdAt
+                                    ).toLocaleTimeString([], {
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                      hour12: false,
+                                    })}`}
+                                  </Typography>
+                                </Box>
                               </Box>
-                            </Box>
-                          </ListItemText>
-                        </ListItem>
-                      ))}
+                            </ListItemText>
+                          </ListItem>
+                        ))}
                     </Box>
-                    
+
                     <Box
                       sx={{
                         width: "100%",

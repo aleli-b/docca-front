@@ -64,6 +64,10 @@ export const Header = () => {
         navigate('/tests')
     };
 
+    const handleQueries = () => {
+        navigate('/Consultas')
+    };
+
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -186,10 +190,10 @@ export const Header = () => {
                                                     <Typography textAlign="center">MIS ANALISIS</Typography>
                                                 </MenuItem>
                                             }
-                                            {/* <MenuItem onClick={() => { handleCloseUserMenu() }}>
+                                            {auth.user.userType === 'patient' &&<MenuItem onClick={() => { handleCloseUserMenu(); handleQueries() }}>
                                             <Typography textAlign="center">MIS CONSULTAS</Typography>
-                                        </MenuItem>
-                                        {
+                                        </MenuItem>}
+                                        {/* 
                                             auth.user.userType === 'doctor' &&
                                             <MenuItem onClick={() => { handleCloseUserMenu() }}>
                                                 <Typography textAlign="center">AGENDA</Typography>
