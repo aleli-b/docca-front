@@ -26,7 +26,8 @@ import { LoginRoute } from "./components/guard/LoginRoute";
 import { ResetPasswordForm } from "./pages/ResetPassword/ResetPassword";
 import { LabTests } from "./pages/LabTests/LabTests";
 import { Plan } from "./components/Plan/Plan";
-import { Perfil } from "./pages/Perfil/Perfil";
+import { Consultas } from "./pages/Consulta/Consultas";
+
 
 const router = createBrowserRouter([
   { path: "*", Component: Root },
@@ -67,7 +68,6 @@ function Root() {
             <Header />
             <Routes>
               <Route path="*" element={<Error />} />
-              <Route path="/test" element={<Perfil />} />
               {/*<Route path="/" element={<Home />} />*/}
               <Route path="/login" element={<Login />} />
               <Route path="/register-paciente" element={<RegRoute> <Register /> </RegRoute>} />
@@ -82,7 +82,7 @@ function Root() {
               <Route path="/tests" element={<LabTests />} />
               <Route path="/plan/:userType" element={<Plan />} />
               <Route path="/reset-password/:token" element={<ResetPasswordForm />} />
-              {/*<Route path="/perfiless" element={<Perfil />} />*/}
+              <Route path="/Consultas" element={<Consultas />} />
             </Routes>
             <Footer sx={{mp:"auto" }} />
           </ThemeProvider>
