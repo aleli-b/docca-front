@@ -7,7 +7,7 @@ import AddLocationIcon from '@mui/icons-material/AddLocation';
 import { Avatar, Box, } from '@mui/material';
 import { SacarTurnoCard } from '../SacarTurnoCard/SacarTurnoCard';
 
-export const DoctorCard = ({ doctor, turnos }) => {
+export const DoctorCard = ({ doctor, turnos, dates }) => {
     const doc = doctor;
     
     return (
@@ -34,7 +34,7 @@ export const DoctorCard = ({ doctor, turnos }) => {
                     </Box>
                 </CardContent>
                 <CardContent sx={{  width: {xs: 'inherit', md: 1 / 2} }}>
-                    <SacarTurnoCard doc={doc} turnos={turnos} />
+                    <SacarTurnoCard doc={doc} turnos={turnos} dates={dates}/>
                 </CardContent>
         </Card >
     );

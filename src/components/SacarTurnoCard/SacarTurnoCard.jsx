@@ -18,7 +18,7 @@ moment.updateLocale('es', {
   ]
 });
 
-export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
+export const SacarTurnoCard = React.memo(({ doc, turnos, dates}) => {
   const [startIndex, setStartIndex] = useState(0);
   const [numColumns, setNumColumns] = useState(4);
 
@@ -45,43 +45,6 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
       window.removeEventListener('resize', updateNumColumns);
     };
   }, []);
-
-  const generateDates = () => {
-    const today = moment();
-    const daysOfWeekSpanish = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-    const generatedDates = [];
-
-    for (let i = 0; i < 30; i++) {
-      const date = today.clone().add(i, 'days');
-      const formattedDate = date.format('DD [de] MMMM');
-      const dayOfWeek = daysOfWeekSpanish[date.day()];
-
-      const timeSlots = [];
-      const startTime = moment('09:00', 'HH:mm');
-      const endTime = moment('13:00', 'HH:mm');
-      const interval = moment.duration(1, 'hours');
-
-      while (startTime <= endTime) {
-        timeSlots.push(startTime.format('HH:mm'));
-        startTime.add(interval);
-      }
-
-      let label;
-      if (i === 0) {
-        label = 'Hoy';
-      } else if (i === 1) {
-        label = 'Mañana';
-      } else {
-        label = dayOfWeek;
-      }
-
-      generatedDates.push({ label, day: formattedDate, time: timeSlots });
-    }
-
-    return generatedDates;
-  };
-
-  const dates = generateDates();
 
   const endIndex = Math.min(startIndex + numColumns, dates.length);
 
@@ -119,7 +82,7 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
       sessionStorage.setItem('turno', dateTime);
       // Navegar a la página de turnos
       navigate('/turnos');
-    }           
+    }
   }
 
   return (
@@ -141,13 +104,14 @@ export const SacarTurnoCard = React.memo(({ doc, turnos }) => {
                     key={j}
                     variant="outlined"
                     onClick={() => handleClickTurno(`${date.day} ${time}`)}
-                    disabled={isTurnoOccupied(`${date.day} ${time}`)}
+                    disabled={isTurnoOccupied(`${date.day} ${time}`) || date.isPast}
                     sx={{
-                      textDecoration: isTurnoOccupied(`${date.day} ${time}`) ? 'line-through' : 'none',
+                      textDecoration: (isTurnoOccupied(`${date.day} ${time}`) || date.isPast) ? 'line-through' : 'none'
                     }}
                   >
                     {time}
                   </Button>
+
                 ))}
               </Box>
             )}

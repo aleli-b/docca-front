@@ -26,6 +26,45 @@ export const Especialistas = () => {
     setDoctors(userData.data);
   };
 
+  const generateDates = () => {
+    const today = moment();
+    const daysOfWeekSpanish = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    const generatedDates = [];
+  
+    for (let i = 0; i < 30; i++) {
+      const date = today.clone().add(i, 'days');
+      const formattedDate = date.format('DD [de] MMMM');
+      const dayOfWeek = daysOfWeekSpanish[date.day()];
+  
+      const timeSlots = [];
+      const startTime = moment('09:00', 'HH:mm');
+      const endTime = moment('13:00', 'HH:mm');
+      const interval = moment.duration(1, 'hours');
+  
+      while (startTime <= endTime) {
+        timeSlots.push(startTime.format('HH:mm'));
+        startTime.add(interval);
+      }
+  
+      let label;
+      if (i === 0) {
+        label = 'Hoy';
+      } else if (i === 1) {
+        label = 'Mañana';
+      } else {
+        label = dayOfWeek;
+      }
+  
+      const isPast = date.isBefore(moment()); // Check if the date is in the past
+      console.log(isPast)
+  
+      generatedDates.push({ label, day: formattedDate, time: timeSlots, isPast });
+    }
+  
+    return generatedDates;
+  };
+  const dates = generateDates();
+
   const handleCategoryChange = async (category) => {
     try {
       setLoading(true);
@@ -107,6 +146,7 @@ export const Especialistas = () => {
                     key={doctor.id}
                     doctor={doctor}
                     turnos={occupiedTurnos}
+                    dates={dates}
                   />
                 ))
               ) : (
