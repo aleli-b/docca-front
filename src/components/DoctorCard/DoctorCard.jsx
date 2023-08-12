@@ -11,7 +11,7 @@ export const DoctorCard = ({ doctor, turnos, dates }) => {
     const doc = doctor;
     
     return (
-        <Card sx={{ display: 'flex', flexDirection: {xs: 'column', md: 'row'}, flexGrow: 1, flexWrap: 'noWrap'}}>            
+        <Card sx={{ display: doc.subscription ? 'flex' : 'none', flexDirection: {xs: 'column', md: 'row'}, flexGrow: 1, flexWrap: 'noWrap'}}>            
                 <CardContent sx={{  width: {xs: 'inherit', md: 1 / 2}, marginLeft: {xs: 'none', md: 2}, display: 'flex', flexDirection: 'column', gap: 1, borderRight: {sx: 'none', md: 'solid 1px gray'}, borderBottom: {xs: 'solid 1px gray', md: 'none'}}}>
                     <Box sx={{ display: 'flex', gap: 3, }}>
                         <Avatar src={doc.profile_picture_url} sx={{ height: 100, width: 100 }} />

@@ -26,26 +26,47 @@ export const Especialistas = () => {
     setDoctors(userData.data);
   };
 
+
+  
   const generateDates = () => {
     const today = moment();
     const daysOfWeekSpanish = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     const generatedDates = [];
+    const days = [];
+    
+    const timeSlots = [];
+    const startTime = moment('10:00', 'HH:mm');
+    const endTime = moment('23:00', 'HH:mm');
+    const interval = moment.duration(1, 'hours');
+    let isPast;
+    let i = 0;
+
+    const userLocalTime = moment().format('HH:mm');
+    
+    const timer = [];
+
+    while (startTime <= endTime) {
+      timer.push(startTime.format('HH:mm'));      
+      
+      isPast = String(userLocalTime) > timer[i] ? true : false;
+      
+      const timeSlotObj = {
+        time: timer[i],
+        isPast: isPast,
+      }    
+      
+      timeSlots.push(timeSlotObj);
+      startTime.add(interval);
+      i++
+    }
   
     for (let i = 0; i < 30; i++) {
       const date = today.clone().add(i, 'days');
       const formattedDate = date.format('DD [de] MMMM');
       const dayOfWeek = daysOfWeekSpanish[date.day()];
-  
-      const timeSlots = [];
-      const startTime = moment('09:00', 'HH:mm');
-      const endTime = moment('13:00', 'HH:mm');
-      const interval = moment.duration(1, 'hours');
-  
-      while (startTime <= endTime) {
-        timeSlots.push(startTime.format('HH:mm'));
-        startTime.add(interval);
-      }
-  
+      days.push({day: formattedDate});
+      // isPast = date.isBefore(moment()); // Compare entire date and time
+
       let label;
       if (i === 0) {
         label = 'Hoy';
@@ -55,14 +76,12 @@ export const Especialistas = () => {
         label = dayOfWeek;
       }
   
-      const isPast = date.isBefore(moment()); // Check if the date is in the past
-      console.log(isPast)
-  
-      generatedDates.push({ label, day: formattedDate, time: timeSlots, isPast });
+      generatedDates.push({ label, day: formattedDate, time: timeSlots, });
     }
   
     return generatedDates;
-  };
+};
+  
   const dates = generateDates();
 
   const handleCategoryChange = async (category) => {

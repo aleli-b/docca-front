@@ -13,9 +13,38 @@ export const FilterSideBar = ({ handleCategoryChange }) => {
         handleCategoryChange(selectedOption);
     }
 
-    const options = ['Otorrinolaringólogo', 'Odontólogo', 'Endocrinólogo', 'Infectólogo', 'Cardiólogo', 'Ortopédico'];
-
-
+    const options = [
+        'Otorrinolaringólogo',
+        'Odontólogo',
+        'Endocrinólogo',
+        'Infectólogo',
+        'Cardiólogo',
+        'Ortopédico',
+        'Medicina Familiar',
+        'Médicina Interna',
+        'Endocrinología',
+        'Pediatría',
+        'Gineco obstetricia',
+        'Cirugía',
+        'Psiquiatría',
+        'Cardiología',
+        'Dermatología',
+        'Gastroenterología',
+        'Infectología',
+        'Nefrología',
+        'Oftalmología',
+        'Otorrinolaringología',
+        'Neumología',
+        'Neurología',
+        'Radiología',
+        'Anestesiología',
+        'Oncología',
+        'Patología',
+        'Urología',
+        'Medicina física y rehabilitación',
+        'Medicina Intensiva',
+      ];
+      
     return (
         <Card sx={{  display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 2, position: {xs: 'inherit', md: 'sticky'}, top: '15px', gap: 2, minHeight: {sx: 'inherit', md: '100dvh'} }}>
             <Typography variant='p'>Filtrar Por:</Typography>

@@ -4,7 +4,6 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useAuth } from '../context/AuthContext';
 import moment from 'moment-timezone';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
@@ -18,13 +17,13 @@ moment.updateLocale('es', {
   ]
 });
 
-export const SacarTurnoCard = React.memo(({ doc, turnos, dates}) => {
+export const SacarTurnoCard = React.memo(({ doc, turnos, dates }) => {
   const [startIndex, setStartIndex] = useState(0);
   const [numColumns, setNumColumns] = useState(4);
 
   const auth = useAuth();
   const doctor = doc;
-  const occupiedTurnos = turnos;
+  const occupiedTurnos = turnos; 
 
   const navigate = useNavigate();
 
@@ -84,7 +83,7 @@ export const SacarTurnoCard = React.memo(({ doc, turnos, dates}) => {
       navigate('/turnos');
     }
   }
-
+  
   return (
     <div>
       <Grid container spacing={2} sx={{ display: 'flex', flexWrap: 'nowrap' }}>
@@ -99,17 +98,17 @@ export const SacarTurnoCard = React.memo(({ doc, turnos, dates}) => {
             </Typography>
             {date.time.length > 0 && (
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                {date.time?.map((time, j) => (
+                {date.time.map((time, j) => (
                   <Button
                     key={j}
                     variant="outlined"
-                    onClick={() => handleClickTurno(`${date.day} ${time}`)}
-                    disabled={isTurnoOccupied(`${date.day} ${time}`) || date.isPast}
+                    onClick={() => handleClickTurno(`${date.day} ${time.time}`)}
+                    disabled={isTurnoOccupied(`${date.day} ${time.time}`) || time.isPast}
                     sx={{
-                      textDecoration: (isTurnoOccupied(`${date.day} ${time}`) || date.isPast) ? 'line-through' : 'none'
+                      textDecoration: (isTurnoOccupied(`${date.day} ${time.time}`) || time.isPast) ? 'line-through' : 'none'
                     }}
                   >
-                    {time}
+                    {time.time}
                   </Button>
 
                 ))}
