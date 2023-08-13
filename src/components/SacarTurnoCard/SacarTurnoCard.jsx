@@ -83,8 +83,6 @@ export const SacarTurnoCard = React.memo(({ doc, turnos, dates }) => {
       navigate('/turnos');
     }
   }
-
-  console.log(dates)
   
   return (
     <div>

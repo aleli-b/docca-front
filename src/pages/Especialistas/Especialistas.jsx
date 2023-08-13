@@ -35,8 +35,8 @@ export const Especialistas = () => {
     let days = [];
     
     const timeSlots = [];
-    const startTime = moment('00:00', 'HH:mm');
-    const endTime = moment('10:00', 'HH:mm');
+    const startTime = moment('08:00', 'HH:mm');
+    const endTime = moment('13:00', 'HH:mm');
     const interval = moment.duration(1, 'hours');
     let isPast;
     let i = 0;

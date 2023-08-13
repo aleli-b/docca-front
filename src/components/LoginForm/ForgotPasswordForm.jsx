@@ -5,12 +5,16 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useAuth } from '../context/AuthContext';
 
 export const ForgotPasswordForm = ({ onClose }) => {
   const [email, setEmail] = React.useState('');
   const [emailError, setEmailError] = React.useState(false);
   const [isSent, setIsSent] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [reqerr, setReqerr] = React.useState(false);
+
 
   const auth = useAuth();
 
@@ -21,14 +25,17 @@ export const ForgotPasswordForm = ({ onClose }) => {
   };
 
   const handleSubmit = async (event) => {
+    setLoading(true);
     try {
       event.preventDefault();
       if (!emailError) {
         await auth.forgotPassword(email);
         setIsSent(true);
       }
+      setLoading(false);
     } catch (error) {
-      console.log(error);
+      setReqerr(true);
+      setLoading(false);
     }
   };
 
@@ -73,12 +80,19 @@ export const ForgotPasswordForm = ({ onClose }) => {
               name="email"
               autoComplete="email"
               autoFocus
-              error={emailError}
-              helperText={emailError ? 'Dirección de correo inválida' : ''}
+              error={emailError || reqerr}
+              helperText={emailError ? 'Dirección de correo inválida' : reqerr ? 'Ese correo no está registrado' : ''}
             />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 2 }}>
-              Enviar Correo de Reinicio
-            </Button>
+            <Box sx={{ display: 'flex', justifyContent: 'center', }}>
+              {loading
+                ?
+                <CircularProgress />
+                :
+                <Button type="submit" fullWidth variant="contained" sx={{ mt: 2 }}>
+                  Enviar Correo de Reinicio
+                </Button>
+              }
+            </Box>
           </form>
         ) : (
           <Button onClick={onClose} fullWidth variant="contained" sx={{ mt: 2 }}>

@@ -26,6 +26,7 @@ export default function LoginForm() {
   const auth = useAuth();
 
   const isMobile = useMediaQuery("(max-width:600px)");
+
   const validateEmail = (value) => {
     const emailRegex = /.+@.+\..+/;
     setEmail(value);
@@ -129,19 +130,18 @@ export default function LoginForm() {
           </Box>
 
           <Box
-            container
             sx={{
               display: "flex",
               flexDirection: "column",
               textAlign: "center",
-              gap: isMobile ? "" : 1,
+              gap: isMobile ? " " : 1,
             }}
           >
             <Link onClick={handleForgotPasswordLinkClick} variant="body2" color={"#5F5F5F"}>
               ¿Olvidaste la contraseña?
             </Link>
 
-            <Link href="/register-paciente" variant="body2" color={"#5F5F5F"}>
+            <Link href="/register-paciente" variant="body2" sx={{ color: "#5F5F5F" }}>
               {"¿No tienes cuenta? Registrarme"}
             </Link>
           </Box>
