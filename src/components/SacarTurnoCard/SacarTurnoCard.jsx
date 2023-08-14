@@ -103,9 +103,9 @@ export const SacarTurnoCard = React.memo(({ doc, turnos, dates }) => {
                     key={j}
                     variant="outlined"
                     onClick={() => handleClickTurno(`${date.day} ${time.time}`)}
-                    disabled={isTurnoOccupied(`${date.day} ${time.time}`) || time.isPast}
+                    disabled={isTurnoOccupied(`${date.day} ${time.time}`) || time.isPast && date.isDayPast}
                     sx={{
-                      textDecoration: (isTurnoOccupied(`${date.day} ${time.time}`) || time.isPast) ? 'line-through' : 'none'
+                      textDecoration: (isTurnoOccupied(`${date.day} ${time.time}`) || time.isPast && date.isDayPast) ? 'line-through' : 'none'
                     }}
                   >
                     {time.time}
