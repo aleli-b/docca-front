@@ -28,8 +28,9 @@ export const DoctorCard = ({ doctor, turnos, dates }) => {
                     <Box sx={{ }}>
                         <Typography variant='h5'>Dirección/es</Typography>
                         <Box sx={{ display: 'flex', gap: 1, paddingTop: 2}}>
-                            <AddLocationIcon />
-                            <Typography>{doc.adress || "Aún no se ha agregado una dirección"}</Typography>
+                            <AddLocationIcon />                        
+                            <Typography>{`${doc.state}, ${doc.country}`} </Typography>
+                            <Typography>{doc.adress || "(Aún no se ha agregado una dirección)"}</Typography>
                         </Box>
                     </Box>
                 </CardContent>

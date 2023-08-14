@@ -23,7 +23,7 @@ export const SacarTurnoCard = React.memo(({ doc, turnos, dates }) => {
 
   const auth = useAuth();
   const doctor = doc;
-  const occupiedTurnos = turnos; 
+  const occupiedTurnos = turnos;
 
   const navigate = useNavigate();
 
@@ -83,7 +83,7 @@ export const SacarTurnoCard = React.memo(({ doc, turnos, dates }) => {
       navigate('/turnos');
     }
   }
-  
+
   return (
     <div>
       <Grid container spacing={2} sx={{ display: 'flex', flexWrap: 'nowrap' }}>
@@ -103,9 +103,9 @@ export const SacarTurnoCard = React.memo(({ doc, turnos, dates }) => {
                     key={j}
                     variant="outlined"
                     onClick={() => handleClickTurno(`${date.day} ${time.time}`)}
-                    disabled={isTurnoOccupied(`${date.day} ${time.time}`) || (time.isPast && date.isDayPast)}
+                    disabled={isTurnoOccupied(`${date.day} ${time.time}`) || time.isPast}
                     sx={{
-                      textDecoration: (isTurnoOccupied(`${date.day} ${time.time}`) || (time.isPast && date.isDayPast)) ? 'line-through' : 'none'
+                      textDecoration: (isTurnoOccupied(`${date.day} ${time.time}`) || time.isPast) ? 'line-through' : 'none'
                     }}
                   >
                     {time.time}
@@ -119,6 +119,9 @@ export const SacarTurnoCard = React.memo(({ doc, turnos, dates }) => {
         <IconButton onClick={handleNextClick} disabled={endIndex >= dates.length} sx={{ height: '50px', width: '50px', marginTop: 1 }}>
           <KeyboardArrowRightIcon />
         </IconButton>
+      </Grid>
+      <Grid container spacing={2} sx={{ display: 'flex', justifyContent: 'center', position: 'relative', top: '20px', left: '8px'}}>
+        <Typography color="text.secondary">(Los horarios corresponden a la hora local del especialista)</Typography>
       </Grid>
     </div>
   );

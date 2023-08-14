@@ -27,13 +27,13 @@ export const Especialistas = () => {
   };
 
 
-  
+
   const generateDates = () => {
     const today = moment();
     const daysOfWeekSpanish = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     const generatedDates = [];
     let days = [];
-    
+
     const timeSlots = [];
     const startTime = moment('08:00', 'HH:mm');
     const endTime = moment('13:00', 'HH:mm');
@@ -42,31 +42,31 @@ export const Especialistas = () => {
     let i = 0;
 
     const userLocalTime = moment().format('HH:mm');
-    
+
     const timer = [];
 
     while (startTime <= endTime) {
-      timer.push(startTime.format('HH:mm'));      
-      
+      timer.push(startTime.format('HH:mm'));
+
       isPast = String(userLocalTime) > timer[i] ? true : false;
-      
+
       const timeSlotObj = {
         time: timer[i],
         isPast: isPast,
-      }    
-      
+      }
+
       timeSlots.push(timeSlotObj);
       startTime.add(interval);
       i++
     }
-  
+
     for (let i = 0; i < 30; i++) {
       const date = today.clone().add(i, 'days');
       const formattedDate = date.format('DD [de] MMMM');
       const dayOfWeek = daysOfWeekSpanish[date.day()];
       // days.push({day: formattedDate});
       // isPast = date.isBefore(moment()); // Compare entire date and time
-      
+
       let label;
       if (i === 0) {
         label = 'Hoy';
@@ -75,7 +75,7 @@ export const Especialistas = () => {
       } else {
         label = dayOfWeek;
       }
-      
+
       generatedDates.push({ label, day: formattedDate, time: timeSlots, });
     }
     days = generatedDates.map(date => moment(date.day, 'DD [de] MMMM'));
@@ -84,22 +84,22 @@ export const Especialistas = () => {
     generatedDates.forEach((date, index) => {
       date.isDayPast = isDayPast[index];
     });
-    
+
     return generatedDates;
   };
-  
+
   const dates = generateDates();
-  
-  const handleCategoryChange = async (category) => {
+
+  const handleCategoryChange = async (category, province) => {
     try {
       setLoading(true);
-      if (category === "") {
+      if (category === "" && province === '') {
         getDoctors();
       } else {
         const response = await axios.get(
-          `${svHost}/users/categories/${category}`
-        );
-        console.log("categorizado: ", response);
+          `${svHost}/users/filter`,
+          { params: { category, province } }
+      );
         setDoctors(response.data);
       }
     } catch (error) {
