@@ -3,6 +3,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useAuth } from "../context/AuthContext";
+import { provincesOfMexico } from "./ProvincesofMexico";
 import {
   FormControl,
   Typography,
@@ -32,6 +33,7 @@ export const RegisterFormDoc = () => {
   const [passwordError, setPasswordError] = React.useState(false);
   const [ageError, setAgeError] = React.useState(false);
   const [category, setCategory] = React.useState("");
+  const [province, setProvince] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const [passwordMatchError, setPasswordMatchError] = React.useState(false);
@@ -55,9 +57,7 @@ export const RegisterFormDoc = () => {
   };
 
   const validateAge = (value) => {
-    const ageRegex = /^[0-9]+$/;
     setAge(value);
-    setAgeError(!ageRegex.test(value));
   };
 
   const validatePassword = (value) => {
@@ -84,6 +84,8 @@ export const RegisterFormDoc = () => {
         lastName: formData.get("lastName"),
         age: formData.get("age"),
         email: formData.get("email"),
+        country: "Mexico",
+        state: province,
         password: formData.get("password"),
         userType: "doctor",
         category: category,
@@ -148,7 +150,7 @@ export const RegisterFormDoc = () => {
         >
           Registrarse como Doctor
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, }}>
           <FormControl fullWidth margin="normal">
             <InputLabel id="category-label">Especialidad</InputLabel>
             <Select
@@ -198,13 +200,40 @@ export const RegisterFormDoc = () => {
             required
             fullWidth
             id="age"
-            placeholder="Edad"
             name="age"
+            type="date"
             autoComplete="family-name"
-            error={ageError}
-            helperText={ageError ? "Edad inválida" : ""}
-            sx={{ bgcolor: "rgba(131, 131, 131, 0.22)" }}
+            sx={{ bgcolor: "rgba(131, 131, 131, 0.22)", mb: 3 }}
           />
+          <FormControl fullWidth sx={{ bgcolor: "rgba(131, 131, 131, 0.22)", mb: 3 }}>
+            <InputLabel htmlFor="countrySelect">País</InputLabel>
+            <Select
+              value="Mexico"
+              disabled
+              labelId="countrySelect"
+              id="country-select"
+            >
+              <MenuItem value="Mexico">México</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl fullWidth sx={{ bgcolor: "rgba(131, 131, 131, 0.22)" }}>
+            <InputLabel htmlFor="provinceSelect">Provincia</InputLabel>
+            <Select
+              labelId="provinceSelect"
+              id="province-select"
+              value={province}
+              onChange={(e) => setProvince(e.target.value)}
+            >
+              <MenuItem value="" disabled>
+                Seleccione su provincia
+              </MenuItem>
+              {provincesOfMexico.map((provinceName) => (
+                <MenuItem key={provinceName} value={provinceName}>
+                  {provinceName}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <TextField
             onChange={(e) => validateEmail(e.target.value)}
             value={email}

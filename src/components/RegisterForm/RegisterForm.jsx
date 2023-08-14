@@ -2,17 +2,15 @@ import * as React from "react";
 import { useAuth } from "../context/AuthContext";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { IconButton, InputAdornment } from "@mui/material";
+import { IconButton, InputAdornment,Select, FormControl, InputLabel, MenuItem } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { provincesOfMexico } from "./ProvincesofMexico";
 import {
   SvgIcon,
-  Checkbox,
-  FormControlLabel,
   Box,
   Link,
   TextField,
   CssBaseline,
-  Grid,
   Typography,
   Container,
   Button,
@@ -27,6 +25,7 @@ export const RegisterForm = () => {
   const [emailError, setEmailError] = React.useState(false);
   const [passwordError, setPasswordError] = React.useState(false);
   const [ageError, setAgeError] = React.useState(false);
+  const [province, setProvince] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const [passwordMatchError, setPasswordMatchError] = React.useState(false);
@@ -51,9 +50,7 @@ export const RegisterForm = () => {
   };
 
   const validateAge = (value) => {
-    const ageRegex = /^[0-9]+$/;
     setAge(value);
-    setAgeError(!ageRegex.test(value));
   };
 
   const validatePassword = (value) => {
@@ -76,6 +73,8 @@ export const RegisterForm = () => {
         lastName: formData.get("lastName"),
         age: formData.get("age"),
         email: formData.get("email"),
+        country: "Mexico",
+        state: province,
         password: formData.get("password"),
         userType: "patient",
       };
@@ -139,13 +138,40 @@ export const RegisterForm = () => {
             required
             fullWidth
             id="age"
-            placeholder="Edad"
             name="age"
+            type="date"
             autoComplete="family-name"
-            error={ageError}
-            helperText={ageError ? "Edad inválida" : ""}
-            sx={{ bgcolor: "rgba(131, 131, 131, 0.22)" }}
+            sx={{ bgcolor: "rgba(131, 131, 131, 0.22)", mb: 3 }}
           />
+          <FormControl fullWidth sx={{ bgcolor: "rgba(131, 131, 131, 0.22)", mb: 3 }}>
+            <InputLabel htmlFor="countrySelect">País</InputLabel>
+            <Select
+              value="Mexico"
+              disabled
+              labelId="countrySelect"
+              id="country-select"
+            >
+              <MenuItem value="Mexico">México</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl fullWidth sx={{ bgcolor: "rgba(131, 131, 131, 0.22)", mb: 1 }}>
+            <InputLabel htmlFor="provinceSelect">Provincia</InputLabel>
+            <Select
+              labelId="provinceSelect"
+              id="province-select"
+              value={province}
+              onChange={(e) => setProvince(e.target.value)}
+            >
+              <MenuItem value="" disabled>
+                Seleccione su provincia
+              </MenuItem>
+              {provincesOfMexico.map((provinceName) => (
+                <MenuItem key={provinceName} value={provinceName}>
+                  {provinceName}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <TextField
             onChange={(e) => validateEmail(e.target.value)}
             value={email}
