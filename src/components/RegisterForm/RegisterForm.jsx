@@ -155,7 +155,7 @@ export const RegisterForm = () => {
             </Select>
           </FormControl>
           <FormControl fullWidth sx={{ bgcolor: "rgba(131, 131, 131, 0.22)", mb: 1 }}>
-            <InputLabel htmlFor="provinceSelect">Provincia</InputLabel>
+            <InputLabel htmlFor="provinceSelect">Estado</InputLabel>
             <Select
               labelId="provinceSelect"
               id="province-select"
@@ -163,7 +163,7 @@ export const RegisterForm = () => {
               onChange={(e) => setProvince(e.target.value)}
             >
               <MenuItem value="" disabled>
-                Seleccione su provincia
+                Seleccione su estado
               </MenuItem>
               {provincesOfMexico.map((provinceName) => (
                 <MenuItem key={provinceName} value={provinceName}>

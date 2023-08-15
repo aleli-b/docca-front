@@ -17,7 +17,7 @@ export const FilterSideBar = ({ handleCategoryChange }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         handleCategoryChange(selectedOption, selectedState);
-    }
+    };
 
     const options = [
         'Otorrinolaringólogo',
@@ -78,7 +78,7 @@ export const FilterSideBar = ({ handleCategoryChange }) => {
                 )}
             </FormControl>
             <FormControl sx={{ minWidth: '80%', margin: 2 }}>
-                <InputLabel htmlFor="select-option">Provincias</InputLabel>
+                <InputLabel htmlFor="select-option">Estados</InputLabel>
                 <Select
                     value={selectedState}
                     onChange={handleStateChange}
@@ -96,7 +96,7 @@ export const FilterSideBar = ({ handleCategoryChange }) => {
                 </Select>
                 {selectedState && (
                     <Typography variant="body2" sx={{ mt: 2 }}>
-                        Provincia: {selectedState}
+                        Estado: {selectedState}
                     </Typography>
                 )}
             </FormControl>
