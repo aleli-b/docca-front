@@ -10,6 +10,7 @@ import { AdminNavbar } from '../../../components/Admin/AdminNavbar';
 export const UserAdmin = () => {
     const [users, setUsers] = useState([]);
 
+
     const svHost = import.meta.env.VITE_HOST;
 
     const darkTheme = createTheme({
@@ -39,16 +40,20 @@ export const UserAdmin = () => {
         setUsers(userData.data)
     }
 
+
+
     useEffect(() => {
         getUsers();
     }, [])
+
+
 
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
             <Box sx={{ height: '100vh', }}>
                 <AdminNavbar></AdminNavbar>
-                <AdminTable users={users} handleUserBanState={handleUserBanState} />
+                <AdminTable users={users} handleUserBanState={handleUserBanState}/>
             </Box>
         </ThemeProvider>
     )

@@ -107,7 +107,7 @@ export const Header = () => {
     return (
         <>
             <AppBar position="static" id='navBar'>
-                <Container maxWidth="xl">
+                <Container maxWidth="100%">
                     <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
                             <a href='/'>

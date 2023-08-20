@@ -100,7 +100,7 @@ export const FilterSideBar = ({ handleCategoryChange }) => {
                     </Typography>
                 )}
             </FormControl>
-            <Button variant='contained' type='submit' onClick={handleSubmit} sx={{ marginTop: 3 }}>Buscar</Button>
+            <Button variant='contained' type='submit' onClick={handleSubmit} sx={{ m: 2 }}>Buscar</Button>
         </Card>
     )
 }
