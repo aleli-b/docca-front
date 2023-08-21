@@ -1,10 +1,18 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import FacebookIcon from "@mui/icons-material/Facebook";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import docca from "../../assets/Ic2.svg";
 import "./Footer.css";
-import { Container, TextField, useMediaQuery } from "@mui/material";
+import {
+  Button,
+  Container,
+  SvgIcon,
+  TextField,
+  useMediaQuery,
+} from "@mui/material";
 
 export const Footer = () => {
   const isMobile = useMediaQuery("(max-width: 900px)");
@@ -23,11 +31,12 @@ export const Footer = () => {
       }}
       id="footerNav"
     >
-      <Container
+      <Box
         sx={{
           display: "flex",
           flexDirection: isMobile ? "column" : "row",
           justifyContent: "space-beetwen",
+          width: "100%",
         }}
       >
         <Box
@@ -41,12 +50,21 @@ export const Footer = () => {
             textAlign: "start",
           }}
         >
-          <Typography>Docappoint</Typography>
-          <Typography>
-            {"Rivadavia Buenos Aires Argentina"}
-            {<br />}
-            {"soporte@docappoint.com.ar"}
-          </Typography>
+          <Box
+            className="socialIconsContainer"
+            sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+          >
+            <Typography>Redes sociales: </Typography>
+            <Button href="https://instagram.com/docappoint?igshid=MzRlODBiNWFlZA==" sx={{minWidth:0}} >
+              <SvgIcon component={InstagramIcon} sx={{ color: "white" }} />
+            </Button>
+            <Button href="https://www.facebook.com/profile.php?id=100094118102798" sx={{minWidth:0}}>
+              <SvgIcon component={FacebookIcon} sx={{ color: "white" }} />
+            </Button>
+          </Box>
+          <Typography>{"Tel: +52 1 662 229 7062"}</Typography>
+          <Typography>{"Contacto: somosdocappoint@gmail.com"}</Typography>
+          
         </Box>
         <Box
           className="column-2"
@@ -60,7 +78,9 @@ export const Footer = () => {
             alignItems: isMobile ? "start" : "end",
           }}
         >
-          <Typography sx={{width: "14.5rem"}}>Subscribete a nuestro newseller</Typography>
+          <Typography sx={{ width: "14.5rem" }}>
+            Subscribete a nuestro newseller
+          </Typography>
           <Box>
             <input
               type="email"
@@ -72,26 +92,12 @@ export const Footer = () => {
                 backgroundColor: "#145C6C",
                 width: "14.5rem",
                 outline: "none",
-                color:"white"
+                color: "white",
               }}
             ></input>
           </Box>
         </Box>
-      </Container>
+      </Box>
     </AppBar>
   );
 };
-
-/*<img src={docca} style={{ height: '5rem' }} />
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            py: 2,
-          }}
-        >
-          <Typography variant="body2" color="black">
-            &copy; {new Date().getFullYear()} Your Website. All rights reserved.
-          </Typography>
-        </Box>*/
