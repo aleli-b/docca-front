@@ -139,6 +139,7 @@ export const RegisterForm = () => {
             fullWidth
             id="age"
             name="age"
+            
             type="date"
             autoComplete="family-name"
             sx={{ bgcolor: "rgba(131, 131, 131, 0.22)", mb: 3 }}
