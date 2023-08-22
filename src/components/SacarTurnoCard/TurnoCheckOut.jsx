@@ -129,7 +129,7 @@ export function TurnoCheckOut({ doctor, turno }) {
                 }
               />
             </Box>
-            <Typography
+            {!isMobile? (<Typography
               variant="h1"
               sx={{
                 color: "#fff",
@@ -145,7 +145,7 @@ export function TurnoCheckOut({ doctor, turno }) {
               }}
             >
               {turno ? `${turno}` : ""}
-            </Typography>
+            </Typography>) : ""}
           </Box>
 
           <Box
@@ -213,6 +213,7 @@ export function TurnoCheckOut({ doctor, turno }) {
               </Typography>
               <Valoraciones doctorId={doctor.id} />
             </Box>
+
             {/*
             ---------- Luego utilizar esto para ingresar correo y método de pago --------
             <Box sx={{display:"flex", flexDirection:"column"}}>
@@ -220,6 +221,23 @@ export function TurnoCheckOut({ doctor, turno }) {
             </Box>*/}
           </Box>
         </Box>
+        {isMobile? (<Typography
+              variant="h1"
+              sx={{
+                color: "#fff",
+                textAlign: "center",
+                fontFamily: "Work Sans",
+                fontSize: "1.25rem",
+                fontWeight: "700",
+                bgcolor: "#838383",
+                p: 2,
+                borderRadius: 5,
+                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+                width: isMobile ? "100%" : "50%",
+              }}
+            >
+              {turno ? `${turno}hs` : ""}
+            </Typography>) : ""}
         <Box
           sx={{
             width: "100%",
