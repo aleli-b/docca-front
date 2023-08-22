@@ -2,7 +2,14 @@ import * as React from "react";
 import { useAuth } from "../context/AuthContext";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { IconButton, InputAdornment,Select, FormControl, InputLabel, MenuItem } from "@mui/material";
+import {
+  IconButton,
+  InputAdornment,
+  Select,
+  FormControl,
+  InputLabel,
+  MenuItem,
+} from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { provincesOfMexico } from "./ProvincesofMexico";
 import {
@@ -29,6 +36,7 @@ export const RegisterForm = () => {
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const [passwordMatchError, setPasswordMatchError] = React.useState(false);
+  const [type, setType] = React.useState('text')
 
   const auth = useAuth();
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -42,6 +50,10 @@ export const RegisterForm = () => {
       return "Segura";
     }
   };
+
+  const handleType = () =>{
+    setType("date")
+  }
 
   const validateEmail = (value) => {
     const emailRegex = /.+@.+\..+/;
@@ -131,20 +143,29 @@ export const RegisterForm = () => {
             autoComplete="family-name"
             sx={{ bgcolor: "rgba(131, 131, 131, 0.22)" }}
           />
+
           <TextField
             onChange={(e) => validateAge(e.target.value)}
             value={age}
             margin="normal"
-            required
+            isRequired
             fullWidth
             id="age"
             name="age"
-            type="date"
+            type={type}
+            placeholder="Fecha de nacimiento"
+            onFocus={()=> handleType()}
             autoComplete="family-name"
-            sx={{ bgcolor: "rgba(131, 131, 131, 0.22)", mb: 3 }}
+            sx={{
+              bgcolor: "rgba(131, 131, 131, 0.22)",
+              mb: 3,
+            }}
           />
-          <FormControl fullWidth sx={{ bgcolor: "rgba(131, 131, 131, 0.22)", mb: 3 }}>
-            <InputLabel htmlFor="countrySelect">País</InputLabel>
+
+          <FormControl
+            fullWidth
+            sx={{ bgcolor: "rgba(131, 131, 131, 0.22)", mb: 3 }}
+          >
             <Select
               value="Mexico"
               disabled
@@ -154,7 +175,10 @@ export const RegisterForm = () => {
               <MenuItem value="Mexico">México</MenuItem>
             </Select>
           </FormControl>
-          <FormControl fullWidth sx={{ bgcolor: "rgba(131, 131, 131, 0.22)", mb: 1 }}>
+          <FormControl
+            fullWidth
+            sx={{ bgcolor: "rgba(131, 131, 131, 0.22)", mb: 1 }}
+          >
             <InputLabel htmlFor="provinceSelect">Estado</InputLabel>
             <Select
               labelId="provinceSelect"

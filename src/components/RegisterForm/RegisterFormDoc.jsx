@@ -39,6 +39,11 @@ export const RegisterFormDoc = () => {
   const [passwordMatchError, setPasswordMatchError] = React.useState(false);
   const isMobile = useMediaQuery("(max-width:600px)");
   const auth = useAuth();
+  const [type, setType] = React.useState('text')
+
+  const handleType = () =>{
+    setType("date")
+  }
 
   const getPasswordStrength = (value) => {
     if (value.length < 8) {
@@ -197,13 +202,18 @@ export const RegisterFormDoc = () => {
             onChange={(e) => validateAge(e.target.value)}
             value={age}
             margin="normal"
-            required
+            isRequired
             fullWidth
             id="age"
             name="age"
-            type="date"
+            type={type}
+            placeholder="Fecha de nacimiento"
+            onFocus={()=> handleType()}
             autoComplete="family-name"
-            sx={{ bgcolor: "rgba(131, 131, 131, 0.22)", mb: 3 }}
+            sx={{
+              bgcolor: "rgba(131, 131, 131, 0.22)",
+              mb: 3,
+            }}
           />
           <FormControl fullWidth sx={{ bgcolor: "rgba(131, 131, 131, 0.22)", mb: 3 }}>
             <InputLabel htmlFor="countrySelect">País</InputLabel>

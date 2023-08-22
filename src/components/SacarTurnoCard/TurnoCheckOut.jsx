@@ -20,7 +20,7 @@ import { Valoraciones } from "../Reviews/Reviews";
 
 export function TurnoCheckOut({ doctor, turno }) {
 
-  const doctorVerified = false;
+  const doctorVerified = doctor.banned;
   const queryParams = new URLSearchParams(location.search);
   const { user, token } = useAuth();
   const navigate = useNavigate();

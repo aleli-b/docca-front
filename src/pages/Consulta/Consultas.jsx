@@ -23,7 +23,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
 import { Valoraciones } from "../../components/Reviews/Reviews";
-
+import { toast } from "react-toastify";
+const svHost = import.meta.env.VITE_HOST;
 const estudios = [
   {
     tipoEstudio: "Estudio 1",
@@ -53,11 +54,11 @@ const estudios = [
 ];
 
 const labels = {
-  1: 'Muy mala',
-  2: 'Mala',
-  3: 'Regular',
-  4: 'Buena',
-  5: 'Excelente',
+  1: "Muy mala",
+  2: "Mala",
+  3: "Regular",
+  4: "Buena",
+  5: "Excelente",
 };
 
 const handlePdf = (link) => {
@@ -68,22 +69,45 @@ export const Consultas = () => {
   const { user } = useAuth();
   const [consultas, setConsultas] = useState([]);
   const [valorated, setValorated] = useState("");
+  const [reseña, setReseña] = useState("");
   const getConsultas = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:4000/getConsultas/${user.id}`
-      );
+      const response = await axios.get(`${svHost}/getConsultas/${user.id}`);
       const pagos = response.data;
       setConsultas(pagos);
-      console.log(pagos);
     } catch (error) {
       console.error("Error al obtener los pagos:", error);
     }
   };
+  async function submitRate() {
+    try {
+      const valoration = await axios.post(`${svHost}/setValoration/`, {
+        turnoId: consultas[0].turnoId,
+        valoracion: valorated ? valorated : 0,
+        reseña: reseña ? reseña : null,
+        userId: user.id,
+        doctorId: consultas[0].turnoPay.doctorId,
+      });
+
+      if (valoration.status === 200) {
+        toast.success("La reseña se envió correctamente");
+      } else {
+        toast.error("No se pudo enviar la reseña");
+      }
+
+      return valoration;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleReseñaChange = (event) => {
+    setReseña(event.target.value);
+  };
 
   const handleRatingChange = (e) => {
     console.log("Valor seleccionado:", e.target.value);
-    setValorated(e.target.value)
+    setValorated(e.target.value);
   };
 
   useEffect(() => {
@@ -220,7 +244,7 @@ export const Consultas = () => {
                         flexDirection: "column",
                         gap: isMobile ? 2 : 2,
                         width: isMobile ? "100%" : "50%",
-                        p:2
+                        p: 2,
                       }}
                     >
                       <Typography
@@ -257,7 +281,7 @@ export const Consultas = () => {
                         gap: isMobile ? 2 : 2,
                         width: isMobile ? "100%" : "50%",
                         alignItems: "center",
-                        p:2
+                        p: 2,
                       }}
                     >
                       <Typography
@@ -270,25 +294,30 @@ export const Consultas = () => {
                           textAlign: "center",
                         }}
                       >
-                        Valorá tu consulta
+                        Valora tu consulta
                       </Typography>
-                      <Box sx={{display:"flex", flexDirection:"row"}}>
+                      <Box sx={{ display: "flex", flexDirection: "row" }}>
                         <Rating
-                        name="hover-feedback"
-                        value={valorated}
-                        onChange={(e) => {
-                          handleRatingChange(e);
-                        }}
-                      />
-                      <Box sx={{ ml: 2 }}>{labels[valorated]}</Box>
+                          name="hover-feedback"
+                          value={valorated}
+                          onChange={(e) => {
+                            handleRatingChange(e);
+                          }}
+                        />
+                        <Box sx={{ ml: 2 }}>{labels[valorated]}</Box>
                       </Box>
-                      
+
                       <TextField
                         multiline
                         maxRows={3}
-                        placeholder="Dejá tu reseña..."
+                        placeholder="Deja tu reseña..."
+                        value={reseña}
+                        onChange={handleReseñaChange}
                         sx={{ width: "100%" }}
-                      ></TextField>
+                      />
+                      <Button sx={{ color: "#145C6C" }} onClick={submitRate}>
+                        Enviar reseña
+                      </Button>
                     </Box>
                     <Box
                       sx={{
