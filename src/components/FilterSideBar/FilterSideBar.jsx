@@ -13,42 +13,44 @@ export const FilterSideBar = ({ handleCategoryChange }) => {
     const handleStateChange = (event) => {
         setSelectedState(event.target.value);
     };
-    
+
     const handleSubmit = (event) => {
         event.preventDefault();
         handleCategoryChange(selectedOption, selectedState);
     };
 
     const options = [
-        'Otorrinolaringólogo',
-        'Odontólogo',
-        'Endocrinólogo',
-        'Infectólogo',
-        'Cardiólogo',
-        'Ortopédico',
-        'Medicina Familiar',
-        'Médicina Interna',
-        'Endocrinología',
-        'Pediatría',
-        'Gineco obstetricia',
-        'Cirugía',
-        'Psiquiatría',
+        'Anestesiología',
         'Cardiología',
+        'Cardiólogo',
+        'Cirugía',
         'Dermatología',
+        'Endocrinología',
+        'Endocrinólogo',
         'Gastroenterología',
+        'Gineco obstetricia',
         'Infectología',
-        'Nefrología',
-        'Oftalmología',
-        'Otorrinolaringología',
+        'Infectólogo',
+        'Medicina Familiar',
+        'Medicina General',
+        'Medicina Intensiva',
+        'Medicina del Estilo de Vida',
+        'Medicina física y rehabilitación',
+        'Médicina Interna',
         'Neumología',
         'Neurología',
-        'Radiología',
-        'Anestesiología',
+        'Nefrología',
+        'Oftalmología',
         'Oncología',
+        'Ortopédico',
+        'Otorrinolaringología',
+        'Otorrinolaringólogo',
+        'Odontólogo',
         'Patología',
+        'Pediatría',
+        'Psiquiatría',
+        'Radiología',
         'Urología',
-        'Medicina física y rehabilitación',
-        'Medicina Intensiva',
     ];
 
     return (
@@ -78,7 +80,7 @@ export const FilterSideBar = ({ handleCategoryChange }) => {
                 )}
             </FormControl>
             <FormControl sx={{ minWidth: '80%', margin: 2 }}>
-                <InputLabel htmlFor="select-option">Estados</InputLabel>
+                <InputLabel htmlFor="select-option">Estado</InputLabel>
                 <Select
                     value={selectedState}
                     onChange={handleStateChange}

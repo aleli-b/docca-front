@@ -41,7 +41,7 @@ export const RegisterFormDoc = () => {
   const auth = useAuth();
   const [type, setType] = React.useState('text')
 
-  const handleType = () =>{
+  const handleType = () => {
     setType("date")
   }
 
@@ -100,35 +100,37 @@ export const RegisterFormDoc = () => {
   };
 
   const options = [
-    'Otorrinolaringólogo',
-    'Odontólogo',
-    'Endocrinólogo',
-    'Infectólogo',
-    'Cardiólogo',
-    'Ortopédico',
-    'Medicina Familiar',
-    'Médicina Interna',
-    'Endocrinología',
-    'Pediatría',
-    'Gineco obstetricia',
-    'Cirugía',
-    'Psiquiatría',
+    'Anestesiología',
     'Cardiología',
+    'Cardiólogo',
+    'Cirugía',
     'Dermatología',
+    'Endocrinología',
+    'Endocrinólogo',
     'Gastroenterología',
+    'Gineco obstetricia',
     'Infectología',
-    'Nefrología',
-    'Oftalmología',
-    'Otorrinolaringología',
+    'Infectólogo',
+    'Medicina Familiar',
+    'Medicina General',
+    'Medicina Intensiva',
+    'Medicina del Estilo de Vida',
+    'Medicina física y rehabilitación',
+    'Médicina Interna',
     'Neumología',
     'Neurología',
-    'Radiología',
-    'Anestesiología',
+    'Nefrología',
+    'Oftalmología',
     'Oncología',
+    'Ortopédico',
+    'Otorrinolaringología',
+    'Otorrinolaringólogo',
+    'Odontólogo',
     'Patología',
+    'Pediatría',
+    'Psiquiatría',
+    'Radiología',
     'Urología',
-    'Medicina física y rehabilitación',
-    'Medicina Intensiva',
   ];
 
   return (
@@ -208,7 +210,7 @@ export const RegisterFormDoc = () => {
             name="age"
             type={type}
             placeholder="Fecha de nacimiento"
-            onFocus={()=> handleType()}
+            onFocus={() => handleType()}
             autoComplete="family-name"
             sx={{
               bgcolor: "rgba(131, 131, 131, 0.22)",
