@@ -102,7 +102,7 @@ export const PerfilDoctores = () => {
                                 <Typography>Especialidad:</Typography>
                                 <Typography>{user.category}</Typography>
                             </Box>
-                            <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '18.7px' }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid gray 1px', padding: '18.7px' }}>
                                 <Typography>Teléfono:</Typography>
                                 <Box>
                                     {user.phone || 'No has añadido un teléfono'}
@@ -115,13 +115,26 @@ export const PerfilDoctores = () => {
                                     </Button>
                                 </Box>
                             </Box>
-                            <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '18.7px' }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid gray 1px', padding: '18.7px' }}>
                                 <Typography>Precio de consulta:</Typography>
                                 <Box>
                                     {user.price ? '$' + user.price : 'No has añadido un precio aún'}
                                     <Button onClick={() => {
                                         setFieldToEdit('price');
                                         setNewValue(user.price || '');
+                                        setEditing(true);
+                                    }}>
+                                        <EditIcon />
+                                    </Button>
+                                </Box>
+                            </Box>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '18.7px' }}>
+                                <Typography>CLABE interbancaria:</Typography>
+                                <Box>
+                                    {user.price ? '$' + user.price : 'No has añadido una CLABE aún'}
+                                    <Button onClick={() => {
+                                        setFieldToEdit('clabe');
+                                        setNewValue(user.clabe || '');
                                         setEditing(true);
                                     }}>
                                         <EditIcon />

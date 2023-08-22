@@ -7,6 +7,8 @@ export const EditModal = ({ field, open, onClose, onSave, newValue, setNewValue 
         MAX_CHARACTERS = 50;
     } else if (field === 'phone') {
         MAX_CHARACTERS = 12; // Allow up to 12 characters for formatted phone number (xxx-xxx-xxxx)
+    } else if (field === "clabe") {
+        MAX_CHARACTERS = 12;
     } else {
         MAX_CHARACTERS = 5;
     }
@@ -14,9 +16,9 @@ export const EditModal = ({ field, open, onClose, onSave, newValue, setNewValue 
     const handleChange = (e) => {
         let value = e.target.value;
 
-        if (field === 'phone'){
+        if (field === 'phone') {
             value = value.replace(/[^0-9]/g, '');
-    
+
             // Format the phone number as xxx-xxx-xxxx
             if (value.length > 3) {
                 value = `${value.slice(0, 3)}-${value.slice(3)}`;
@@ -24,7 +26,7 @@ export const EditModal = ({ field, open, onClose, onSave, newValue, setNewValue 
             if (value.length > 7) {
                 value = `${value.slice(0, 7)}-${value.slice(7)}`;
             }
-        } else if (field === 'price') {
+        } else if (field === 'price' || field === 'clabe') {
             value = value.replace(/[^0-9]/g, '');
         }
 
