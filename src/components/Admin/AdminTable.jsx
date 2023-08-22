@@ -4,7 +4,7 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import axios from "axios";
 const svHost = import.meta.env.VITE_HOST;
 
-export const AdminTable = ({ users, handleUserBanState }) => {
+export const AdminTable = ({ users, handleUserBanState, handleUserVerifyState }) => {
   const [turnos, setTurnos] = React.useState([]);
 
   async function getTurnos() {
@@ -21,14 +21,7 @@ export const AdminTable = ({ users, handleUserBanState }) => {
   React.useEffect(() => {
     getTurnos();
   }, []);
-
-  //   console.log(turnos[0].date);
-  //   console.log(turnos[0].doctor.name);
-  //   console.log(turnos[0].doctor.lastName);
-  //   console.log(turnos[0].paciente.name);
-  //   console.log(turnos[0].paciente.lastName);
-
-  // Columnas y Filas de todos los usuarios existentes
+  
   const columns = [
     { field: "firstName", headerName: "Nombre", width: 200 },
     { field: "lastName", headerName: "Apellido", width: 200 },
@@ -74,12 +67,12 @@ export const AdminTable = ({ users, handleUserBanState }) => {
       width: 150,
       renderCell: (params) =>
         params.row.userType === "Doctor" ? (
-          params.row.cedula === "Verificada" ? (
+          params.row.verificacion === "Verificada" ? (
             <Button
               variant="outlined"
               color="error"
               onClick={() => {
-                handleUserBanState(params.row.id);
+                handleUserVerifyState(params.row.id);
               }}
             >
               Inhabilitar
@@ -88,7 +81,7 @@ export const AdminTable = ({ users, handleUserBanState }) => {
             <Button
               variant="outlined"
               color="success"
-              onClick={() => handleUserBanState(params.row.id)}
+              onClick={() => handleUserVerifyState(params.row.id)}
             >
               Verificar
             </Button>

@@ -35,6 +35,16 @@ export const UserAdmin = () => {
         } 
     };
 
+    const handleUserVerifyState = async (id) => {
+        try {                  
+            await axios.patch(`${svHost}/users/${id}/verify`);            
+            getUsers()            
+        }
+        catch (error) {
+            console.log(error);
+        } 
+    };
+
     const getUsers = async () => {
         const userData = await axios.get(`${svHost}/users`)
         setUsers(userData.data)
@@ -53,7 +63,7 @@ export const UserAdmin = () => {
             <CssBaseline />
             <Box sx={{ height: '100vh', }}>
                 <AdminNavbar></AdminNavbar>
-                <AdminTable users={users} handleUserBanState={handleUserBanState}/>
+                <AdminTable users={users} handleUserBanState={handleUserBanState} handleUserVerifyState={handleUserVerifyState}/>
             </Box>
         </ThemeProvider>
     )
