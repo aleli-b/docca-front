@@ -68,7 +68,7 @@ function Root() {
             <Header />
             <Routes>
               <Route path="*" element={<Error />} />
-              <Route path="/" element={<Home />} />
+              {/*<Route path="/" element={<Home />} />*/}
               <Route path="/login" element={<Login />} />
               <Route path="/register-paciente" element={<RegRoute> <Register /> </RegRoute>} />
               <Route path="/register-doctor" element={<RegRoute> <RegisterDoctor /> </RegRoute>} />
@@ -83,6 +83,7 @@ function Root() {
               <Route path="/plan/:userType" element={<Plan />} />
               <Route path="/reset-password/:token" element={<ResetPasswordForm />} />
               <Route path="/Consultas" element={<Consultas />} />
+              <Route path="/valoraciones" element={<Consultas />} />
             </Routes>
             <Footer sx={{mp:"auto" }} />
           </ThemeProvider>

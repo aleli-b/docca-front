@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import { Avatar, Box, } from '@mui/material';
 import { SacarTurnoCard } from '../SacarTurnoCard/SacarTurnoCard';
+import { Valoraciones } from '../Reviews/Reviews';
+import { ReseñasCard } from '../ReseñasCard/ReseñasCard';
 
 export const DoctorCard = ({ doctor, turnos, dates }) => {
     const doc = doctor;
@@ -25,13 +27,15 @@ export const DoctorCard = ({ doctor, turnos, dates }) => {
                             {/* <Rating name="read-only" value={5} readOnly /> */}
                         </Box>
                     </Box>
-                    <Box sx={{ }}>
+                    <Box sx={{display:"flex", flexDirection:"column", gap: 2}}>
                         <Typography variant='h5'>Dirección/es</Typography>
-                        <Box sx={{ display: 'flex', gap: 1, paddingTop: 2}}>
+                        <Box sx={{ display: 'flex', gap: 1}}>
                             <AddLocationIcon />                        
                             <Typography>{`${doc.state}, ${doc.country}`} </Typography>
-                            <Typography>{doc.adress || "(Aún no se ha agregado una dirección)"}</Typography>
+                            <Typography>{doc.adress? doc.addres : "(Aún no se ha agregado una dirección)"}</Typography>
                         </Box>
+                        <Valoraciones doctorId={doctor.id}/>
+                        <ReseñasCard doctorId={doctor.id}/>
                     </Box>
                 </CardContent>
                 <CardContent sx={{  width: {xs: 'inherit', md: 1 / 2} }}>
