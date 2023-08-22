@@ -5,28 +5,20 @@ import { TurnosCardDoctores } from '../../../components/TurnosCardDoctores/Turno
 import { useAuth } from '../../../components/context/AuthContext';
 import { EditModal } from '../../../components/EditModal/EditModal';
 import EditIcon from '@mui/icons-material/Edit';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import './styles.css'
-import axios from 'axios';
 import { Mensajeria } from '../../../components/Mensajeria/Mensajeria';
 import { UploadImage } from '../../UploadImage/UploadImage';
+import { UploadCed } from '../../../components/Upload/UploadCed/UploadCed';
 
 export const PerfilDoctores = () => {
     const { user, editUser } = useAuth();
     const [editing, setEditing] = useState(false);
     const [fieldToEdit, setFieldToEdit] = useState('');
     const [newValue, setNewValue] = useState('');
-    const [isHovered, setIsHovered] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(null);
 
     user.fullName = user.name + " " + user.lastName;
     user.userType = user.userType[0].toUpperCase() + user.userType.substring(1);
-
-    const svHost = import.meta.env.VITE_HOST;
-
-    const handleImageChange = (event) => {
-        const file = event.target.files[0];
-        setSelectedImage(file);
-    };
 
     const handleSaveField = (field, value) => {
         try {
@@ -34,19 +26,6 @@ export const PerfilDoctores = () => {
         } catch (error) {
             console.error('Ha habido un error')
         }
-    };
-
-    const handleImageUpload = () => {
-        const formData = new FormData();
-        formData.append('image', selectedImage);
-
-        axios.post(`${svHost}/upload/${user.id}`, formData)
-            .then((response) => {
-                console.log('Image uploaded successfully:', response.data);
-            })
-            .catch((error) => {
-                console.error('Error uploading image:', error);
-            });
     };
 
     return (
@@ -64,12 +43,12 @@ export const PerfilDoctores = () => {
                                     width: '100%',
                                     borderRadius: '2px',
                                     padding: 2,
-                                    position: 'relative', 
+                                    position: 'relative',
                                     gap: 2,
                                 }}
                             >
                                 <Avatar alt={user.fullName} src={user.profile_picture_url} sx={{ width: 180, height: 180 }} />
-                                <UploadImage />                            
+                                <UploadImage />
                             </CardMedia>
 
                             <Box className='text2' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
@@ -99,6 +78,10 @@ export const PerfilDoctores = () => {
                 <Grid item md={8} xs={12}>
                     <Card sx={{ minHeight: '100%', paddingTop: 4 }}>
                         <CardContent >
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid gray 1px', padding: '18.7px' }}>
+                                <Typography>Verificado:</Typography>
+                                <Typography>{user.cedulaVerified ? <CheckCircleIcon /> : user.cedula_url ? "Pendiente" : <Box sx={{ display: 'flex', alignItems: 'center', }}><Typography>Subir cédula:</Typography> <UploadCed/></Box>}</Typography>
+                            </Box>
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid gray 1px', padding: '18.7px' }}>
                                 <Typography>Nombre:</Typography>
                                 <Typography>{user.name}</Typography>
@@ -157,7 +140,9 @@ export const PerfilDoctores = () => {
                     <ReseñasCard />
                 </Grid> */}
                 <Grid item md={8} xs={12}>
-                    <TurnosCardDoctores />
+                    <Box>
+                        <TurnosCardDoctores />                        
+                    </Box>
                 </Grid>
             </Grid>
             <EditModal

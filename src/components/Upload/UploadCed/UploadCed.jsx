@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Button, Typography } from '@mui/material';
 import axios from 'axios';
-import { useAuth } from '../../components/context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import './styles.css'
 import { toast } from 'react-toastify';
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
-export const UploadImage = () => {
+export const UploadCed = () => {
     const [loading, setLoading] = useState(false);
 
     const { user } = useAuth();
@@ -27,14 +27,16 @@ export const UploadImage = () => {
         })
     }
 
-    async function handleFileUpload(event) {
+    async function handleCedUpload(event) {
         try {
             const file = event.target.files[0];
             setLoading(true);
-            const base64 = await convertBase64(file)
-            const response = await axios.post(`${svHost}/upload-image`, { file: base64, filename: 'test.jpg', id: user.id })
+            const base64 = await convertBase64(file);
+            const fileExtension = file.name.split('.').pop().toLowerCase();
+            const filename = fileExtension === 'pdf' ? 'cedula.pdf' : 'cedula.jpg';
+            const response = await axios.post(`${svHost}/upload-ced`, { file: base64, filename: filename, id: user.id })
                 .then(() => {
-                    toast.success('Imagen Subida con Exito, los cambios se efectuarán cuando vuelva a iniciar sesión');
+                    toast.success('Cedula Subida con Exito');
                 })
                 .then(() => setLoading(false))
                 .catch(console.log)
@@ -50,11 +52,11 @@ export const UploadImage = () => {
             <input
                 type="file"
                 style={{ display: 'none' }}
-                id="fileInput"
-                onChange={handleFileUpload}
-                accept="image/*"
+                id="fileInputCed"
+                onChange={handleCedUpload}
+                accept="image/*, application/pdf"
             />
-            <label htmlFor="fileInput" >
+            <label htmlFor="fileInputCed" >
                 <Button
                     component='span'
                     startIcon={<ModeEditIcon />}
