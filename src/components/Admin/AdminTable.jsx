@@ -35,7 +35,6 @@ export const AdminTable = ({ users, handleUserBanState }) => {
     {
       field: "age",
       headerName: "Edad",
-      type: "number",
       width: 200,
     },
     {
@@ -50,14 +49,32 @@ export const AdminTable = ({ users, handleUserBanState }) => {
     { field: "admin", headerName: "Administrador", width: 200 },
     { field: "userType", headerName: "Tipo de Usuario", width: 200 },
     { field: "category", headerName: "Especialidad", width: 200 },
-    { field: "banned", headerName: "Cédula", width: 150 },
+    {
+      field: "cedula", headerName: "Cédula", width: 200, renderCell: (params) => (
+        <Box>
+          {params.row.cedula_url
+            ?
+            <a href={params.row.cedula_url} target="blank" rel="noopener noreferrer">
+              Ver Cedula
+            </a>
+            :
+            params.row.userType === "Doctor"
+            ?
+            "Sin cédula"
+            :
+            "-"
+        }
+        </Box>
+      )
+    },
+    { field: "verificacion", headerName: "Verificación", width: 200 },
     {
       field: "actions",
-      headerName: "Actions",
+      headerName: "Acciones",
       width: 150,
       renderCell: (params) =>
         params.row.userType === "Doctor" ? (
-          params.row.banned === "Verificada" ? (
+          params.row.cedula === "Verificada" ? (
             <Button
               variant="outlined"
               color="error"
@@ -76,7 +93,7 @@ export const AdminTable = ({ users, handleUserBanState }) => {
               Verificar
             </Button>
           )
-        ) : null,
+        ) : "-",
     },
   ];
 
@@ -86,15 +103,19 @@ export const AdminTable = ({ users, handleUserBanState }) => {
     lastName: user.lastName,
     firstName: user.name,
     age: user.age,
-    banned:
-      user.userType === "doctor"
-        ? user.banned === false
-          ? "No verificado"
-          : "Verificada"
-        : null,
+    verificacion: user.userType === "doctor"
+      ? user.cedulaVerified === false
+        ? "No verificado"
+        : "Verificada"
+      : "-",
     admin: user.admin,
     userType: user.userType[0].toUpperCase() + user.userType.substring(1),
-    category: user.category,
+    category: user.userType === "doctor" 
+    ?
+    user.category
+    :
+    "-"
+    ,
     actions: () => handleUserBanState(user.id),
   }));
 
