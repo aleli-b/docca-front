@@ -19,8 +19,7 @@ import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { Valoraciones } from "../Reviews/Reviews";
 
 export function TurnoCheckOut({ doctor, turno }) {
-
-  const doctorVerified = doctor.banned;
+  const doctorVerified = doctor.cedulaVerified;
   const queryParams = new URLSearchParams(location.search);
   const { user, token } = useAuth();
   const navigate = useNavigate();
@@ -30,7 +29,6 @@ export function TurnoCheckOut({ doctor, turno }) {
 
   const createPreference = async () => {
     event.preventDefault();
-    console.log(turno, doctor)
     axios
       .post(
         `${svHost}/mpcheckout`,
@@ -39,13 +37,14 @@ export function TurnoCheckOut({ doctor, turno }) {
       )
       .then(
         (response) =>
-          (window.location.href = response.data.response.body.init_point ? response.data.response.body.init_point : 'error de id' )
+          (window.location.href = response.data.response.body.init_point
+            ? response.data.response.body.init_point
+            : "error de id")
       )
       .catch((error) => {
         console.error(error);
       });
   };
-
 
   const isMobile = useMediaQuery("(max-width: 900px)");
 
@@ -130,7 +129,6 @@ export function TurnoCheckOut({ doctor, turno }) {
                 }
               />
             </Box>
-
             <Typography
               variant="h1"
               sx={{
@@ -157,7 +155,7 @@ export function TurnoCheckOut({ doctor, turno }) {
               justifyContent: "space-between",
               alignContent: "center",
               gap: 1,
-              width: "55%",
+              width: "55vwd",
             }}
           >
             <Box
@@ -165,6 +163,7 @@ export function TurnoCheckOut({ doctor, turno }) {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "flex-start",
+                gap: 2,
               }}
             >
               <Typography
@@ -212,7 +211,7 @@ export function TurnoCheckOut({ doctor, turno }) {
                   </SvgIcon>
                 )}
               </Typography>
-              <Valoraciones doctorId={doctor.id}/>
+              <Valoraciones doctorId={doctor.id} />
             </Box>
             {/*
             ---------- Luego utilizar esto para ingresar correo y método de pago --------
@@ -227,7 +226,7 @@ export function TurnoCheckOut({ doctor, turno }) {
             display: "flex",
             flexDirection: isMobile ? "column" : "row",
             justifyContent: isMobile ? "center" : "flex-end",
-            alignItems: isMobile ? "center" : "flex-end",
+            alignItems: isMobile ? "center" : "center",
             gap: 4,
           }}
         >
@@ -257,7 +256,12 @@ export function TurnoCheckOut({ doctor, turno }) {
             color="primary"
             onClick={() => createPreference()}
           >
-            Pagar
+            <Typography
+              variant="h6"
+              sx={{ fontFamily: "work sans", fontWeight: "bold" }}
+            >
+              Pagar
+            </Typography>
           </Button>
         </Box>
       </Box>

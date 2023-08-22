@@ -3,14 +3,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 const svHost = import.meta.env.VITE_HOST;
 
-const labels = {
-  1: "Muy mala",
-  2: "Mala",
-  3: "Regular",
-  4: "Buena",
-  5: "Excelente",
-};
-
 
 export const Valoraciones = ({ doctorId }) => {
   const [promedioValoracion, setPromedioValoracion] = useState(0);
@@ -33,7 +25,6 @@ export const Valoraciones = ({ doctorId }) => {
   return (
     <Box sx={{display:"flex", flexDirection:"row"}}>
      <Rating value={promedioValoracion}  readOnly sx={{ color: "#FF5C00" }} />
-    <Box sx={{ ml: 2 }}>{promedioValoracion !== 0 ? labels[promedioValoracion]: "No hay valoraciones"}</Box> 
     </Box>
     
   );
