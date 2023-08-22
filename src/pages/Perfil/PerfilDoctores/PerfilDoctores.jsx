@@ -131,7 +131,7 @@ export const PerfilDoctores = () => {
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '18.7px' }}>
                                 <Typography>CLABE interbancaria:</Typography>
                                 <Box>
-                                    {user.price ? '$' + user.price : 'No has añadido una CLABE aún'}
+                                    {user.clabe ? user.clabe : 'No has añadido una CLABE aún'}
                                     <Button onClick={() => {
                                         setFieldToEdit('clabe');
                                         setNewValue(user.clabe || '');
@@ -153,9 +153,7 @@ export const PerfilDoctores = () => {
                     <ReseñasCard />
                 </Grid> */}
                 <Grid item md={8} xs={12}>
-                    <Box>
                         <TurnosCardDoctores />                        
-                    </Box>
                 </Grid>
             </Grid>
             <EditModal

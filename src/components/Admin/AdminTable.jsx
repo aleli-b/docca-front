@@ -21,7 +21,7 @@ export const AdminTable = ({ users, handleUserBanState, handleUserVerifyState })
   React.useEffect(() => {
     getTurnos();
   }, []);
-  
+
   const columns = [
     { field: "firstName", headerName: "Nombre", width: 200 },
     { field: "lastName", headerName: "Apellido", width: 200 },
@@ -45,18 +45,18 @@ export const AdminTable = ({ users, handleUserBanState, handleUserVerifyState })
     {
       field: "cedula", headerName: "Cédula", width: 200, renderCell: (params) => (
         <Box>
-          {params.row.cedula_url
+          {params.row.userType === 'Doctor'
             ?
-            <a href={params.row.cedula_url} target="blank" rel="noopener noreferrer">
-              Ver Cedula
-            </a>
-            :
-            params.row.userType === "Doctor"
-            ?
-            "Sin cédula"
+            params.row.cedula
+              ?
+              <a href={params.row.cedula} target="blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'white', }}>
+                <Typography sx={{ '&:hover': { color: 'red' }, fontSize: '1em', }}>Ver Cedula</Typography>
+              </a>
+              :
+              'Sin Cédula'
             :
             "-"
-        }
+          }
         </Box>
       )
     },
@@ -96,18 +96,19 @@ export const AdminTable = ({ users, handleUserBanState, handleUserVerifyState })
     lastName: user.lastName,
     firstName: user.name,
     age: user.age,
+    cedula: user.cedula_url,
     verificacion: user.userType === "doctor"
       ? user.cedulaVerified === false
-        ? "No verificado"
+        ? "No Verificada"
         : "Verificada"
       : "-",
     admin: user.admin,
     userType: user.userType[0].toUpperCase() + user.userType.substring(1),
-    category: user.userType === "doctor" 
-    ?
-    user.category
-    :
-    "-"
+    category: user.userType === "doctor"
+      ?
+      user.category
+      :
+      "-"
     ,
     actions: () => handleUserBanState(user.id),
   }));
