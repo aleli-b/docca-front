@@ -87,7 +87,7 @@ export const DoctorCard = ({ doctor, turnos, dates }) => {
           <ReseñasCard doctorId={doctor.id} />
         </Box>
       </CardContent>
-      <CardContent sx={{ width: { xs: "inherit", md: 1 / 2 } }}>
+      <CardContent sx={{ width: { xs: "inherit", md: 1 / 2 }, minHeight:"100%"}}>
         <SacarTurnoCard doc={doc} turnos={turnos} dates={dates} />
       </CardContent>
     </Card>

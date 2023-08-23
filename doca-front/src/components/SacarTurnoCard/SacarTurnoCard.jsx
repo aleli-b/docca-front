@@ -1,20 +1,42 @@
-import { Box, Button, Grid, IconButton, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import { useAuth } from '../context/AuthContext';
-import moment from 'moment-timezone';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
+import { Box, Button, Grid, IconButton, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { useAuth } from "../context/AuthContext";
+import moment from "moment-timezone";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
-moment.updateLocale('es', {
+moment.updateLocale("es", {
   months: [
-    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
   ],
   monthsShort: [
-    'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'
-  ]
+    "ene",
+    "feb",
+    "mar",
+    "abr",
+    "may",
+    "jun",
+    "jul",
+    "ago",
+    "sep",
+    "oct",
+    "nov",
+    "dic",
+  ],
 });
 
 export const SacarTurnoCard = React.memo(({ doc, turnos, dates }) => {
@@ -35,13 +57,13 @@ export const SacarTurnoCard = React.memo(({ doc, turnos, dates }) => {
     } else {
       setNumColumns(4);
     }
-  }
+  };
 
   useEffect(() => {
     updateNumColumns();
-    window.addEventListener('resize', updateNumColumns);
+    window.addEventListener("resize", updateNumColumns);
     return () => {
-      window.removeEventListener('resize', updateNumColumns);
+      window.removeEventListener("resize", updateNumColumns);
     };
   }, []);
 
@@ -55,7 +77,6 @@ export const SacarTurnoCard = React.memo(({ doc, turnos, dates }) => {
     setStartIndex(Math.min(startIndex + 1, dates.length - 4));
   };
 
-
   const isTurnoOccupied = (dateTime) => {
     const occupied = occupiedTurnos.find((turno) => {
       return turno.date === dateTime && turno.doctorId === doctor.id;
@@ -65,7 +86,7 @@ export const SacarTurnoCard = React.memo(({ doc, turnos, dates }) => {
 
   const handleClickTurno = (dateTime) => {
     if (!auth.user) {
-      toast.error('Debes iniciar sesion', {
+      toast.error("Debes iniciar sesion", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -74,55 +95,100 @@ export const SacarTurnoCard = React.memo(({ doc, turnos, dates }) => {
         draggable: true,
         progress: undefined,
         theme: "light",
-      })
+      });
     } else {
       // Almacenar los parámetros en sessionStorage
-      sessionStorage.setItem('doctorId', doctor.id);
-      sessionStorage.setItem('turno', dateTime);
+      sessionStorage.setItem("doctorId", doctor.id);
+      sessionStorage.setItem("turno", dateTime);
       // Navegar a la página de turnos
-      navigate('/turnos');
+      navigate("/turnos");
     }
-  }
+  };
 
   return (
     <div>
-      <Grid container spacing={2} sx={{ display: 'flex', flexWrap: 'nowrap' }}>
-        <IconButton onClick={handlePrevClick} disabled={startIndex === 0} sx={{ height: '50px', width: '50px', marginTop: 1 }}>
-          <KeyboardArrowLeftIcon />
-        </IconButton>
-        {dates.slice(startIndex, endIndex).map((date, i) => (
-          <Grid item xs={12} md={3} key={i} sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography component="div">{date.label}</Typography>
-            <Typography variant="body2" gutterBottom color="text.secondary" component="div">
-              {date.day}
-            </Typography>
-            {date.time.length > 0 && (
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                {date.time.map((time, j) => (
-                  <Button
-                    key={j}
-                    variant="outlined"
-                    onClick={() => handleClickTurno(`${date.day} ${time.time}`)}
-                    disabled={isTurnoOccupied(`${date.day} ${time.time}`) || time.isPast && date.isDayPast}
-                    sx={{
-                      textDecoration: (isTurnoOccupied(`${date.day} ${time.time}`) || time.isPast && date.isDayPast) ? 'line-through' : 'none'
-                    }}
+      <Box
+        className="Container"
+        sx={{ display: "flex", flexDirection: "column", width: "100%"}}
+      >
+        <Box className="gridTurnos">
+          <Grid
+            container
+            spacing={2}
+            sx={{ display: "flex", flexWrap: "nowrap" }}
+          >
+            <IconButton
+              onClick={handlePrevClick}
+              disabled={startIndex === 0}
+              sx={{ height: "50px", width: "50px", marginTop: 1 }}
+            >
+              <KeyboardArrowLeftIcon />
+            </IconButton>
+            {dates.slice(startIndex, endIndex).map((date, i) => (
+              <Grid
+                item
+                xs={12}
+                md={3}
+                key={i}
+                sx={{ display: "flex", flexDirection: "column" }}
+              >
+                <Typography component="div">{date.label}</Typography>
+                <Typography
+                  variant="body2"
+                  gutterBottom
+                  color="text.secondary"
+                  component="div"
+                >
+                  {date.day}
+                </Typography>
+                {date.time.length > 0 && (
+                  <Box
+                    sx={{ display: "flex", flexDirection: "column", gap: 2 }}
                   >
-                    {time.time}
-                  </Button>
-
-                ))}
-              </Box>
-            )}
+                    {date.time.map((time, j) => (
+                      <Button
+                        key={j}
+                        variant="outlined"
+                        onClick={() =>
+                          handleClickTurno(`${date.day} ${time.time}`)
+                        }
+                        disabled={
+                          isTurnoOccupied(`${date.day} ${time.time}`) ||
+                          (time.isPast && date.isDayPast)
+                        }
+                        sx={{
+                          textDecoration:
+                            isTurnoOccupied(`${date.day} ${time.time}`) ||
+                            (time.isPast && date.isDayPast)
+                              ? "line-through"
+                              : "none",
+                        }}
+                      >
+                        {time.time}
+                      </Button>
+                    ))}
+                  </Box>
+                )}
+              </Grid>
+            ))}
+            <IconButton
+              onClick={handleNextClick}
+              disabled={endIndex >= dates.length}
+              sx={{ height: "50px", width: "50px", marginTop: 1 }}
+            >
+              <KeyboardArrowRightIcon />
+            </IconButton>
           </Grid>
-        ))}
-        <IconButton onClick={handleNextClick} disabled={endIndex >= dates.length} sx={{ height: '50px', width: '50px', marginTop: 1 }}>
-          <KeyboardArrowRightIcon />
-        </IconButton>
-      </Grid>
-      <Grid container spacing={2} sx={{ display: 'flex', justifyContent: 'center', position: 'relative', top: '20px', left: '8px'}}>
-        <Typography color="text.secondary">(Los horarios corresponden a la hora local del especialista)</Typography>
-      </Grid>
+        </Box>
+        <Box sx={{}}>
+          <Typography
+            color="text.secondary"
+            sx={{ textAlign: "center", width: "100%" }}
+          >
+            (Los horarios corresponden a la hora local del especialista)
+          </Typography>
+        </Box>
+      </Box>
     </div>
   );
 });
