@@ -68,7 +68,7 @@ function Root() {
             <Header />
             <Routes>
               <Route path="*" element={<Error />} />
-              {/*<Route path="/" element={<Home />} />*/}
+              <Route path="/antoHome" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register-paciente" element={<RegRoute> <Register /> </RegRoute>} />
               <Route path="/register-doctor" element={<RegRoute> <RegisterDoctor /> </RegRoute>} />
