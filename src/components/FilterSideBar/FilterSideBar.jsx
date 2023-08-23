@@ -54,7 +54,7 @@ export const FilterSideBar = ({ handleCategoryChange }) => {
     ];
 
     return (
-        <Card sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 2, position: { xs: 'inherit', md: 'sticky' }, top: '15px', gap: 2, minHeight: { sx: 'inherit', md: '100dvh' } }}>
+        <Card sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 2, position: { xs: 'inherit', md: 'sticky' }, top: '15px', gap: 2, minHeight: { sx: 'inherit', md: '43.2dvh' }, paddingBottom: 8 }}>
             <Typography variant='p'>Filtrar Por:</Typography>
             <FormControl sx={{ minWidth: '80%', margin: 2 }}>
                 <InputLabel htmlFor="select-option">Especialidad</InputLabel>
